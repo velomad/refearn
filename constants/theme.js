@@ -6,8 +6,8 @@ export const COLORS = {
   white: "#FFFFFF",
   lightGray: "#e8e8e8",
   gray: "#6A6A6A",
-  primary: "#f98f3c",
-  primaryLight: "#ffefd5",
+  primary: "#3a81f4",
+  primaryLight: "#dae9fe",
   secondary: "#b0e1e5",
   secondaryLight: "#e8f3f5",
   danger: "red",
@@ -16,8 +16,8 @@ export const COLORS = {
 
 export const SIZES = {
   // font sizes
-  body1: 30,
-  body2: 22,
+  body1: 26,
+  body2: 20,
   body3: 16,
   body4: 14,
   body5: 12,

@@ -1,12 +1,14 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react'
+import { View, Text } from 'react-native'
 
 const Offers = () => {
-  return (
-    <View style={{ flex: 1 }}>
-      <Text>Offers</Text>
-    </View>
-  );
-};
+    return (
+        <View style={{flex : 1}}>
+            <Text>
+            Offers
+            </Text>
+        </View>
+    )
+}
 
-export default Offers;
+export default Offers
