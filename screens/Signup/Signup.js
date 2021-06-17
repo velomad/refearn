@@ -13,6 +13,7 @@ import { COLORS, FONTS, SIZES } from "../../constants";
 import {
   CustomButton,
   InputField,
+  FocusAwareStatusBar,
   KeyboardAvoidingWrapper,
 } from "../../components";
 
@@ -20,6 +21,11 @@ const Signup = ({ navigation }) => {
   return (
     <KeyboardAvoidingWrapper>
       <View style={styles.container}>
+        <FocusAwareStatusBar
+          barStyle="dark-content"
+          backgroundColor={COLORS.lightGray}
+        />
+
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.navigate("welcome")}

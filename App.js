@@ -25,7 +25,7 @@ export default function App() {
   if (!loaded) {
     return <AppLoading />;
   } else {
-    return <AuthNavigator />;
+    return <AppNavigator />;
   }
 }
 
