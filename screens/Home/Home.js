@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { View, Text } from "react-native";
 import { FocusAwareStatusBar } from "../../components";
 import { COLORS } from "../../constants";
 
-const Home = () => {
+const Home = ({ navigation }) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      borderColor: "orange",
+    });
+  }, [navigation]);
+
   return (
     <View>
       <FocusAwareStatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.white}
       />
-      <Text>epic</Text>
+      <Text></Text>
     </View>
   );
 };

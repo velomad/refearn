@@ -9,6 +9,7 @@ import { Home } from "../screens";
 import { SIZES } from "../constants";
 import AuthNavigator from "./AuthNavigator";
 import TabNavigator from "./TabNavigator";
+import { Header } from "./components";
 
 const Stack = createStackNavigator();
 
@@ -26,20 +27,19 @@ function getHeaderTitle(route) {
   }
 }
 
-const AppNavigator = () => {
+const AppNavigator = ({ borderColor }) => {
+  console.log(borderColor);
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="tabs"
+          name="App"
           component={TabNavigator}
           options={({ route }) => ({
-            headerTitle: getHeaderTitle(route),
-
-            headerTitleStyle: {
-              fontSize: SIZES.h2,
-              alignSelf: "center",
-            },
+            headerStatusBarHeight: 0,
+            header: ({ navigation }) => (
+              <Header title={getHeaderTitle(route)} navigation={navigation} />
+            ),
           })}
         />
       </Stack.Navigator>
