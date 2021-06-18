@@ -212,6 +212,7 @@ export default function Offerdetails() {
                             fontSize: SIZES.body3,
                             color: COLORS.gray,
                             fontWeight: '700',
+                            paddingVertical: SIZES.width / 40,
                             paddingHorizontal: SIZES.width / 60,
                         }}>Terms And Condition</Text>
                         <View style={styles.subPoints}>
