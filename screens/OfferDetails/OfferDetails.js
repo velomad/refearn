@@ -28,6 +28,22 @@ export default function Offerdetails() {
                             textAlign: 'center',
                             paddingTop: SIZES.width / 25,
                         }}>Equitas Finance Savings Bank</Text>
+                        <Text style={{
+                            fontSize: SIZES.body5,
+                            fontWeight: '600',
+                            color: COLORS.blueLight,
+                            textAlign: 'center',
+                            paddingTop: SIZES.width / 75,
+                            paddingHorizontal: SIZES.width / 10,
+                        }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</Text>
+                        <TouchableOpacity
+                            style={styles.button}
+                        >
+                            <Text style={{
+                                color: '#fff',
+                                fontWeight: '700',
+                            }}>Share Now</Text>
+                        </TouchableOpacity>
                     </View>
                     <Text style={{
                         fontSize: SIZES.body4,
@@ -133,6 +149,121 @@ export default function Offerdetails() {
                         </View>
                     </View>
                 </View>
+                <View style={styles.parentContainer}>
+                    <View style={styles.rulesContainer}>
+                        <Text style={{
+                            fontSize: SIZES.body3,
+                            color: COLORS.gray,
+                            fontWeight: '700',
+                            paddingVertical: SIZES.width / 40,
+                            paddingHorizontal: SIZES.width / 60,
+                        }}>Rules To Be Followed</Text>
+                        <View style={styles.subPoints}>
+                            <View>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body4,
+                                    fontWeight: '700',
+                                    color: COLORS.gray
+                                }}>Your Profit</Text>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body5
+                                }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </Text>
+                            </View>
+                        </View>
+                        <View style={styles.subPoints}>
+                            <View>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body4,
+                                    fontWeight: '700',
+                                    color: COLORS.gray
+                                }}>Your Profit</Text>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body5
+                                }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </Text>
+                            </View>
+                        </View>
+                        <View style={styles.subPoints}>
+                            <View>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body4,
+                                    fontWeight: '700',
+                                    color: COLORS.gray
+                                }}>Your Profit</Text>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body5
+                                }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.rulesContainer}>
+                        <Text style={{
+                            fontSize: SIZES.body3,
+                            color: COLORS.gray,
+                            fontWeight: '700',
+                            paddingHorizontal: SIZES.width / 60,
+                        }}>Terms And Condition</Text>
+                        <View style={styles.subPoints}>
+                            <View>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body4,
+                                    fontWeight: '700',
+                                    color: COLORS.gray
+                                }}>Your Profit</Text>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body5
+                                }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </Text>
+                            </View>
+                        </View>
+                        <View style={styles.subPoints}>
+                            <View>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body4,
+                                    fontWeight: '700',
+                                    color: COLORS.gray
+                                }}>Your Profit</Text>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body5
+                                }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </Text>
+                            </View>
+                        </View>
+                        <View style={styles.subPoints}>
+                            <View>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body4,
+                                    fontWeight: '700',
+                                    color: COLORS.gray
+                                }}>Your Profit</Text>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    marginHorizontal: SIZES.width / 15,
+                                    fontSize: SIZES.body5
+                                }}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
             </ScrollView>
         </View>
     )
@@ -170,7 +301,7 @@ const styles = StyleSheet.create({
         marginBottom: SIZES.width / 55
     },
     pointText: {
-        color: COLORS.blueDark
+        color: COLORS.blueDark,
     },
     pointsCollection: {
         flexDirection: 'column',
@@ -183,5 +314,31 @@ const styles = StyleSheet.create({
         marginHorizontal: SIZES.width / 20,
         borderRadius: 7,
         paddingVertical: SIZES.width / 45,
+    },
+    rulesContainer: {
+        flexDirection: 'column',
+        paddingVertical: SIZES.width / 20,
+        marginHorizontal: SIZES.width / 25,
+        borderRadius: 4,
+    },
+    rulesPoints: {
+        flexDirection: 'column',
+        marginVertical: SIZES.width / 65,
+        marginHorizontal: SIZES.width / 35,
+        borderRadius: 7,
+        paddingVertical: SIZES.width / 45,
+    },
+    parentContainer: {
+        marginVertical: SIZES.width / 10,
+    },
+    button: {
+        width: '40%',
+        alignItems: "center",
+        color: '#fff',
+        backgroundColor: COLORS.indigoDark,
+        marginHorizontal: SIZES.width / 15,
+        padding: 10,
+        marginTop: '5%',
+        borderRadius: 4
     }
 });
