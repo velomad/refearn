@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'rea
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
 import { FocusAwareStatusBar } from "../../components";
 
-const Offers = () => {
+const Offers = ({ navigation }) => {
 
     const [offerDetails, setOfferDetails] = useState([
         {
@@ -27,7 +27,12 @@ const Offers = () => {
             'label': 'Successful Selfe Savings Account Opened',
             'sublabel': 'Open Zero Balance Savings Account'
         }
-    ])
+    ]);
+
+    const handleOfferDetail = () => {
+        navigation.navigate("offerdetails")
+    }
+
     return (
         <View style={styles.container}>
             <FocusAwareStatusBar
@@ -73,6 +78,7 @@ const Offers = () => {
                                     }}>{el.sublabel}</Text>
                                     <TouchableOpacity
                                         style={styles.button}
+                                        onPress={() => handleOfferDetail()}
                                     >
                                         <Text style={{
                                             color: '#fff',
