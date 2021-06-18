@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
 import { FocusAwareStatusBar } from "../../components";
-import { CustomButton } from '../../components';
 
-const Offers = () => {
+const Offers = ({ navigation }) => {
+
+    const [offerDetails, setOfferDetails] = useState([
+        {
+            'name': 'Equitas Small Finance Bank',
+            'subname': 'Refer and Earn',
+            'amount': '100',
+            'label': 'Successful Selfe Savings Account Opened',
+            'sublabel': 'Open Zero Balance Savings Account'
+        },
+        {
+            'name': 'ICICI Finance Bank',
+            'subname': 'Refer and Earn',
+            'amount': '4000',
+            'label': 'Successful Selfe Savings Account Opened',
+            'sublabel': 'Open Zero Balance Savings Account'
+        },
+        {
+            'name': 'SBI Finance Bank',
+            'subname': 'Refer and Earn',
+            'amount': '80000',
+            'label': 'Successful Selfe Savings Account Opened',
+            'sublabel': 'Open Zero Balance Savings Account'
+        }
+    ]);
+
+    const handleOfferDetail = () => {
+        navigation.navigate("offerdetails")
+    }
+
     return (
         <View style={styles.container}>
             <FocusAwareStatusBar
@@ -16,120 +44,51 @@ const Offers = () => {
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                 >
-                    <View style={styles.maincard}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/banners/icici.jpg')}
-                        />
-                        <Text style={{
-                            ...FONTS.body3,
-                            color: COLORS.blueDark,
-                            fontWeight: '700',
-                            marginTop: '5%'
-                        }}>Equitas Small Finance Bank</Text>
-                        <Text style={{
-                            ...FONTS.body4,
-                            color: COLORS.blueLight,
-                            fontWeight: '700',
-                            marginTop: '1%',
-                            textAlign: "center",
-                            paddingHorizontal: SIZES.width / 12
-                        }}>Refer and Earn <Text style={{
-                            color: COLORS.greenLight,
-                        }}>&#8377;100 </Text> / Successful Selfe Savings Account Opened</Text>
-                        <Text style={{
-                            ...FONTS.body4,
-                            color: COLORS.blueLight,
-                            fontWeight: '700',
-                            marginTop: '1%',
-                            textAlign: "center",
-                            paddingHorizontal: SIZES.width / 12
-                        }}>Open Zero Balance Savings Account</Text>
-                        <TouchableOpacity
-                            style={styles.button}
-                        >
-                            <Text style={{
-                                color: '#fff',
-                                fontWeight: '700',
-                            }}>Earn &#8377;200</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.maincard}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/banners/icici.jpg')}
-                        />
-                        <Text style={{
-                            ...FONTS.body3,
-                            color: COLORS.blueDark,
-                            fontWeight: '700',
-                            marginTop: '5%'
-                        }}>Equitas Small Finance Bank</Text>
-                        <Text style={{
-                            ...FONTS.body4,
-                            color: COLORS.blueLight,
-                            fontWeight: '700',
-                            marginTop: '1%',
-                            textAlign: "center",
-                            paddingHorizontal: SIZES.width / 12
-                        }}>Refer and Earn <Text style={{
-                            color: COLORS.greenLight,
-                        }}>&#8377;100 </Text> / Successful Selfe Savings Account Opened</Text>
-                        <Text style={{
-                            ...FONTS.body4,
-                            color: COLORS.blueLight,
-                            fontWeight: '700',
-                            marginTop: '1%',
-                            textAlign: "center",
-                            paddingHorizontal: SIZES.width / 12
-                        }}>Open Zero Balance Savings Account</Text>
-                        <TouchableOpacity
-                            style={styles.button}
-                        >
-                            <Text style={{
-                                color: '#fff',
-                                fontWeight: '700',
-                            }}>Earn &#8377;200</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.maincard}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/banners/icici.jpg')}
-                        />
-                        <Text style={{
-                            ...FONTS.body3,
-                            color: COLORS.blueDark,
-                            fontWeight: '700',
-                            marginTop: '5%'
-                        }}>Equitas Small Finance Bank</Text>
-                        <Text style={{
-                            ...FONTS.body4,
-                            color: COLORS.blueLight,
-                            fontWeight: '700',
-                            marginTop: '1%',
-                            textAlign: "center",
-                            paddingHorizontal: SIZES.width / 12
-                        }}>Refer and Earn <Text style={{
-                            color: COLORS.greenLight,
-                        }}>&#8377;100 </Text> / Successful Selfe Savings Account Opened</Text>
-                        <Text style={{
-                            ...FONTS.body4,
-                            color: COLORS.blueLight,
-                            fontWeight: '700',
-                            marginTop: '1%',
-                            textAlign: "center",
-                            paddingHorizontal: SIZES.width / 12
-                        }}>Open Zero Balance Savings Account</Text>
-                        <TouchableOpacity
-                            style={styles.button}
-                        >
-                            <Text style={{
-                                color: '#fff',
-                                fontWeight: '700',
-                            }}>Earn &#8377;200</Text>
-                        </TouchableOpacity>
-                    </View>
+                    {
+                        offerDetails && offerDetails.map((el, index) => {
+                            return (
+                                <View style={styles.maincard} key={index}>
+                                    <Image
+                                        style={styles.image}
+                                        source={require('../../assets/banners/icici.jpg')}
+                                    />
+                                    <Text style={{
+                                        ...FONTS.body3,
+                                        color: COLORS.blueDark,
+                                        fontWeight: '700',
+                                        marginTop: '5%'
+                                    }}>{el.name}</Text>
+                                    <Text style={{
+                                        ...FONTS.body4,
+                                        color: COLORS.blueLight,
+                                        fontWeight: '700',
+                                        marginTop: '1%',
+                                        textAlign: "center",
+                                        paddingHorizontal: SIZES.width / 12
+                                    }}>{el.subname} <Text style={{
+                                        color: COLORS.greenLight,
+                                    }}>&#8377;{el.amount} </Text> / {el.label}</Text>
+                                    <Text style={{
+                                        ...FONTS.body4,
+                                        color: COLORS.blueLight,
+                                        fontWeight: '700',
+                                        marginTop: '1%',
+                                        textAlign: "center",
+                                        paddingHorizontal: SIZES.width / 12
+                                    }}>{el.sublabel}</Text>
+                                    <TouchableOpacity
+                                        style={styles.button}
+                                        onPress={() => handleOfferDetail()}
+                                    >
+                                        <Text style={{
+                                            color: '#fff',
+                                            fontWeight: '700',
+                                        }}>Earn &#8377;{el.amount}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        })
+                    }
                 </ScrollView>
             </View>
         </View>
