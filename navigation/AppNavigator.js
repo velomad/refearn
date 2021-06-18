@@ -10,7 +10,7 @@ import { SIZES } from "../constants";
 import AuthNavigator from "./AuthNavigator";
 import TabNavigator from "./TabNavigator";
 import { Header } from "./components";
-import { OfferDetails } from '../screens';
+import { OfferDetails } from "../screens";
 
 const Stack = createStackNavigator();
 
@@ -46,12 +46,9 @@ const AppNavigator = ({ borderColor }) => {
         <Stack.Screen
           name="offerdetails"
           component={OfferDetails}
-          options={({ route }) => ({
-            headerStatusBarHeight: 0,
-            header: ({ navigation }) => (
-              <Header title='Offer Details' navigation={navigation} />
-            ),
-          })}
+          options={{
+            title: "Offer Details",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
