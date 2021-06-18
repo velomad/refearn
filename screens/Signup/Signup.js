@@ -56,7 +56,7 @@ const Signup = ({ navigation }) => {
           />
           <InputField placeholder="Email" name="email" type="email-address" />
           <InputField
-            placeholder="Refer  Code"
+            placeholder="Refer Code"
             name="referCode"
             type="default"
           />

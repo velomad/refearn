@@ -3,23 +3,42 @@ import {
   ImageBackground,
   View,
   Text,
+  Image,
   StyleSheet,
   ScrollView,
 } from "react-native";
 import { FocusAwareStatusBar } from "../../components";
 import { COLORS, FONTS, images, SIZES } from "../../constants";
-import { homeHeader, videoThumbnail } from "../../constants/images";
+import {
+  c1,
+  c2,
+  c3,
+  c4,
+  c5,
+  homeHeader,
+  videoThumbnail,
+} from "../../constants/images";
 import { EarningsStats } from "./components";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import { connect } from "react-redux";
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, topOffers }) => {
+  console.log("topOffers====>", topOffers);
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
+      
       <FocusAwareStatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.white}
       />
+
+
+      
+
 
       <View style={styles.statsContainer}>
         <LinearGradient
@@ -68,15 +87,73 @@ const Home = ({ navigation }) => {
         </View>
 
         <View style={styles.partnersContainer}>
-          <Text style={{ ...FONTS.body2, color: COLORS.gray }}>
+          <Text
+            style={{
+              ...FONTS.body2,
+              color: COLORS.gray,
+              paddingHorizontal: "5%",
+            }}
+          >
             Our Partners
           </Text>
 
-          <ScrollView horizontal={true}>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text>test</Text>
+          <ScrollView
+            horizontal={true}
+            scrollEventThrottle={16}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View style={{ flexDirection: "row", marginVertical: "2%" }}>
+              <Image
+                source={c1}
+                style={{
+                  marginLeft: SIZES.width / 20,
+                  width: SIZES.width / 3,
+                  height: SIZES.height / 10,
+                  marginRight: SIZES.width / 12,
+                  borderRadius: 40,
+                }}
+                resizeMode="contain"
+              />
+              <Image
+                source={c2}
+                style={{
+                  width: SIZES.width / 3,
+                  height: SIZES.height / 10,
+                  marginRight: SIZES.width / 12,
+                  borderRadius: 40,
+                }}
+                resizeMode="contain"
+              />
+              <Image
+                source={c3}
+                style={{
+                  width: SIZES.width / 3,
+                  height: SIZES.height / 10,
+                  marginRight: SIZES.width / 12,
+                  borderRadius: 40,
+                }}
+                resizeMode="contain"
+              />
+              <Image
+                source={c4}
+                style={{
+                  width: SIZES.width / 3,
+                  height: SIZES.height / 10,
+                  marginRight: SIZES.width / 12,
+                  borderRadius: 40,
+                }}
+                resizeMode="contain"
+              />
+              <Image
+                source={c5}
+                style={{
+                  width: SIZES.width / 3,
+                  height: SIZES.height / 10,
+                  marginRight: SIZES.width / 12,
+                  borderRadius: 40,
+                }}
+                resizeMode="contain"
+              />
             </View>
           </ScrollView>
         </View>
@@ -85,7 +162,11 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+const mapStateToProps = ({ uiState }) => ({
+  topOffers: uiState.isTopOffers,
+});
+
+export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
   container: { paddingBottom: "10%" },
@@ -133,6 +214,6 @@ const styles = StyleSheet.create({
   },
   partnersContainer: {
     backgroundColor: COLORS.lightGray,
-    padding: "5%",
+    paddingVertical: "5%",
   },
 });

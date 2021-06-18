@@ -9,12 +9,16 @@ import {
 } from "react-native";
 import * as Icon from "@expo/vector-icons";
 import { COLORS, SIZES } from "../../constants";
+import { setTopOffers } from "../../store/action";
 import * as Haptics from "expo-haptics";
+import { connect } from "react-redux";
 
-const AddButton = ({ onPress }) => {
+const AddButton = ({ onPress, setTopOffers }) => {
   const buttonSize = new Animated.Value(1);
 
   const handlePress = () => {
+    setTopOffers(true);
+    console.log(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     Animated.sequence([
       Animated.timing(buttonSize, {
@@ -46,7 +50,7 @@ const AddButton = ({ onPress }) => {
   );
 };
 
-export default AddButton;
+export default connect(null, { setTopOffers })(AddButton);
 
 const styles = StyleSheet.create({
   container: {},

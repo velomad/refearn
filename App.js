@@ -16,8 +16,10 @@ import AppLoading from "expo-app-loading";
 import AppNavigator from "./navigation/AppNavigator";
 import AuthNavigator from "./navigation/AuthNavigator";
 import { SIZES } from "./constants/theme";
+import { Provider } from "react-redux";
+import Store from "./store";
 
-export default function App() {
+function App() {
   const [loaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
   });
@@ -25,7 +27,12 @@ export default function App() {
   if (!loaded) {
     return <AppLoading />;
   } else {
-    return <AppNavigator />;
+    return (
+      <Provider store={Store}>
+        <AppNavigator />
+      </Provider>
+    );
   }
 }
 
+export default App;

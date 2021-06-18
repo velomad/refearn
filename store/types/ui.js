@@ -1,0 +1,1 @@
+export const TOP_OFFERS_VISIBLE = "TOP_OFFERS_VISIBLE";
