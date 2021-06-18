@@ -12,6 +12,11 @@ export const COLORS = {
   secondaryLight: "#e8f3f5",
   danger: "red",
   success: "green",
+  indigo: "#D3E5FB",
+  indigoDark: '#576DFC',
+  blueDark: '#405872',
+  blueLight: '#5D7895',
+  greenLight: '#17A860'
 };
 
 export const SIZES = {
