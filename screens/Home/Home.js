@@ -30,15 +30,7 @@ const Home = ({ navigation, topOffers }) => {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      
-      <FocusAwareStatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.white}
-      />
-
-
-      
-
+      <FocusAwareStatusBar barStyle="light-content" backgroundColor="#444" />
 
       <View style={styles.statsContainer}>
         <LinearGradient
@@ -86,76 +78,78 @@ const Home = ({ navigation, topOffers }) => {
           </View>
         </View>
 
-        <View style={styles.partnersContainer}>
-          <Text
-            style={{
-              ...FONTS.body2,
-              color: COLORS.gray,
-              paddingHorizontal: "5%",
-            }}
-          >
-            Our Partners
-          </Text>
+        <View style={{ marginTop: "-10%" }}>
+          <View style={styles.partnersContainer}>
+            <Text
+              style={{
+                ...FONTS.body2,
+                color: COLORS.gray,
+                paddingHorizontal: "5%",
+              }}
+            >
+              Our Partners
+            </Text>
 
-          <ScrollView
-            horizontal={true}
-            scrollEventThrottle={16}
-            showsHorizontalScrollIndicator={false}
-          >
-            <View style={{ flexDirection: "row", marginVertical: "2%" }}>
-              <Image
-                source={c1}
-                style={{
-                  marginLeft: SIZES.width / 20,
-                  width: SIZES.width / 3,
-                  height: SIZES.height / 10,
-                  marginRight: SIZES.width / 12,
-                  borderRadius: 40,
-                }}
-                resizeMode="contain"
-              />
-              <Image
-                source={c2}
-                style={{
-                  width: SIZES.width / 3,
-                  height: SIZES.height / 10,
-                  marginRight: SIZES.width / 12,
-                  borderRadius: 40,
-                }}
-                resizeMode="contain"
-              />
-              <Image
-                source={c3}
-                style={{
-                  width: SIZES.width / 3,
-                  height: SIZES.height / 10,
-                  marginRight: SIZES.width / 12,
-                  borderRadius: 40,
-                }}
-                resizeMode="contain"
-              />
-              <Image
-                source={c4}
-                style={{
-                  width: SIZES.width / 3,
-                  height: SIZES.height / 10,
-                  marginRight: SIZES.width / 12,
-                  borderRadius: 40,
-                }}
-                resizeMode="contain"
-              />
-              <Image
-                source={c5}
-                style={{
-                  width: SIZES.width / 3,
-                  height: SIZES.height / 10,
-                  marginRight: SIZES.width / 12,
-                  borderRadius: 40,
-                }}
-                resizeMode="contain"
-              />
-            </View>
-          </ScrollView>
+            <ScrollView
+              horizontal={true}
+              scrollEventThrottle={16}
+              showsHorizontalScrollIndicator={false}
+            >
+              <View style={{ flexDirection: "row", marginVertical: "2%" }}>
+                <Image
+                  source={c1}
+                  style={{
+                    marginLeft: SIZES.width / 20,
+                    width: SIZES.width / 3,
+                    height: SIZES.height / 10,
+                    marginRight: SIZES.width / 12,
+                    borderRadius: 40,
+                  }}
+                  resizeMode="contain"
+                />
+                <Image
+                  source={c2}
+                  style={{
+                    width: SIZES.width / 3,
+                    height: SIZES.height / 10,
+                    marginRight: SIZES.width / 12,
+                    borderRadius: 40,
+                  }}
+                  resizeMode="contain"
+                />
+                <Image
+                  source={c3}
+                  style={{
+                    width: SIZES.width / 3,
+                    height: SIZES.height / 10,
+                    marginRight: SIZES.width / 12,
+                    borderRadius: 40,
+                  }}
+                  resizeMode="contain"
+                />
+                <Image
+                  source={c4}
+                  style={{
+                    width: SIZES.width / 3,
+                    height: SIZES.height / 10,
+                    marginRight: SIZES.width / 12,
+                    borderRadius: 40,
+                  }}
+                  resizeMode="contain"
+                />
+                <Image
+                  source={c5}
+                  style={{
+                    width: SIZES.width / 3,
+                    height: SIZES.height / 10,
+                    marginRight: SIZES.width / 12,
+                    borderRadius: 40,
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+            </ScrollView>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -171,15 +165,13 @@ export default connect(mapStateToProps)(Home);
 const styles = StyleSheet.create({
   container: { paddingBottom: "10%" },
   secondaryContainer: {},
-  statsContainer: {
-    marginVertical: "10%",
-  },
   guideContainer: {
     marginHorizontal: "5%",
     borderRadius: 10,
     backgroundColor: COLORS.primaryLight,
     padding: "5%",
-    paddingBottom: "25%",
+    paddingBottom: "20%",
+    marginVertical: "5%",
   },
   guideText: {
     ...FONTS.body3,

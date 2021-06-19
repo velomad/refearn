@@ -1,4 +1,5 @@
 import React from "react";
+import { View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home, Offers, Network, Account } from "../screens";
 import { COLORS, SIZES } from "../constants";
@@ -6,6 +7,14 @@ import * as Icon from "@expo/vector-icons";
 import { AddButton } from "./components";
 
 const Tab = createBottomTabNavigator();
+
+const Test = () => {
+  return (
+    <View>
+      <Text>epic world</Text>
+    </View>
+  );
+};
 
 const TabNavigator = (props) => {
   return (
@@ -52,8 +61,8 @@ const TabNavigator = (props) => {
         }}
       />
       <Tab.Screen
-        name="post"
-        component={Home}
+        name="topOffers"
+        component={Test}
         options={{
           tabBarButton: (props) => <AddButton {...props} />,
         }}
