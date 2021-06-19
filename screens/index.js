@@ -6,4 +6,5 @@ export { default as Home } from "./Home";
 export { default as Network } from "./Network";
 export { default as Offers } from "./Offers";
 export { default as OfferDetails } from "./OfferDetails";
-
+export { default as Finance } from "./Finance";
+export { default as Others } from "./Others";

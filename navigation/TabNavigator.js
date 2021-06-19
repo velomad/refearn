@@ -5,6 +5,7 @@ import { Home, Offers, Network, Account } from "../screens";
 import { COLORS, SIZES } from "../constants";
 import * as Icon from "@expo/vector-icons";
 import { AddButton } from "./components";
+import TopOfferTabs from "./TopOfferTabs";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +50,7 @@ const TabNavigator = (props) => {
       />
       <Tab.Screen
         name="offers"
-        component={Offers}
+        component={TopOfferTabs}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon.MaterialIcons
@@ -61,7 +62,7 @@ const TabNavigator = (props) => {
         }}
       />
       <Tab.Screen
-        name="topOffers"
+        name="btn"
         component={Test}
         options={{
           tabBarButton: (props) => <AddButton {...props} />,

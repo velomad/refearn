@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  TextInput,
   ScrollView,
 } from "react-native";
 import { FocusAwareStatusBar } from "../../components";
@@ -18,13 +19,12 @@ import {
   homeHeader,
   videoThumbnail,
 } from "../../constants/images";
-import { EarningsStats } from "./components";
+import { EarningsStats, TipsCard } from "./components";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 
 const Home = ({ navigation, topOffers }) => {
-  console.log("topOffers====>", topOffers);
   return (
     <ScrollView
       contentContainerStyle={styles.container}
@@ -39,6 +39,14 @@ const Home = ({ navigation, topOffers }) => {
         >
           <EarningsStats />
         </LinearGradient>
+      </View>
+
+      <View
+        style={{
+          paddingVertical: SIZES.height / 40,
+        }}
+      >
+        <TipsCard />
       </View>
 
       <View style={styles.secondaryContainer}>
@@ -79,7 +87,7 @@ const Home = ({ navigation, topOffers }) => {
         </View>
 
         <View style={{ marginTop: "-10%" }}>
-          <View style={styles.partnersContainer}>
+          {/* <View style={styles.partnersContainer}>
             <Text
               style={{
                 ...FONTS.body2,
@@ -149,7 +157,7 @@ const Home = ({ navigation, topOffers }) => {
                 />
               </View>
             </ScrollView>
-          </View>
+          </View> */}
         </View>
       </View>
     </ScrollView>
@@ -164,9 +172,10 @@ export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
   container: { paddingBottom: "10%" },
-  secondaryContainer: {},
-  guideContainer: {
+  secondaryContainer: {
     marginHorizontal: "5%",
+  },
+  guideContainer: {
     borderRadius: 10,
     backgroundColor: COLORS.primaryLight,
     padding: "5%",

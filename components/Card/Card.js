@@ -2,9 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { SIZES } from "../../constants";
 
-const Card = ({ elevation, rounded, backgroundColor, children }) => {
+const Card = ({
+  elevation,
+  rounded,
+  backgroundColor,
+  children,
+  contentContainerStyle,
+}) => {
   const styles = StyleSheet.create({
     container: {
+      ...contentContainerStyle,
       padding: SIZES.width / 40,
       backgroundColor: backgroundColor,
       elevation,
