@@ -11,46 +11,30 @@ import * as Icon from "@expo/vector-icons";
 import { COLORS, SIZES } from "../../constants";
 import { setTopOffers } from "../../store/action";
 import * as Haptics from "expo-haptics";
-import { connect } from "react-redux";
 
-const AddButton = ({ onPress, setTopOffers }) => {
-  const buttonSize = new Animated.Value(1);
-
+const AddButton = ({ onPress, isTopOffers }) => {
   const handlePress = () => {
-    setTopOffers(true);
-    console.log(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    Animated.sequence([
-      Animated.timing(buttonSize, {
-        toValue: 0.7,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(buttonSize, {
-        toValue: 1,
-        useNativeDriver: true,
-      }),
-    ]).start();
     onPress();
-  };
-
-  const sizeStyle = {
-    transform: [{ scale: buttonSize }],
   };
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      style={[styles.button, sizeStyle]}
+      style={[styles.button]}
       onPress={handlePress}
       underlayColor="7F58FF"
     >
-      <Icon.MaterialIcons name="add" size={28} color="white" />
+      {isTopOffers ? (
+        <Icon.Feather name="arrow-down" size={SIZES.width / 15} color="white" />
+      ) : (
+        <Icon.Feather name="arrow-up" size={SIZES.width / 15} color="white" />
+      )}
     </TouchableOpacity>
   );
 };
 
-export default connect(null, { setTopOffers })(AddButton);
+export default AddButton;
 
 const styles = StyleSheet.create({
   container: {},

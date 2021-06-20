@@ -8,11 +8,12 @@ const Card = ({
   backgroundColor,
   children,
   contentContainerStyle,
+  paddingNumber,
 }) => {
   const styles = StyleSheet.create({
     container: {
       ...contentContainerStyle,
-      padding: SIZES.width / 40,
+      padding: SIZES.width / 50,
       backgroundColor: backgroundColor,
       elevation,
       borderRadius: rounded,

@@ -28,6 +28,7 @@ const TipsCard = () => {
               }}
             >
               <Card
+                paddingNumber={40}
                 contentContainerStyle={{
                   width: SIZES.width / 1.3,
                 }}

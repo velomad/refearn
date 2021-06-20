@@ -5,7 +5,9 @@ import { Home, Offers, Network, Account } from "../screens";
 import { COLORS, SIZES } from "../constants";
 import * as Icon from "@expo/vector-icons";
 import { AddButton } from "./components";
+import { setTopOffers } from "../store/action";
 import TopOfferTabs from "./TopOfferTabs";
+import { connect } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +19,7 @@ const Test = () => {
   );
 };
 
-const TabNavigator = (props) => {
+const TabNavigator = ({ setTopOffers, isTopOffers }) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -44,7 +46,7 @@ const TabNavigator = (props) => {
         options={{
           // tabBarBadge: "1",
           tabBarIcon: ({ color }) => (
-            <Icon.Octicons name="home" size={SIZES.width / 15} color={color} />
+            <Icon.Ionicons name="ios-home" size={24} color="black" />
           ),
         }}
       />
@@ -65,7 +67,13 @@ const TabNavigator = (props) => {
         name="btn"
         component={Test}
         options={{
-          tabBarButton: (props) => <AddButton {...props} />,
+          tabBarButton: (props) => (
+            <AddButton
+              {...props}
+              isTopOffers={isTopOffers}
+              onPress={() => setTopOffers(!isTopOffers)}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -98,4 +106,8 @@ const TabNavigator = (props) => {
   );
 };
 
-export default TabNavigator;
+const mapStateToProps = ({ uiState }) => ({
+  isTopOffers: uiState.isTopOffers,
+});
+
+export default connect(mapStateToProps, { setTopOffers })(TabNavigator);

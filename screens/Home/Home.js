@@ -19,75 +19,82 @@ import {
   homeHeader,
   videoThumbnail,
 } from "../../constants/images";
-import { EarningsStats, TipsCard } from "./components";
+import { EarningsStats, Testimonials, TipsCard } from "./components";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
+import { MainLayout } from "../../Layout";
 
 const Home = ({ navigation, topOffers }) => {
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
-      <FocusAwareStatusBar barStyle="light-content" backgroundColor="#444" />
-
-      <View style={styles.statsContainer}>
-        <LinearGradient
-          colors={["#555", "#999"]}
-          style={{ paddingVertical: SIZES.height / 20 }}
-        >
-          <EarningsStats />
-        </LinearGradient>
-      </View>
-
-      <View
-        style={{
-          paddingVertical: SIZES.height / 40,
-        }}
+    <MainLayout>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
       >
-        <TipsCard />
-      </View>
+        <FocusAwareStatusBar barStyle="light-content" backgroundColor="#444" />
 
-      <View style={styles.secondaryContainer}>
-        <View>
-          <View style={styles.guideContainer}>
-            <Text style={styles.guideText}>Watch : Beginners Guide to Go</Text>
-            <Text style={styles.guideContent}>
-              Learn about the EarnRef features and how to start earning online.
-            </Text>
-          </View>
-
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              top: -SIZES.height / 12,
-            }}
+        <View style={styles.statsContainer}>
+          <LinearGradient
+            colors={["#555", "#999"]}
+            style={{ paddingVertical: SIZES.height / 20 }}
           >
-            <View style={styles.videoContainer}>
-              <ImageBackground
-                style={styles.videoThumbnail}
-                source={videoThumbnail}
-                imageStyle={{ borderRadius: 20 }}
-                resizeMode="cover"
-              >
-                <View style={styles.darkenVideobg}>
-                  <View style={styles.playIcon}>
-                    <Ionicons
-                      name="play-circle-outline"
-                      size={SIZES.width / 10}
-                      color={COLORS.white}
-                    />
-                  </View>
-                </View>
-              </ImageBackground>
-            </View>
-          </View>
+            <EarningsStats />
+          </LinearGradient>
         </View>
 
-        <View style={{ marginTop: "-10%" }}>
-          {/* <View style={styles.partnersContainer}>
+        <View
+          style={{
+            paddingVertical: SIZES.height / 40,
+          }}
+        >
+          <TipsCard />
+        </View>
+
+        <View style={styles.secondaryContainer}>
+          <View>
+            <View style={styles.guideContainer}>
+              <Text style={styles.guideText}>
+                Watch : Beginners Guide to Go
+              </Text>
+              <Text style={styles.guideContent}>
+                Learn about the EarnRef features and how to start earning
+                online.
+              </Text>
+            </View>
+
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                top: -SIZES.height / 12,
+              }}
+            >
+              <View style={styles.videoContainer}>
+                <ImageBackground
+                  style={styles.videoThumbnail}
+                  source={videoThumbnail}
+                  imageStyle={{ borderRadius: 20 }}
+                  resizeMode="cover"
+                >
+                  <View style={styles.darkenVideobg}>
+                    <View style={styles.playIcon}>
+                      <Ionicons
+                        name="play-circle-outline"
+                        size={SIZES.width / 10}
+                        color={COLORS.white}
+                      />
+                    </View>
+                  </View>
+                </ImageBackground>
+              </View>
+            </View>
+          </View>
+
+          <View style={{ marginTop: "-10%" }}>
+            <Testimonials />
+
+            {/* <View style={styles.partnersContainer}>
             <Text
               style={{
                 ...FONTS.body2,
@@ -158,9 +165,10 @@ const Home = ({ navigation, topOffers }) => {
               </View>
             </ScrollView>
           </View> */}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </MainLayout>
   );
 };
 
