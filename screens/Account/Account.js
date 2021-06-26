@@ -13,7 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Clipboard from "expo-clipboard";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const Account = () => {
+const Account = ({navigation}) => {
   const onCopy = () => {
     Clipboard.setString("code");
     ToastAndroid.showWithGravityAndOffset(
@@ -68,7 +68,7 @@ const Account = () => {
             background={COLORS.primary}
             color={COLORS.primaryLight}
             rounded={10}
-            // onPress={}
+            onPress={() => navigation.navigate("bankpaymentdetails")}
           />
         </View>
       </View>

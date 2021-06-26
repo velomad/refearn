@@ -11,6 +11,7 @@ const CustomButton = ({
   bold,
   elevation,
   onPress,
+  height
 }) => {
   const calculatedSize = size === "half" ? 2.5 : 1.1;
 
@@ -22,7 +23,7 @@ const CustomButton = ({
         style={{
           width: SIZES.width / calculatedSize,
           backgroundColor: background,
-          paddingVertical: SIZES.height / 110,
+          paddingVertical: SIZES.height / height ? height : 110,
           borderRadius: rounded,
           elevation,
         }}

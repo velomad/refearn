@@ -10,7 +10,7 @@ import { SIZES } from "../constants";
 import AuthNavigator from "./AuthNavigator";
 import TabNavigator from "./TabNavigator";
 import { Header } from "./components";
-import { OfferDetails } from "../screens";
+import { OfferDetails, PaymentBankDetails } from "../screens";
 
 const Stack = createStackNavigator();
 
@@ -48,6 +48,13 @@ const AppNavigator = ({ borderColor }) => {
           component={OfferDetails}
           options={{
             title: "Offer Details",
+          }}
+        />
+        <Stack.Screen
+          name="bankpaymentdetails"
+          component={PaymentBankDetails}
+          options={{
+            title: "Enter Bank Details",
           }}
         />
       </Stack.Navigator>
