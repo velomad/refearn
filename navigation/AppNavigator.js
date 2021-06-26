@@ -28,6 +28,12 @@ function getHeaderTitle(route) {
   }
 }
 
+const isHeader = (route) => {
+  getHeaderTitle(route) === "Home" || getHeaderTitle(route) === undefined
+    ? false
+    : true;
+};
+
 const AppNavigator = ({ borderColor }) => {
   console.log(borderColor);
   return (
@@ -38,6 +44,11 @@ const AppNavigator = ({ borderColor }) => {
           component={TabNavigator}
           options={({ route }) => ({
             headerStatusBarHeight: 0,
+            headerShown:
+              getHeaderTitle(route) === "Home" ||
+              getHeaderTitle(route) === undefined
+                ? false
+                : true,
             header: ({ navigation }) => (
               <Header title={getHeaderTitle(route)} navigation={navigation} />
             ),

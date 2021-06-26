@@ -9,6 +9,7 @@ const ui = (state = initialState, action) => {
   switch (type) {
     case TOP_OFFERS_VISIBLE:
       return {
+        ...state,
         isTopOffers: payload,
       };
     default:

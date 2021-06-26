@@ -5,3 +5,5 @@ export { default as c2 } from "../assets/images/c2.jpg";
 export { default as c3 } from "../assets/images/c3.jpg";
 export { default as c4 } from "../assets/images/c4.webp";
 export { default as c5 } from "../assets/images/c5.jpg";
+export { default as pi } from "../assets/images/profileImage.jpeg";
+export { default as background } from "../assets/images/background.png";
