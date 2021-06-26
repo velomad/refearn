@@ -11,7 +11,7 @@ const Header = ({ title, navigation }) => {
       height: SIZES.height / 15,
       width: "100%",
       justifyContent: "center",
-      backgroundColor: isHome ? "#555" : COLORS.white,
+      backgroundColor: isHome ? COLORS.danger : COLORS.white,
       paddingHorizontal: "3%",
     },
     text: {

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../../../constants";
 import { pi } from "../../../../constants/images";
 import * as Icon from "@expo/vector-icons";
@@ -7,48 +7,55 @@ import * as Icon from "@expo/vector-icons";
 const Testimonials = () => {
   return (
     <View>
-      <Text style={{ ...FONTS.body2, color: COLORS.gray }}>Testimonials</Text>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <View>
-            <Image source={pi} style={styles.imageCircle} resizeMode="cover" />
+      <View>
+        <Text style={{ ...FONTS.body2, color: COLORS.gray }}>Testimonials</Text>
+        <View style={styles.container}>
+          <View style={styles.headerContainer}>
+            <View>
+              <Image
+                source={pi}
+                style={styles.imageCircle}
+                resizeMode="cover"
+              />
+            </View>
+            <View style={styles.nameBar}>
+              <Text
+                style={{
+                  ...FONTS.body4,
+                  fontWeight: "700",
+                  color: COLORS.white,
+                }}
+              >
+                Ben Awad
+              </Text>
+            </View>
           </View>
-          <View style={styles.nameBar}>
+          <View style={styles.cardBar}>
             <Text
               style={{
-                ...FONTS.body4,
-                fontWeight: "700",
+                ...FONTS.body5,
+                fontStyle: "italic",
                 color: COLORS.white,
               }}
             >
-              Ben Awad
+              “The Landscaping Professionals were quick, courteous and very
+              helpful. They helped me restore my lawn and gardens completely
+              after putting in my deck. I was worried it wouldn’t be done in
+              time for my garden party, but they finished the job with time to
+              spare!”
             </Text>
-          </View>
-        </View>
-        <View style={styles.cardBar}>
-          <Text
-            style={{
-              ...FONTS.body5,
-              fontStyle: "italic",
-              color: COLORS.white,
-            }}
-          >
-            “The Landscaping Professionals were quick, courteous and very
-            helpful. They helped me restore my lawn and gardens completely after
-            putting in my deck. I was worried it wouldn’t be done in time for my
-            garden party, but they finished the job with time to spare!”
-          </Text>
 
-          <View style={{ marginTop: "5%", flexDirection: "row" }}>
-            <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
-            <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
-            <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
-            <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
-            <Icon.FontAwesome
-              name="star-half-o"
-              size={SIZES.width / 24}
-              color="gold"
-            />
+            <View style={{ marginTop: "5%", flexDirection: "row" }}>
+              <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
+              <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
+              <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
+              <Icon.Ionicons name="star" size={SIZES.width / 25} color="gold" />
+              <Icon.FontAwesome
+                name="star-half-o"
+                size={SIZES.width / 24}
+                color="gold"
+              />
+            </View>
           </View>
         </View>
       </View>

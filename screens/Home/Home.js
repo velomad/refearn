@@ -35,12 +35,7 @@ const Home = ({ navigation, topOffers }) => {
         <FocusAwareStatusBar barStyle="light-content" backgroundColor="#444" />
 
         <View style={styles.statsContainer}>
-          <LinearGradient
-            colors={["#555", "#999"]}
-            style={{ paddingVertical: SIZES.height / 20 }}
-          >
-            <EarningsStats />
-          </LinearGradient>
+          <EarningsStats />
         </View>
 
         <View
