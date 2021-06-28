@@ -66,6 +66,7 @@ const Finance = ({ navigation }) => {
                         ...FONTS.body3,
                         color: COLORS.blueDark,
                         fontWeight: "700",
+                        paddingTop: SIZES.height / 20,
                       }}
                     >
                       {el.name}
@@ -83,7 +84,8 @@ const Finance = ({ navigation }) => {
                       {el.subname}{" "}
                       <Text
                         style={{
-                          color: COLORS.greenLight,
+                          ...FONTS.body4,
+                          color: COLORS.success,
                         }}
                       >
                         &#8377;{el.amount}{" "}
@@ -92,10 +94,10 @@ const Finance = ({ navigation }) => {
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body4,
+                        ...FONTS.body5,
                         color: COLORS.blueLight,
                         fontWeight: "700",
-                        marginTop: "1%",
+                        marginTop: "5%",
                         textAlign: "center",
                         paddingHorizontal: SIZES.width / 12,
                       }}
@@ -108,7 +110,7 @@ const Finance = ({ navigation }) => {
                     >
                       <Text
                         style={{
-                          color: "#fff",
+                          color: COLORS.white,
                           fontWeight: "700",
                         }}
                       >
@@ -129,15 +131,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     paddingBottom: "10%",
-    marginHorizontal: SIZES.width / 40,
   },
   cardcontainer: {
     flexDirection: "column",
   },
   maincard: {
-    marginTop: "6%",
+    marginTop: "10%",
     alignItems: "center",
-    backgroundColor: COLORS.indigo,
+    backgroundColor: COLORS.primaryLight,
     marginHorizontal: SIZES.width / 15,
     borderRadius: 7,
   },
@@ -145,12 +146,14 @@ const styles = StyleSheet.create({
     width: SIZES.width / 4,
     height: SIZES.width / 4,
     borderRadius: 60,
+    position: "absolute",
+    top: -SIZES.height / 20,
   },
   button: {
     width: "80%",
     alignItems: "center",
     color: "#fff",
-    backgroundColor: COLORS.indigoDark,
+    backgroundColor: COLORS.primary,
     marginHorizontal: SIZES.width / 15,
     padding: 10,
     marginTop: "3%",

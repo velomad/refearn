@@ -14,12 +14,13 @@ import {
   c1,
   c2,
   c3,
+  background,
   c4,
   c5,
   homeHeader,
   videoThumbnail,
 } from "../../constants/images";
-import { EarningsStats, Testimonials, TipsCard } from "./components";
+import { EarningsStats, Testimonials, TipsCard, Header } from "./components";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -28,141 +29,84 @@ import { MainLayout } from "../../Layout";
 const Home = ({ navigation, topOffers }) => {
   return (
     <MainLayout>
-      <ScrollView
-        contentContainerStyle={styles.container}
-        showsVerticalScrollIndicator={false}
-      >
-        <FocusAwareStatusBar barStyle="light-content" backgroundColor="#444" />
-
-        <View style={styles.statsContainer}>
-          <EarningsStats />
-        </View>
-
-        <View
-          style={{
-            paddingVertical: SIZES.height / 40,
+      <View style={styles.container} showsVerticalScrollIndicator={false}>
+        <FocusAwareStatusBar
+          barStyle="light-content"
+          backgroundColor={COLORS.primary}
+        />
+        <ImageBackground
+          source={background}
+          style={styles.homeHeaderImage}
+          resizeMode="cover"
+        >
+          <View style={styles.statsContainer}>
+            <Header />
+            <EarningsStats />
+          </View>
+        </ImageBackground>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          fadingEdgeLength={30}
+          endFillColor={COLORS.success}
+          contentContainerStyle={{
+            borderTopLeftRadius: 20,
+            borderRadius: 100,
           }}
         >
-          <TipsCard />
-        </View>
+          <View
+            style={{
+              paddingVertical: SIZES.height / 40,
+            }}
+          >
+            <TipsCard />
+          </View>
 
-        <View style={styles.secondaryContainer}>
-          <View>
-            <View style={styles.guideContainer}>
-              <Text style={styles.guideText}>
-                Watch : Beginners Guide to Go
-              </Text>
-              <Text style={styles.guideContent}>
-                Learn about the EarnRef features and how to start earning
-                online.
-              </Text>
-            </View>
+          <View style={styles.secondaryContainer}>
+            <View>
+              <View style={styles.guideContainer}>
+                <Text style={styles.guideText}>
+                  Watch : Beginners Guide to Go
+                </Text>
+                <Text style={styles.guideContent}>
+                  Learn about the EarnRef features and how to start earning
+                  online.
+                </Text>
+              </View>
 
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                top: -SIZES.height / 12,
-              }}
-            >
-              <View style={styles.videoContainer}>
-                <ImageBackground
-                  style={styles.videoThumbnail}
-                  source={videoThumbnail}
-                  imageStyle={{ borderRadius: 20 }}
-                  resizeMode="cover"
-                >
-                  <View style={styles.darkenVideobg}>
-                    <View style={styles.playIcon}>
-                      <Ionicons
-                        name="play-circle-outline"
-                        size={SIZES.width / 10}
-                        color={COLORS.white}
-                      />
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  top: -SIZES.height / 15,
+                }}
+              >
+                <View style={styles.videoContainer}>
+                  <ImageBackground
+                    style={styles.videoThumbnail}
+                    source={videoThumbnail}
+                    imageStyle={{ borderRadius: 20 }}
+                    resizeMode="cover"
+                  >
+                    <View style={styles.darkenVideobg}>
+                      <View style={styles.playIcon}>
+                        <Ionicons
+                          name="play-circle-outline"
+                          size={SIZES.width / 10}
+                          color={COLORS.white}
+                        />
+                      </View>
                     </View>
-                  </View>
-                </ImageBackground>
+                  </ImageBackground>
+                </View>
               </View>
             </View>
+
+            <View>
+              <Testimonials />
+            </View>
           </View>
-
-          <View style={{ marginTop: "-10%" }}>
-            <Testimonials />
-
-            {/* <View style={styles.partnersContainer}>
-            <Text
-              style={{
-                ...FONTS.body2,
-                color: COLORS.gray,
-                paddingHorizontal: "5%",
-              }}
-            >
-              Our Partners
-            </Text>
-
-            <ScrollView
-              horizontal={true}
-              scrollEventThrottle={16}
-              showsHorizontalScrollIndicator={false}
-            >
-              <View style={{ flexDirection: "row", marginVertical: "2%" }}>
-                <Image
-                  source={c1}
-                  style={{
-                    marginLeft: SIZES.width / 20,
-                    width: SIZES.width / 3,
-                    height: SIZES.height / 10,
-                    marginRight: SIZES.width / 12,
-                    borderRadius: 40,
-                  }}
-                  resizeMode="contain"
-                />
-                <Image
-                  source={c2}
-                  style={{
-                    width: SIZES.width / 3,
-                    height: SIZES.height / 10,
-                    marginRight: SIZES.width / 12,
-                    borderRadius: 40,
-                  }}
-                  resizeMode="contain"
-                />
-                <Image
-                  source={c3}
-                  style={{
-                    width: SIZES.width / 3,
-                    height: SIZES.height / 10,
-                    marginRight: SIZES.width / 12,
-                    borderRadius: 40,
-                  }}
-                  resizeMode="contain"
-                />
-                <Image
-                  source={c4}
-                  style={{
-                    width: SIZES.width / 3,
-                    height: SIZES.height / 10,
-                    marginRight: SIZES.width / 12,
-                    borderRadius: 40,
-                  }}
-                  resizeMode="contain"
-                />
-                <Image
-                  source={c5}
-                  style={{
-                    width: SIZES.width / 3,
-                    height: SIZES.height / 10,
-                    marginRight: SIZES.width / 12,
-                    borderRadius: 40,
-                  }}
-                  resizeMode="contain"
-                />
-              </View>
-            </ScrollView>
-          </View> */}
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </MainLayout>
   );
 };
@@ -174,13 +118,18 @@ const mapStateToProps = ({ uiState }) => ({
 export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
-  container: { paddingBottom: "10%" },
+  container: { flex: 1 },
   secondaryContainer: {
     marginHorizontal: "5%",
   },
+  statsContainer: {},
+  homeHeaderImage: {
+    width: "100%",
+    paddingBottom: "8%",
+  },
   guideContainer: {
     borderRadius: 10,
-    backgroundColor: COLORS.primaryLight,
+    backgroundColor: COLORS.lightGray,
     padding: "5%",
     paddingBottom: "20%",
     marginVertical: "5%",

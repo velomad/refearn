@@ -1,14 +1,29 @@
 import React from "react";
 import { View, Text, ScrollView, FlatList } from "react-native";
 import { Card } from "../../../../components";
+import { Entypo } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { COLORS, FONTS, SIZES } from "../../../../constants";
 
 const TipsCard = () => {
   const dummyData = [
-    "this is dymmy data for slider one and this is just a tip text example",
-    "this is dymmy data for slider one and this is just a tip text example",
-    "this is dymmy data for slider one and this is just a tip text example",
-    "this is dymmy data for slider one and this is just a tip text example",
+    {
+      icon: Entypo,
+      iconName: "lock",
+      tipText:
+        "SignUp Bonus can be achieved when you earn your first payout!!!",
+      backgroundColor: COLORS.primaryLight,
+      iconBackground: COLORS.primary,
+      textColor: COLORS.primary,
+    },
+    {
+      icon: FontAwesome,
+      iconName: "unlock",
+      tipText: "Unlock all your levels and get the unlock bonus of ₹ 500",
+      backgroundColor: COLORS.greenLight,
+      iconBackground: COLORS.success,
+      textColor: COLORS.success,
+    },
   ];
 
   return (
@@ -22,26 +37,51 @@ const TipsCard = () => {
           return (
             <View
               style={{
+                flex: 1,
                 marginLeft: index == 0 ? SIZES.width / 20 : SIZES.width / 20,
                 marginRight:
                   index == dummyData.length - 1 ? SIZES.width / 20 : 0,
               }}
             >
-              <Card
-                paddingNumber={40}
-                contentContainerStyle={{
+              <View
+                style={{
+                  padding: 8,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                   width: SIZES.width / 1.3,
+                  backgroundColor: item.backgroundColor,
+                  borderRadius: 20,
                 }}
-                key={index}
-                backgroundColor={COLORS.primary}
-                rounded={10}
               >
-                <View>
-                  <Text style={{ ...FONTS.body4, color: COLORS.white }}>
-                    this is the random data lets see thill where it goes.
-                  </Text>
+                <View
+                  style={{
+                    padding: "5%",
+                    marginRight: SIZES.width / 20,
+                    backgroundColor: item.iconBackground,
+                    borderTopLeftRadius: 20,
+                    borderBottomLeftRadius: 20,
+                    borderTopRightRadius: 20,
+                    borderBottomRightRadius: 20,
+                  }}
+                >
+                  <item.icon
+                    name={item.iconName}
+                    size={SIZES.width / 10}
+                    color="white"
+                  />
                 </View>
-              </Card>
+                <Text
+                  style={{
+                    flexShrink: 1,
+                    ...FONTS.body5,
+                    color: item.textColor,
+                    textAlign: "left",
+                  }}
+                >
+                  {item.tipText}
+                </Text>
+              </View>
             </View>
           );
         }}

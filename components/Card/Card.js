@@ -8,7 +8,6 @@ const Card = ({
   backgroundColor,
   children,
   contentContainerStyle,
-  paddingNumber,
 }) => {
   const styles = StyleSheet.create({
     container: {

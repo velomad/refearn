@@ -6,17 +6,17 @@ export const COLORS = {
   white: "#FFFFFF",
   lightGray: "#e8e8e8",
   gray: "#6A6A6A",
-  primary: "#3a81f4",
-  primaryLight: "#dae9fe",
+  primary: "#00A6EB",
+  primaryLight: "#D3F2FF",
   secondary: "#b0e1e5",
   secondaryLight: "#e8f3f5",
   danger: "red",
-  success: "green",
+  success: "#1AB517",
   indigo: "#D3E5FB",
-  indigoDark: '#576DFC',
-  blueDark: '#405872',
-  blueLight: '#5D7895',
-  greenLight: '#17A860'
+  indigoDark: "#576DFC",
+  blueDark: "#405872",
+  blueLight: "#5D7895",
+  greenLight: "#E2FFE5",
 };
 
 export const SIZES = {
