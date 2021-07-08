@@ -46,7 +46,7 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
         options={{
           // tabBarBadge: "1",
           tabBarIcon: ({ color }) => (
-            <Icon.Ionicons name="ios-home" size={24} color="black" />
+            <Icon.AntDesign name="home" size={SIZES.width / 15} color={color} />
           ),
         }}
       />
@@ -56,7 +56,7 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
         options={{
           tabBarIcon: ({ color }) => (
             <Icon.MaterialIcons
-              name="list"
+              name="local-offer"
               size={SIZES.width / 15}
               color={color}
             />
@@ -81,8 +81,8 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
         component={Network}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon.MaterialIcons
-              name="collections"
+            <Icon.MaterialCommunityIcons
+              name="transit-connection-variant"
               size={SIZES.width / 15}
               color={color}
             />

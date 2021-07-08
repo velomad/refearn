@@ -8,7 +8,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import { FocusAwareStatusBar } from "../../components";
+import { FocusAwareStatusBar, Card } from "../../components";
 import { COLORS, FONTS, images, SIZES } from "../../constants";
 import {
   c1,
@@ -19,8 +19,15 @@ import {
   c5,
   homeHeader,
   videoThumbnail,
+  test,
 } from "../../constants/images";
-import { EarningsStats, Testimonials, TipsCard, Header } from "./components";
+import {
+  EarningsStats,
+  Testimonials,
+  TipsCard,
+  Header,
+  Announcements,
+} from "./components";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -32,7 +39,7 @@ const Home = ({ navigation, topOffers }) => {
       <View style={styles.container} showsVerticalScrollIndicator={false}>
         <FocusAwareStatusBar
           barStyle="light-content"
-          backgroundColor={COLORS.primary}
+          backgroundColor={COLORS.primaryDark}
         />
         <ImageBackground
           source={background}
@@ -44,68 +51,218 @@ const Home = ({ navigation, topOffers }) => {
             <EarningsStats />
           </View>
         </ImageBackground>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          fadingEdgeLength={30}
-          endFillColor={COLORS.success}
-          contentContainerStyle={{
-            borderTopLeftRadius: 20,
-            borderRadius: 100,
+
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#fff",
+            bottom: "5%",
+            paddingTop: "10%",
+            borderTopStartRadius: 30,
+            borderTopEndRadius: 30,
           }}
         >
-          <View
-            style={{
-              paddingVertical: SIZES.height / 40,
-            }}
+          <ScrollView
+            fadingEdgeLength={20}
+            showsVerticalScrollIndicator={false}
           >
-            <TipsCard />
-          </View>
-
-          <View style={styles.secondaryContainer}>
-            <View>
-              <View style={styles.guideContainer}>
-                <Text style={styles.guideText}>
-                  Watch : Beginners Guide to Go
-                </Text>
-                <Text style={styles.guideContent}>
-                  Learn about the EarnRef features and how to start earning
-                  online.
-                </Text>
-              </View>
-
-              <View
+            <View style={{}}>
+              <Text
                 style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  top: -SIZES.height / 15,
+                  paddingHorizontal: "5%",
+                  paddingBottom: "5%",
+                  ...FONTS.body3,
+                  color: COLORS.gray,
                 }}
               >
-                <View style={styles.videoContainer}>
-                  <ImageBackground
-                    style={styles.videoThumbnail}
-                    source={videoThumbnail}
-                    imageStyle={{ borderRadius: 20 }}
-                    resizeMode="cover"
-                  >
-                    <View style={styles.darkenVideobg}>
-                      <View style={styles.playIcon}>
-                        <Ionicons
-                          name="play-circle-outline"
-                          size={SIZES.width / 10}
-                          color={COLORS.white}
-                        />
-                      </View>
-                    </View>
-                  </ImageBackground>
-                </View>
-              </View>
+                Tips
+              </Text>
+              <TipsCard />
             </View>
 
             <View>
-              <Testimonials />
+              <Text
+                style={{ padding: "5%", ...FONTS.body3, color: COLORS.gray }}
+              >
+                Announcements
+              </Text>
+              <Announcements />
             </View>
-          </View>
-        </ScrollView>
+
+            <View style={styles.secondaryContainer}>
+              <View style={{ flex: 1, width: "100%" }}>
+                <LinearGradient
+                  style={{ borderRadius: 10 }}
+                  colors={[COLORS.primaryLight, COLORS.white]}
+                >
+                  <Text
+                    style={{
+                      ...FONTS.body3,
+                      padding: "5%",
+                      color: COLORS.primaryDark,
+                      fontWeight: "600",
+                    }}
+                  >
+                    Up Your Level
+                  </Text>
+
+                  <View style={styles.levelsInfo}>
+                    <View style={styles.circlesContainer}>
+                      <View style={styles.levelRow}>
+                        <ImageBackground
+                          source={background}
+                          style={styles.circle}
+                          borderRadius={60}
+                          resizeMode="cover"
+                        >
+                          <View>
+                            <Text style={styles.circleText}>Level 1</Text>
+                          </View>
+                        </ImageBackground>
+
+                        <View style={styles.levelText}>
+                          <Text
+                            style={{
+                              ...FONTS.body5,
+                              color: COLORS.primaryDark,
+                              fontWeight: "700",
+                            }}
+                          >
+                            Target : 500
+                          </Text>
+                          <Text
+                            style={{
+                              ...FONTS.body6,
+                              color: COLORS.gray,
+                              marginVertical: "5%",
+                            }}
+                          >
+                            Complete the total earnings of amount &#8360; 500 to
+                            unlock level 1
+                          </Text>
+                        </View>
+                      </View>
+
+                      <View style={styles.levelRow}>
+                        <ImageBackground
+                          source={background}
+                          style={styles.circle}
+                          borderRadius={60}
+                          resizeMode="cover"
+                        >
+                          <View>
+                            <Text style={styles.circleText}>Level 2</Text>
+                          </View>
+                        </ImageBackground>
+
+                        <View style={styles.levelText}>
+                          <Text
+                            style={{
+                              ...FONTS.body5,
+                              color: COLORS.primaryDark,
+                              fontWeight: "700",
+                            }}
+                          >
+                            Target : 500
+                          </Text>
+                          <Text
+                            style={{
+                              ...FONTS.body6,
+                              color: COLORS.gray,
+                              marginVertical: "5%",
+                            }}
+                          >
+                            Complete the total earnings of amount &#8360; 500 to
+                            unlock level 1
+                          </Text>
+                        </View>
+                      </View>
+
+                      <View style={styles.levelRow}>
+                        <ImageBackground
+                          source={background}
+                          style={styles.circle}
+                          borderRadius={60}
+                          resizeMode="cover"
+                        >
+                          <View>
+                            <Text style={styles.circleText}>Level 3</Text>
+                          </View>
+                        </ImageBackground>
+
+                        <View style={styles.levelText}>
+                          <Text
+                            style={{
+                              ...FONTS.body5,
+                              color: COLORS.primaryDark,
+                              fontWeight: "700",
+                            }}
+                          >
+                            Target : 500
+                          </Text>
+                          <Text
+                            style={{
+                              ...FONTS.body6,
+                              color: COLORS.gray,
+                              marginVertical: "5%",
+                            }}
+                          >
+                            Complete the total earnings of amount &#8360; 500 to
+                            unlock level 1
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={styles.verticalLine}></View>
+                  </View>
+                </LinearGradient>
+              </View>
+
+              <View>
+                <View style={styles.guideContainer}>
+                  <Text style={styles.guideText}>
+                    Watch : Beginners Guide to Go
+                  </Text>
+                  <Text style={styles.guideContent}>
+                    Learn about the EarnRef features and how to start earning
+                    online.
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    top: -SIZES.height / 15,
+                  }}
+                >
+                  <View style={styles.videoContainer}>
+                    <ImageBackground
+                      style={styles.videoThumbnail}
+                      source={videoThumbnail}
+                      imageStyle={{ borderRadius: 20 }}
+                      resizeMode="cover"
+                    >
+                      <View style={styles.darkenVideobg}>
+                        <View style={styles.playIcon}>
+                          <Ionicons
+                            name="play-circle-outline"
+                            size={SIZES.width / 10}
+                            color={COLORS.white}
+                          />
+                        </View>
+                      </View>
+                    </ImageBackground>
+                  </View>
+                </View>
+              </View>
+
+              <View>
+                <Testimonials />
+              </View>
+            </View>
+          </ScrollView>
+        </View>
       </View>
     </MainLayout>
   );
@@ -118,14 +275,14 @@ const mapStateToProps = ({ uiState }) => ({
 export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.white },
   secondaryContainer: {
+    marginVertical: "5%",
     marginHorizontal: "5%",
   },
-  statsContainer: {},
   homeHeaderImage: {
     width: "100%",
-    paddingBottom: "8%",
+    paddingBottom: "15%",
   },
   guideContainer: {
     borderRadius: 10,
@@ -142,11 +299,10 @@ const styles = StyleSheet.create({
   guideContent: {
     ...FONTS.body6,
     marginTop: "2%",
-    color: COLORS.gray,
+    color: COLORS.primaryDark,
   },
   videoContainer: {
     width: "80%",
-    height: SIZES.height / 6,
     backgroundColor: "rgba(0,0,0,0.5)",
     borderRadius: 20,
   },
@@ -165,8 +321,41 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  partnersContainer: {
-    backgroundColor: COLORS.lightGray,
-    paddingVertical: "5%",
+  levelsInfo: {
+    marginTop: SIZES.height / 60,
+    paddingVertical: "1%",
+    width: "80%",
+  },
+  levelRow: {
+    flexDirection: "row",
+    marginBottom: SIZES.height / 15,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: "10%",
+  },
+  circle: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: SIZES.width / 5,
+    width: SIZES.width / 5,
+    borderRadius: 60,
+    // backgroundColor: COLORS.primary,
+    zIndex: 1,
+  },
+  verticalLine: {
+    height: SIZES.height / 3,
+    position: "absolute",
+    width: "1%",
+    backgroundColor: COLORS.primaryDark,
+    marginHorizontal: SIZES.width / 6,
+    marginTop: SIZES.height / 14,
+  },
+  circleText: {
+    ...FONTS.body5,
+    color: COLORS.white,
+    fontWeight: "700",
+  },
+  levelText: {
+    paddingLeft: "5%",
   },
 });

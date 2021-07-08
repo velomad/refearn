@@ -11,12 +11,20 @@ const Header = ({ title, navigation }) => {
       height: SIZES.height / 15,
       width: "100%",
       justifyContent: "center",
-      backgroundColor: isHome ? COLORS.danger : COLORS.white,
+      backgroundColor: isHome
+        ? COLORS.danger
+        : title === "Offers"
+        ? COLORS.primaryDark
+        : COLORS.white,
       paddingHorizontal: "3%",
     },
     text: {
       ...FONTS.body3,
-      color: isHome ? COLORS.white : COLORS.gray,
+      color: isHome
+        ? COLORS.white
+        : title === "Offers"
+        ? COLORS.white
+        : COLORS.gray,
     },
   });
 

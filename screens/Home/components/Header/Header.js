@@ -7,7 +7,24 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={{ ...FONTS.body3, color: COLORS.white }}>Hii Sagar,</Text>
+        <Text
+          style={{
+            ...FONTS.body2,
+            color: COLORS.white,
+            fontWeight: "600",
+          }}
+        >
+          Hii Sagar,
+        </Text>
+        <Text
+          style={{
+            ...FONTS.body4,
+            color: COLORS.white,
+            fontWeight: "600",
+          }}
+        >
+          Level 0
+        </Text>
       </View>
       <View>
         <FontAwesome5 name="bell" size={SIZES.width / 20} color="white" />

@@ -8,15 +8,10 @@ export const COLORS = {
   gray: "#6A6A6A",
   primary: "#00A6EB",
   primaryLight: "#D3F2FF",
-  secondary: "#b0e1e5",
-  secondaryLight: "#e8f3f5",
+  primaryDark: "#204F75",
   danger: "red",
   success: "#1AB517",
-  indigo: "#D3E5FB",
-  indigoDark: "#576DFC",
-  blueDark: "#405872",
-  blueLight: "#5D7895",
-  greenLight: "#E2FFE5",
+  successLight: "#E2FFE5",
 };
 
 export const SIZES = {

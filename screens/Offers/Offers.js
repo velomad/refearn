@@ -130,8 +130,7 @@ const styles = StyleSheet.create({
   cardcontainer: {
     flexDirection: "column",
   },
-  maincard: {
-  },
+  maincard: {},
   image: {
     width: SIZES.width / 4,
     height: SIZES.width / 4,
@@ -141,7 +140,7 @@ const styles = StyleSheet.create({
     width: "80%",
     alignItems: "center",
     color: "#fff",
-    backgroundColor: COLORS.indigoDark,
+    backgroundColor: COLORS.primary,
     marginHorizontal: SIZES.width / 15,
     padding: 10,
     marginTop: "3%",

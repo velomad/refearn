@@ -8,10 +8,16 @@ const TopOffersTabs = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: COLORS.primary,
-        inactiveTintColor: COLORS.gray,
-        labelStyle: {
-          borderBottomColor: COLORS.primary,
+        activeTintColor: COLORS.white,
+        inactiveTintColor: COLORS.white,
+        style: { backgroundColor: COLORS.primaryDark },
+        labelStyle: {},
+        indicatorStyle: {
+          backgroundColor: COLORS.white,
+          opacity: 1,
+          height: 2,
+          margin: 5,
+          borderRadius: 50,
         },
       }}
     >

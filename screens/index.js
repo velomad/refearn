@@ -9,3 +9,5 @@ export { default as OfferDetails } from "./OfferDetails";
 export { default as PaymentBankDetails } from "./PaymentBankDetails";
 export { default as Finance } from "./Finance";
 export { default as Others } from "./Others";
+export { default as Earnings } from "./Earnings";
+export { default as Withdrawals } from "./Withdrawals";

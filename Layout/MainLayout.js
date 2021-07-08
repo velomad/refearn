@@ -12,7 +12,7 @@ import { COLORS, SIZES, FONTS } from "../constants";
 import { Card } from "../components";
 import { setTopOffers } from "../store/action";
 import * as Icon from "@expo/vector-icons";
-import { c2 } from "../constants/images";
+import { icici } from "../constants/images";
 import { LinearGradient } from "expo-linear-gradient";
 
 const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
@@ -57,7 +57,7 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
     {
       name: "SBI Finance Bank",
       subname: "Refer and Earn",
-      amount: "80000",
+      amount: "800",
       label: "Successful Selfe Savings Account Opened",
       sublabel: "Open Zero Balance Savings Account",
     },
@@ -117,19 +117,24 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
                 marginRight: index == offers.length - 1 ? SIZES.width / 20 : 0,
               }}
             >
-              <View style={styles.offerImageContainer}>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Image
-                  source={c2}
+                  source={icici}
                   style={styles.offerImageStyle}
                   resizeMode="contain"
                 />
+              </View>
+              <View style={styles.offerImageContainer}>
                 <Text
                   style={{
-                    top: "-20%",
-                    marginLeft: SIZES.width / 30,
                     ...FONTS.body6,
                     fontWeight: "bold",
-                    color: COLORS.white,
+                    color: COLORS.primaryDark,
                   }}
                 >
                   {item.name}
@@ -142,7 +147,7 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
                 key={index}
               >
                 <LinearGradient
-                  colors={["#045de9", "#09c6f9"]}
+                  colors={[COLORS.primaryLight, COLORS.white]}
                   style={{ borderRadius: 10 }}
                 >
                   <View style={styles.offerContainer}>
@@ -154,15 +159,31 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
                         marginTop: 10,
                       }}
                     >
-                      <Text style={{ ...FONTS.body2, color: COLORS.white }}>
-                        {item.amount} /{" "}
-                      </Text>
+                      <View
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          backgroundColor: COLORS.primary,
+                          height: SIZES.width / 6,
+                          width: SIZES.width / 6,
+                          borderRadius: 60,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            ...FONTS.body2,
+                            color: COLORS.white,
+                          }}
+                        >
+                          {item.amount}
+                        </Text>
+                      </View>
                       <Text
                         style={{
                           ...FONTS.body6,
                           maxWidth: SIZES.width / 2,
                           textAlign: "center",
-                          color: COLORS.white,
+                          color: COLORS.primaryDark,
                         }}
                       >
                         {item.label}
@@ -171,7 +192,7 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
                     <Text
                       style={{
                         ...FONTS.body3,
-                        color: COLORS.white,
+                        color: COLORS.primaryDark,
                         textAlign: "center",
                         marginTop: 20,
                       }}
@@ -197,10 +218,9 @@ export default connect(mapStateToProps, { setTopOffers })(MainLayout);
 
 const styles = StyleSheet.create({
   offerImageContainer: {
-    top: "14%",
-    left: "10%",
-    flexDirection: "row",
-    alignItems: "baseline",
+    top: "10%",
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: 100,
   },
   offerContainer: {
@@ -208,8 +228,8 @@ const styles = StyleSheet.create({
     margin: "8%",
   },
   offerImageStyle: {
-    width: SIZES.width / 5,
-    height: SIZES.width / 5,
+    width: SIZES.width / 4,
+    height: SIZES.width / 4,
     borderRadius: 10,
   },
 });

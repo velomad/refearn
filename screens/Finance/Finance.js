@@ -47,8 +47,8 @@ const Finance = ({ navigation }) => {
         showsHorizontalScrollIndicator={false}
       >
         <FocusAwareStatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.white}
+          barStyle="dark-light"
+          backgroundColor={COLORS.primaryDark}
         />
         <View style={styles.cardcontainer}>
           <View>
@@ -64,7 +64,7 @@ const Finance = ({ navigation }) => {
                     <Text
                       style={{
                         ...FONTS.body3,
-                        color: COLORS.blueDark,
+                        color: COLORS.primaryDark,
                         fontWeight: "700",
                         paddingTop: SIZES.height / 20,
                       }}
@@ -74,7 +74,7 @@ const Finance = ({ navigation }) => {
                     <Text
                       style={{
                         ...FONTS.body4,
-                        color: COLORS.blueLight,
+                        color: COLORS.primary,
                         fontWeight: "700",
                         marginTop: "1%",
                         textAlign: "center",
@@ -95,7 +95,7 @@ const Finance = ({ navigation }) => {
                     <Text
                       style={{
                         ...FONTS.body5,
-                        color: COLORS.blueLight,
+                        color: COLORS.primaryDark,
                         fontWeight: "700",
                         marginTop: "5%",
                         textAlign: "center",

@@ -8,25 +8,6 @@ const Testimonials = () => {
   return (
     <View>
       <View>
-        <Text
-          style={{
-            ...FONTS.body5,
-            marginBottom: "5%",
-            marginLeft: "-6%",
-            color: COLORS.gray,
-            backgroundColor: COLORS.primary,
-            flex: 1,
-            padding: "2%",
-            color: COLORS.white,
-            borderBottomRightRadius: 30,
-            width: SIZES.width / 2,
-            textAlign: "center",
-            letterSpacing: 3,
-            fontWeight: "bold",
-          }}
-        >
-          TESTIMONIALS
-        </Text>
         <View style={styles.container}>
           <View style={styles.headerContainer}>
             <View>
@@ -41,7 +22,7 @@ const Testimonials = () => {
                 style={{
                   ...FONTS.body4,
                   fontWeight: "700",
-                  color: COLORS.gray,
+                  color: COLORS.white,
                 }}
               >
                 Ben Awad
@@ -53,7 +34,7 @@ const Testimonials = () => {
               style={{
                 ...FONTS.body5,
                 fontStyle: "italic",
-                color: COLORS.gray,
+                color: COLORS.primaryDark,
               }}
             >
               “The Landscaping Professionals were quick, courteous and very
@@ -109,7 +90,7 @@ const styles = StyleSheet.create({
     width: SIZES.width / 2,
     left: "-20%",
     borderRadius: 10,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.primaryDark,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -120,6 +101,6 @@ const styles = StyleSheet.create({
     paddingBottom: "5%",
     borderRadius: 10,
     bottom: SIZES.width / 10,
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: COLORS.primaryLight,
   },
 });

@@ -20,7 +20,7 @@ const TipsCard = () => {
       icon: FontAwesome,
       iconName: "unlock",
       tipText: "Unlock all your levels and get the unlock bonus of ₹ 500",
-      backgroundColor: COLORS.greenLight,
+      backgroundColor: COLORS.successLight,
       iconBackground: COLORS.success,
       textColor: COLORS.success,
     },

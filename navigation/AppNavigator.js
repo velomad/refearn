@@ -5,12 +5,11 @@ import {
   getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Home } from "../screens";
 import { SIZES } from "../constants";
 import AuthNavigator from "./AuthNavigator";
 import TabNavigator from "./TabNavigator";
 import { Header } from "./components";
-import { OfferDetails, PaymentBankDetails } from "../screens";
+import { OfferDetails, PaymentBankDetails, Earnings, Withdrawals } from "../screens";
 
 const Stack = createStackNavigator();
 
@@ -66,6 +65,20 @@ const AppNavigator = ({ borderColor }) => {
           component={PaymentBankDetails}
           options={{
             title: "Enter Bank Details",
+          }}
+        />
+        <Stack.Screen
+          name="earnings"
+          component={Earnings}
+          options={{
+            title: "Earnings",
+          }}
+        />
+        <Stack.Screen
+          name="withdrawals"
+          component={Withdrawals}
+          options={{
+            title: "Withdrawals",
           }}
         />
       </Stack.Navigator>

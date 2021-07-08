@@ -13,7 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Clipboard from "expo-clipboard";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const Account = ({navigation}) => {
+const Account = ({ navigation }) => {
   const onCopy = () => {
     Clipboard.setString("code");
     ToastAndroid.showWithGravityAndOffset(
@@ -26,32 +26,68 @@ const Account = ({navigation}) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <FocusAwareStatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.white}
       />
-      <View style={styles.accountInfo}>
-        <View>
-          <Text style={{ ...FONTS.body3, color: COLORS.primary }}>
-            Hello, Sagar
-          </Text>
-        </View>
+      <View>
+        <View style={styles.accountInfo}>
+          <View>
+            <Text
+              style={{
+                ...FONTS.body3,
+                color: COLORS.primaryDark,
+                fontWeight: "700",
+              }}
+            >
+              Hello, Sagar
+            </Text>
+            <Text style={{ ...FONTS.body4, color: COLORS.primaryDark }}>
+              Level 0
+            </Text>
+          </View>
 
-        <View>
-          <Text style={{ ...FONTS.body4, color: COLORS.gray }}>
-            Your Unique Code
-          </Text>
+          <View>
+            <Text style={{ ...FONTS.body4, color: COLORS.gray }}>
+              Referral Code
+            </Text>
 
-          <TouchableOpacity style={styles.uniqueCodeContainer} onPress={onCopy}>
-            <MaterialCommunityIcons
-              name="content-copy"
-              size={SIZES.width / 25}
-              color="black"
-            />
-            <Text style={styles.uniqueCode}>SA5485F</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.uniqueCodeContainer}
+              onPress={onCopy}
+            >
+              <MaterialCommunityIcons
+                name="content-copy"
+                size={SIZES.width / 25}
+                color="black"
+              />
+              <Text style={styles.uniqueCode}>562874</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: "10%",
+          paddingVertical: "10%",
+          backgroundColor: COLORS.primaryDark,
+          borderRadius: 10,
+        }}
+      >
+        <Text
+          style={{
+            ...FONTS.body3,
+            textAlign: "center",
+            color: COLORS.primaryLight,
+          }}
+        >
+          Wallet Balance : &#8360; 684
+        </Text>
       </View>
 
       <View style={styles.paymentDetailContainer}>
@@ -62,7 +98,7 @@ const Account = ({navigation}) => {
           Please Complete Your Payment Information
         </Text>
 
-        <View style={{ alignItems: "center", paddingTop: "10%" }}>
+        <View style={{ alignItems: "center", paddingTop: "5%" }}>
           <CustomButton
             title="Add Now"
             background={COLORS.primary}
@@ -74,18 +110,24 @@ const Account = ({navigation}) => {
       </View>
 
       <View style={styles.optionsContainer}>
-        <View style={styles.option}>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => navigation.navigate("earnings")}
+        >
           <MaterialIcons name="attach-money" size={24} color="black" />
           <Text style={styles.optionText}>My Earnings</Text>
-        </View>
-        <View style={styles.option}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => navigation.navigate("withdrawals")}
+        >
           <MaterialIcons name="payment" size={24} color="black" />
-          <Text style={styles.optionText}>Payment Details</Text>
-        </View>
-        <View style={styles.option}>
+          <Text style={styles.optionText}>Withdrawals</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.option}>
           <MaterialIcons name="logout" size={24} color="black" />
           <Text style={styles.optionText}>Logout</Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
       <View
@@ -109,7 +151,6 @@ export default Account;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: "3%",
   },
   accountInfo: {
@@ -140,6 +181,7 @@ const styles = StyleSheet.create({
     padding: "3%",
     backgroundColor: COLORS.lightGray,
     marginTop: "10%",
+    borderRadius: 10,
   },
   optionsContainer: {
     marginTop: "10%",

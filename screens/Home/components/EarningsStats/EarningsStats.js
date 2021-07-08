@@ -16,7 +16,7 @@ const EarningsStats = () => {
               </View>
             </View>
           </View>
-          <Text style={styles.nameText}>Paid</Text>
+          <Text style={styles.nameText}>Total Earnings</Text>
         </View>
         <View style={styles.outerCircle}>
           <View style={styles.innerCircleContainer}>
