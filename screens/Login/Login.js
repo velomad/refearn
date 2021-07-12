@@ -16,13 +16,11 @@ import {
   InputField,
   KeyboardAvoidingWrapper,
 } from "../../components";
-import { signIn } from "../../store/action/auth";
-import { connect } from "react-redux";
 import useAuth from "../../auth/useAuth";
 import toastMessage from "../../utils/toastMessage";
 import Axios from "axios";
 
-const Login = ({ navigation, signIn, token }) => {
+const Login = ({ navigation }) => {
   const auth = useAuth();
   const [inputValue, setInputValue] = useState({});
 
@@ -127,11 +125,7 @@ const Login = ({ navigation, signIn, token }) => {
   );
 };
 
-const mapStateToProps = ({ auth }) => ({
-  token: auth.token,
-});
-
-export default connect(mapStateToProps, { signIn })(Login);
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
