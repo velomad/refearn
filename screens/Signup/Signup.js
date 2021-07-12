@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   Text,
@@ -9,6 +9,8 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import axios from "../../utils/interceptor";
+import toastMessage from "../../utils/toastMessage";
 import { COLORS, FONTS, SIZES } from "../../constants";
 import {
   CustomButton,
@@ -18,6 +20,26 @@ import {
 } from "../../components";
 
 const Signup = ({ navigation }) => {
+  const [inputValue, setInputValue] = useState({});
+
+  const handleChange = (e) => {
+    const { name, type, text } = e;
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: text,
+    }));
+  };
+
+  const handleSignup = async () => {
+    try {
+      const result = await axios.post(`/auth/register`, inputValue);
+      if (result) navigation.navigate("login");
+    } catch (error) {
+      console.log(error);
+      toastMessage(error.response.data.error.message);
+    }
+  };
+
   return (
     <KeyboardAvoidingWrapper>
       <View style={styles.container}>
@@ -47,18 +69,33 @@ const Signup = ({ navigation }) => {
         </View>
 
         <View style={styles.formContainer}>
-          <InputField placeholder="name" name="name" type="default" />
+          <InputField
+            placeholder="name"
+            name="name"
+            type="default"
+            value={inputValue.name}
+            onChange={handleChange}
+          />
           <InputField
             placeholder="Mobile Number"
-            name="mobileNumber"
+            name="phoneNumber"
             type="phone-pad"
-            secure={true}
+            value={inputValue.phoneNumber}
+            onChange={handleChange}
           />
-          <InputField placeholder="Email" name="email" type="email-address" />
+          <InputField
+            placeholder="Email"
+            name="email"
+            type="email-address"
+            value={inputValue.email}
+            onChange={handleChange}
+          />
           <InputField
             placeholder="Refer Code"
             name="referCode"
             type="default"
+            value={inputValue.referCode}
+            onChange={handleChange}
           />
           <View style={{ paddingTop: "5%" }}>
             <CustomButton
@@ -66,6 +103,7 @@ const Signup = ({ navigation }) => {
               background={COLORS.primary}
               color={COLORS.white}
               rounded={5}
+              onPress={handleSignup}
             />
           </View>
           <View style={styles.secondaryText}>

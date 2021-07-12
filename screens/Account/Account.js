@@ -13,8 +13,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Clipboard from "expo-clipboard";
 import { MaterialIcons } from "@expo/vector-icons";
 import useAuth from "../../auth/useAuth";
+import { connect } from "react-redux";
 
-const Account = ({ navigation }) => {
+const Account = (props) => {
   const auth = useAuth();
 
   const onCopy = () => {
@@ -51,10 +52,11 @@ const Account = ({ navigation }) => {
                 fontWeight: "700",
               }}
             >
-              Hello, Sagar
+              Hello,{" "}
+              {props.userProfileData && props.userProfileData.result.name}
             </Text>
             <Text style={{ ...FONTS.body4, color: COLORS.primaryDark }}>
-              Level 0
+              {props.userProfileData && props.userProfileData.result.level.name}
             </Text>
           </View>
 
@@ -72,7 +74,10 @@ const Account = ({ navigation }) => {
                 size={SIZES.width / 25}
                 color="black"
               />
-              <Text style={styles.uniqueCode}>562874</Text>
+              <Text style={styles.uniqueCode}>
+                {props.userProfileData &&
+                  props.userProfileData.result.uniqueCode}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -93,7 +98,8 @@ const Account = ({ navigation }) => {
             color: COLORS.primaryLight,
           }}
         >
-          Wallet Balance : &#8360; 684
+          Wallet Balance : &#8377;{" "}
+          {props.userProfileData && props.userProfileData.result.wallet.balance}
         </Text>
       </View>
 
@@ -111,7 +117,7 @@ const Account = ({ navigation }) => {
             background={COLORS.primary}
             color={COLORS.primaryLight}
             rounded={10}
-            onPress={() => navigation.navigate("bankpaymentdetails")}
+            onPress={() => props.navigation.navigate("bankpaymentdetails")}
           />
         </View>
       </View>
@@ -119,14 +125,14 @@ const Account = ({ navigation }) => {
       <View style={styles.optionsContainer}>
         <TouchableOpacity
           style={styles.option}
-          onPress={() => navigation.navigate("earnings")}
+          onPress={() => props.navigation.navigate("earnings")}
         >
           <MaterialIcons name="attach-money" size={24} color="black" />
           <Text style={styles.optionText}>My Earnings</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.option}
-          onPress={() => navigation.navigate("withdrawals")}
+          onPress={() => props.navigation.navigate("withdrawals")}
         >
           <MaterialIcons name="payment" size={24} color="black" />
           <Text style={styles.optionText}>Withdrawals</Text>
@@ -154,7 +160,11 @@ const Account = ({ navigation }) => {
   );
 };
 
-export default Account;
+const mapStateToProps = ({ user }) => ({
+  userProfileData: user.profile,
+});
+
+export default connect(mapStateToProps)(Account);
 
 const styles = StyleSheet.create({
   container: {

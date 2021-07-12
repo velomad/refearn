@@ -1,49 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { FocusAwareStatusBar } from "../../components";
 import { COLORS, FONTS, SIZES } from "../../constants";
 import { icici } from "../../constants/images";
 import { AntDesign } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { getUserEarnings } from "../../store/action";
 
-const Earnings = () => {
+const Earnings = (props) => {
   const [isFetching, setIsFetching] = useState(false);
 
-  const data = [
-    {
-      id: 10,
-      userId: 30,
-      amount: 250,
-      offerName: "kotak",
-      offerImageUrl: "testimage.png",
-      status: "pending",
-      createdAt: "2021-07-06T09:36:56.000Z",
-      updatedAt: "2021-07-07T08:03:04.000Z",
-    },
-    {
-      id: 3,
-      userId: 30,
-      amount: 250,
-      offerName: "kotak",
-      offerImageUrl: "testimage.png",
-      status: "paid",
-      createdAt: "2021-07-06T08:54:04.000Z",
-      updatedAt: "2021-07-07T07:54:42.000Z",
-    },
-    {
-      id: 5,
-      userId: 30,
-      amount: 250,
-      offerName: "kotak",
-      offerImageUrl: "testimage.png",
-      status: "reverted",
-      createdAt: "2021-07-06T09:34:45.000Z",
-      updatedAt: "2021-07-07T07:57:42.000Z",
-    },
-  ];
+  useEffect(() => {
+    props.getUserEarnings();
+  }, []);
 
-  const onRefresh = () => {
-    setIsFetching(true);
-  };
+  const data =
+    props.earnings && props.earnings.result.data.length > 0
+      ? props.earnings.result.data
+      : [];
 
   return (
     <View style={styles.container}>
@@ -56,7 +30,7 @@ const Earnings = () => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={data}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => JSON.stringify(item.id)}
         onRefresh={() => onRefresh()}
         refreshing={isFetching}
         renderItem={({ item, index }) => {
@@ -135,7 +109,11 @@ const Earnings = () => {
   );
 };
 
-export default Earnings;
+const mapStateToProps = ({ user }) => ({
+  earnings: user.userEarnings,
+});
+
+export default connect(mapStateToProps, { getUserEarnings })(Earnings);
 
 const styles = StyleSheet.create({
   container: {

@@ -3,8 +3,9 @@ import { View, StyleSheet, Text, ImageBackground } from "react-native";
 import { SIZES, COLORS, FONTS } from "../../../../constants";
 import { Ionicons } from "@expo/vector-icons";
 import { background } from "../../../../constants/images";
+import { connect } from "react-redux";
 
-const EarningsStats = () => {
+const EarningsStats = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.dataContainer}>
@@ -12,7 +13,11 @@ const EarningsStats = () => {
           <View style={styles.innerCircleContainer}>
             <View style={styles.innerCircle}>
               <View>
-                <Text style={styles.valueText}>&#8377;0</Text>
+                <Text style={styles.valueText}>
+                  &#8377;
+                  {props.userProfileData &&
+                    props.userProfileData.result.stats.totalEarnings}
+                </Text>
               </View>
             </View>
           </View>
@@ -22,7 +27,11 @@ const EarningsStats = () => {
           <View style={styles.innerCircleContainer}>
             <View style={styles.innerCircle}>
               <View>
-                <Text style={styles.valueText}>&#8377;0</Text>
+                <Text style={styles.valueText}>
+                  &#8377;
+                  {props.userProfileData &&
+                    props.userProfileData.result.stats.pending}
+                </Text>
               </View>
             </View>
           </View>
@@ -86,7 +95,11 @@ const EarningsStats = () => {
   );
 };
 
-export default EarningsStats;
+const mapStateToProps = ({ user }) => ({
+  userProfileData: user.profile,
+});
+
+export default connect(mapStateToProps)(EarningsStats);
 
 const styles = StyleSheet.create({
   outerCircle: {
@@ -131,7 +144,7 @@ const styles = StyleSheet.create({
     paddingVertical: SIZES.height / 60,
   },
   valueText: {
-    ...FONTS.body3,
+    ...FONTS.body4,
     color: COLORS.primary,
     fontWeight: "700",
   },

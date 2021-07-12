@@ -2,8 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FONTS, COLORS, SIZES } from "../../../../constants";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { connect } from "react-redux";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <View style={styles.container}>
       <View>
@@ -14,7 +15,7 @@ const Header = () => {
             fontWeight: "600",
           }}
         >
-          Hii Sagar,
+          {props.userProfileData && props.userProfileData.result.name},
         </Text>
         <Text
           style={{
@@ -23,7 +24,7 @@ const Header = () => {
             fontWeight: "600",
           }}
         >
-          Level 0
+          {props.userProfileData && props.userProfileData.result.level.name}
         </Text>
       </View>
       <View>
@@ -33,7 +34,11 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = ({ user }) => ({
+  userProfileData: user.profile,
+});
+
+export default connect(mapStateToProps)(Header);
 
 const styles = StyleSheet.create({
   container: {

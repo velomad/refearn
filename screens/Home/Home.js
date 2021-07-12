@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {
   ImageBackground,
   View,
@@ -32,8 +32,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { MainLayout } from "../../Layout";
+import { getUserProfile } from "../../store/action";
 
-const Home = ({ navigation, topOffers }) => {
+const Home = ({ navigation, getUserProfile }) => {
+  useEffect(() => {
+    getUserProfile();
+  }, []);
+
   return (
     <MainLayout>
       <View style={styles.container} showsVerticalScrollIndicator={false}>
@@ -268,11 +273,7 @@ const Home = ({ navigation, topOffers }) => {
   );
 };
 
-const mapStateToProps = ({ ui }) => ({
-  topOffers: ui.isTopOffers,
-});
-
-export default connect(mapStateToProps)(Home);
+export default connect(null, { getUserProfile })(Home);
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.white },
