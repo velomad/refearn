@@ -1,38 +1,53 @@
 import "react-native-gesture-handler";
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
-import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-import * as firebase from "firebase";
-import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
+import { NavigationContainer } from "@react-navigation/native";
+import Font from "expo-font";
 import AppNavigator from "./navigation/AppNavigator";
 import AuthNavigator from "./navigation/AuthNavigator";
-import { SIZES } from "./constants/theme";
-import { Provider } from "react-redux";
+import authStorage from "./auth/storage";
+import AuthContext from "./auth/context";
 import Store from "./store";
+import { Provider } from "react-redux";
 
-function App() {
-  const [loaded] = useFonts({
-    "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
-  });
+const App = () => {
+  const [user, setUser] = useState();
+  const [isReady, setIsReady] = useState(false);
+  const [fr, sfr] = useState(false);
 
-  if (!loaded) {
-    return <AppLoading />;
-  } else {
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    if (user) setUser(user);
+  };
+
+  // const fetchFonts = () => {
+  //   return Font.loadAsync({
+  //     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+  //   });
+  // };
+
+  if (!isReady)
     return (
-      <Provider store={Store}>
-        <AppNavigator />
-      </Provider>
+      <>
+        <AppLoading
+          startAsync={restoreUser}
+          onFinish={() => setIsReady(true)}
+          onError={console.warn}
+        />
+      </>
     );
-  }
-}
 
-export default App;
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      <Provider store={Store}>
+        <NavigationContainer>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </Provider>
+    </AuthContext.Provider>
+  );
+};
+
+export default () => {
+  return <App />;
+};

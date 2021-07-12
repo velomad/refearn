@@ -7,19 +7,16 @@ import { COLORS, FONTS, SIZES } from "../../constants/theme";
 const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <FocusAwareStatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.lightGray}
-      />
+      <FocusAwareStatusBar translucent backgroundColor={"transparent"} />
       <View style={styles.secondaryContainer}>
         <View style={styles.heading}>
-          <Text style={{ ...FONTS.body1 }}>CodeRef</Text>
+          <Text style={{ ...FONTS.body1, color: COLORS.white }}>CodeRef</Text>
           <Text
             style={{
               textAlign: "justify",
               ...FONTS.body4,
               paddingTop: 10,
-              color: COLORS.gray,
+              color: COLORS.primaryLight,
             }}
           >
             lorem ipsuem and othet stuff goes here this si understanding line
@@ -60,14 +57,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: "1%",
+    paddingVertical: "10%",
+    backgroundColor: COLORS.primaryDark,
   },
   secondaryContainer: {
     paddingHorizontal: SIZES.width / 40,
   },
   heading: { flex: 1 },
   logo: {
-    display: "flex",
     borderRadius: SIZES.width + SIZES.height / 2,
     width: SIZES.width * 0.7,
     height: SIZES.width * 0.7,
@@ -84,11 +81,11 @@ const styles = StyleSheet.create({
     left: "4%",
     right: "4%",
     borderRadius: 100,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.lightGray,
   },
   text: {
     ...FONTS.body4,
-    color: COLORS.white,
+    color: COLORS.primaryDark,
     fontWeight: "700",
   },
 });

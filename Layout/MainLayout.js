@@ -210,8 +210,8 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
   );
 };
 
-const mapStateToProps = ({ uiState }) => ({
-  isTopOffers: uiState.isTopOffers,
+const mapStateToProps = ({ ui }) => ({
+  isTopOffers: ui.isTopOffers,
 });
 
 export default connect(mapStateToProps, { setTopOffers })(MainLayout);

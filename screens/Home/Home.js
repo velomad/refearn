@@ -268,8 +268,8 @@ const Home = ({ navigation, topOffers }) => {
   );
 };
 
-const mapStateToProps = ({ uiState }) => ({
-  topOffers: uiState.isTopOffers,
+const mapStateToProps = ({ ui }) => ({
+  topOffers: ui.isTopOffers,
 });
 
 export default connect(mapStateToProps)(Home);

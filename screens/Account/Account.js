@@ -12,8 +12,11 @@ import { COLORS, FONTS, SIZES } from "../../constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Clipboard from "expo-clipboard";
 import { MaterialIcons } from "@expo/vector-icons";
+import useAuth from "../../auth/useAuth";
 
 const Account = ({ navigation }) => {
+  const auth = useAuth();
+
   const onCopy = () => {
     Clipboard.setString("code");
     ToastAndroid.showWithGravityAndOffset(
@@ -23,6 +26,10 @@ const Account = ({ navigation }) => {
       0,
       SIZES.height / 4
     );
+  };
+
+  const handleLogout = () => {
+    auth.logOut();
   };
 
   return (
@@ -124,7 +131,7 @@ const Account = ({ navigation }) => {
           <MaterialIcons name="payment" size={24} color="black" />
           <Text style={styles.optionText}>Withdrawals</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={handleLogout}>
           <MaterialIcons name="logout" size={24} color="black" />
           <Text style={styles.optionText}>Logout</Text>
         </TouchableOpacity>

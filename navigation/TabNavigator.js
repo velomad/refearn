@@ -106,8 +106,8 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
   );
 };
 
-const mapStateToProps = ({ uiState }) => ({
-  isTopOffers: uiState.isTopOffers,
+const mapStateToProps = ({ ui }) => ({
+  isTopOffers: ui.isTopOffers,
 });
 
 export default connect(mapStateToProps, { setTopOffers })(TabNavigator);

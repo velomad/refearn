@@ -2,6 +2,7 @@ import { TOP_OFFERS_VISIBLE } from "../types";
 
 const initialState = {
   isTopOffers: false,
+  test: "this is test data",
 };
 
 const ui = (state = initialState, action) => {

@@ -40,7 +40,7 @@ const Anouncements = () => {
         snapToInterval={SIZES.width}
         showsHorizontalScrollIndicator={false}
         data={dummyDaya}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => JSON.stringify(item.id)}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: newSeasonScrollX } } }],
           { useNativeDriver: false }

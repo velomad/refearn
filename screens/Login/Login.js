@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
+  Keyboard,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS, FONTS, SIZES } from "../../constants";
@@ -15,8 +16,38 @@ import {
   InputField,
   KeyboardAvoidingWrapper,
 } from "../../components";
+import { signIn } from "../../store/action/auth";
+import { connect } from "react-redux";
+import useAuth from "../../auth/useAuth";
+import toastMessage from "../../utils/toastMessage";
+import Axios from "axios";
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, signIn, token }) => {
+  const auth = useAuth();
+  const [inputValue, setInputValue] = useState({});
+
+  const handleChange = (e) => {
+    const { name, type, text } = e;
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: text,
+    }));
+  };
+
+  const handleLogin = async () => {
+    Keyboard.dismiss();
+    try {
+      const result = await Axios.post(
+        "https://www.questkart.com/25offers/api/v1/auth/login",
+        inputValue
+      );
+      auth.logIn(result.data.token);
+    } catch (error) {
+      console.log(error);
+      toastMessage(error.response.data.error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -54,9 +85,11 @@ const Login = ({ navigation }) => {
       <View style={styles.formContainer}>
         <InputField
           placeholder="Mobile Number"
-          name="mobileNumber"
+          name="phoneNumber"
           type="phone-pad"
           secure={true}
+          value={inputValue.phoneNumber}
+          onChange={handleChange}
         />
         <View style={{ paddingTop: "5%" }}>
           <CustomButton
@@ -65,6 +98,7 @@ const Login = ({ navigation }) => {
             background={COLORS.primary}
             color={COLORS.white}
             rounded={5}
+            onPress={handleLogin}
           />
         </View>
         <View style={styles.secondaryText}>
@@ -93,7 +127,11 @@ const Login = ({ navigation }) => {
   );
 };
 
-export default Login;
+const mapStateToProps = ({ auth }) => ({
+  token: auth.token,
+});
+
+export default connect(mapStateToProps, { signIn })(Login);
 
 const styles = StyleSheet.create({
   container: {

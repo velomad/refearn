@@ -5,7 +5,7 @@ import {
   SIGNOUT,
   SIGNOUT_ERROR,
   AUTH_CHECK,
-} from '../types';
+} from "../types";
 
 const initialState = {
   token: null,
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const AuthReducer = (state = initialState, action) => {
-  const {type, payload, authState} = action;
+  const { type, payload, authState } = action;
   switch (type) {
     case SIGNIN_LOAD:
       return {

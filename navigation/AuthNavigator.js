@@ -8,7 +8,6 @@ const Stack = createStackNavigator();
 
 const AuthNavigator = () => {
   return (
-    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="welcome"
@@ -32,7 +31,6 @@ const AuthNavigator = () => {
           }}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 
