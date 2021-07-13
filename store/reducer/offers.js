@@ -19,7 +19,6 @@ const offers = (state = initialState, action) => {
                 offersIsLoading: true,
             };
         case OFFERS_FETCH:
-            console.log('payload', payload);
             return {
                 ...state,
                 offersIsLoading: false,

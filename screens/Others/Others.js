@@ -27,9 +27,10 @@ const Others = (props) => {
     setOffersData(filteredData);
   }, []);
 
-  const handleOfferDetail = () => {
-    props.navigation.navigate("offerdetails");
+  const handleOfferDetail = (data) => {
+    props.navigation.navigate("offerdetails", { offerDetails: data });
   };
+
   const handleToolTip = (offerid) => {
     setOfferID(offerid);
   };
@@ -39,7 +40,7 @@ const Others = (props) => {
   };
 
   return (
-    <MainLayout screen="finance">
+    <MainLayout screen="others">
       <ScrollView
         contentContainerStyle={styles.container}
         showsHorizontalScrollIndicator={false}
@@ -124,7 +125,7 @@ const Others = (props) => {
                     </Text>
                     <TouchableOpacity
                       style={styles.button}
-                      onPress={() => handleOfferDetail()}
+                      onPress={() => handleOfferDetail(el)}
                     >
                       <Text
                         style={{

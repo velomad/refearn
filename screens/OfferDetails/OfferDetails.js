@@ -1,16 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Image,
+  Share,
   TouchableOpacity,
 } from "react-native";
 import { FocusAwareStatusBar } from "../../components";
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
+import * as Sharing from "expo-sharing";
+import { connect } from "react-redux";
 
-export default function Offerdetails() {
+const Offerdetails = ({ route, navigation, userProfileData }) => {
+
+  const [singleOfferData, setSingleOfferDetails] = useState([]);
+  const [singleOfferBenefits, setSingleOfferBenefits] = useState([]);
+  const [singleOfferInfos, setSingleOfferInfos] = useState([]);
+  const [singleOfferSteps, setSingleOfferSteps] = useState([]);
+
+  useEffect(() => {
+    const { offerDetails } = route.params;
+    setSingleOfferDetails(offerDetails);
+    setSingleOfferBenefits(offerDetails.benefits);
+    setSingleOfferInfos(offerDetails.infos);
+    setSingleOfferSteps(offerDetails.steps);
+  }, []);
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: singleOfferData.offerUrl + '?code=' + userProfileData.result.uniqueCode,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar
@@ -25,7 +61,7 @@ export default function Offerdetails() {
           <View style={styles.imageContainer}>
             <Image
               style={styles.image}
-              source={require("../../assets/banners/icici.jpg")}
+              source={{ uri: singleOfferData.offerImageUrl }}
             />
             <Text
               style={{
@@ -36,11 +72,11 @@ export default function Offerdetails() {
                 paddingTop: SIZES.width / 25,
               }}
             >
-              Equitas Finance Savings Bank
+              {singleOfferData.name}
             </Text>
             <Text
               style={{
-                fontSize: SIZES.body5,
+                fontSize: SIZES.body4,
                 fontWeight: "600",
                 color: COLORS.primaryDark,
                 textAlign: "center",
@@ -48,10 +84,21 @@ export default function Offerdetails() {
                 paddingHorizontal: SIZES.width / 10,
               }}
             >
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+              {singleOfferData.payoutOnText}
             </Text>
-            <TouchableOpacity style={styles.button}>
+            <Text
+              style={{
+                fontSize: SIZES.body4,
+                fontWeight: "600",
+                color: COLORS.primaryDark,
+                textAlign: "center",
+                paddingHorizontal: SIZES.width / 20,
+                paddingVertical: SIZES.width / 70,
+              }}
+            >
+              {singleOfferData.taskTest}
+            </Text>
+            <TouchableOpacity style={styles.button} onPress={onShare}>
               <Text
                 style={{
                   color: COLORS.primaryDark,
@@ -62,188 +109,148 @@ export default function Offerdetails() {
               </Text>
             </TouchableOpacity>
           </View>
-          <Text
-            style={{
-              fontSize: SIZES.body4,
-              fontWeight: "600",
-              color: COLORS.primaryDark,
-              textAlign: "center",
-              paddingHorizontal: SIZES.width / 20,
-              paddingVertical: SIZES.width / 20,
-            }}
-          >
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy
-          </Text>
-          <View style={styles.spcfContainer}>
+        </View>
+        <View style={styles.pointsCollection}>
+          <View style={styles.rulesContainer}>
             <Text
               style={{
                 fontSize: SIZES.body3,
                 color: COLORS.primaryDark,
                 fontWeight: "700",
-                paddingVertical: SIZES.width / 40,
-                paddingHorizontal: SIZES.width / 30,
+                paddingVertical: SIZES.width / 100,
+                paddingHorizontal: SIZES.width / 60,
               }}
             >
-              Specification
+              Offer Benefits
             </Text>
-            <View style={styles.specPoints}>
-              <Text style={styles.pointText}>
-                {" "}
-                <Text
-                  style={{
-                    fontWeight: "700",
-                    fontSize: SIZES.body2,
-                    color: COLORS.primaryLight,
-                  }}
-                >
-                  &#xbb;{" "}
-                </Text>
-                70% Good Savings
-              </Text>
-            </View>
-            <View style={styles.specPoints}>
-              <Text style={styles.pointText}>
-                {" "}
-                <Text
-                  style={{
-                    fontWeight: "700",
-                    fontSize: SIZES.body2,
-                    color: COLORS.primaryLight,
-                  }}
-                >
-                  &#xbb;{" "}
-                </Text>
-                70% Good Savings
-              </Text>
-            </View>
-            <View style={styles.specPoints}>
-              <Text style={styles.pointText}>
-                {" "}
-                <Text
-                  style={{
-                    fontWeight: "700",
-                    fontSize: SIZES.body2,
-                    color: COLORS.primaryLight,
-                  }}
-                >
-                  &#xbb;{" "}
-                </Text>
-                70% Good Savings
-              </Text>
-            </View>
+            {
+              singleOfferBenefits.map((el, index) => {
+                return (
+                  <View style={styles.subPoints} key={index}>
+                    <View>
+                      <Text
+                        style={{
+                          textAlign: "left",
+                          marginHorizontal: SIZES.width / 15,
+                          fontSize: SIZES.body4,
+                          fontWeight: "700",
+                          color: COLORS.primaryDark,
+                        }}
+                      >
+                        {index + 1 + ". "}
+                        <Text
+                          style={{
+                            textAlign: "left",
+                            marginHorizontal: SIZES.width / 15,
+                            fontSize: SIZES.body4,
+                            color: COLORS.gray,
+                          }}
+                        >
+                          {el.benefit}
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                )
+              })
+            }
           </View>
         </View>
+
         <View style={styles.pointsCollection}>
-          <View style={styles.subPoints}>
+          <View style={styles.rulesContainer}>
             <Text
               style={{
-                textAlign: "left",
-                marginHorizontal: SIZES.width / 15,
                 fontSize: SIZES.body3,
+                color: COLORS.primaryDark,
+                fontWeight: "700",
+                paddingVertical: SIZES.width / 150,
+                paddingHorizontal: SIZES.width / 60,
               }}
             >
-              &#x2622;
+              Offer Information
             </Text>
-            <View>
-              <Text
-                style={{
-                  textAlign: "left",
-                  marginHorizontal: SIZES.width / 15,
-                  fontSize: SIZES.body4,
-                  fontWeight: "700",
-                  color: COLORS.primaryDark,
-                }}
-              >
-                Your Profit
-              </Text>
-              <Text
-                style={{
-                  textAlign: "left",
-                  marginHorizontal: SIZES.width / 15,
-                  fontSize: SIZES.body5,
-                }}
-              >
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.{" "}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.subPoints}>
-            <Text
-              style={{
-                textAlign: "left",
-                marginHorizontal: SIZES.width / 15,
-                fontSize: SIZES.body3,
-              }}
-            >
-              &#x2622;
-            </Text>
-            <View>
-              <Text
-                style={{
-                  textAlign: "left",
-                  marginHorizontal: SIZES.width / 15,
-                  fontSize: SIZES.body4,
-                  fontWeight: "700",
-                  color: COLORS.primaryDark,
-                }}
-              >
-                Your Profit
-              </Text>
-              <Text
-                style={{
-                  textAlign: "left",
-                  marginHorizontal: SIZES.width / 15,
-                  fontSize: SIZES.body5,
-                }}
-              >
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.{" "}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.subPoints}>
-            <Text
-              style={{
-                textAlign: "left",
-                marginHorizontal: SIZES.width / 15,
-                fontSize: SIZES.body3,
-              }}
-            >
-              &#x2622;
-            </Text>
-            <View>
-              <Text
-                style={{
-                  textAlign: "left",
-                  marginHorizontal: SIZES.width / 15,
-                  fontSize: SIZES.body4,
-                  fontWeight: "700",
-                  color: COLORS.primaryDark,
-                }}
-              >
-                Your Profit
-              </Text>
-              <Text
-                style={{
-                  textAlign: "left",
-                  marginHorizontal: SIZES.width / 15,
-                  fontSize: SIZES.body5,
-                }}
-              >
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.{" "}
-              </Text>
-            </View>
+            {
+              singleOfferInfos.map((el, index) => {
+                return (
+                  <View style={styles.subPoints} key={index}>
+                    <View>
+                      <Text
+                        style={{
+                          textAlign: "left",
+                          marginHorizontal: SIZES.width / 15,
+                          fontSize: SIZES.body4,
+                          fontWeight: "700",
+                          color: COLORS.primaryDark,
+                        }}
+                      >
+                        {index + 1 + ". "}
+                        <Text
+                          style={{
+                            textAlign: "left",
+                            marginHorizontal: SIZES.width / 15,
+                            fontSize: SIZES.body4,
+                            color: COLORS.gray,
+                          }}
+                        >
+                          {el.info}
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                )
+              })
+            }
           </View>
         </View>
+
+        <View style={styles.pointsCollection}>
+          <View style={styles.rulesContainer}>
+            <Text
+              style={{
+                fontSize: SIZES.body3,
+                color: COLORS.primaryDark,
+                fontWeight: "700",
+                paddingVertical: SIZES.width / 150,
+                paddingHorizontal: SIZES.width / 60,
+              }}
+            >
+              Offer Steps
+            </Text>
+            {
+              singleOfferSteps.map((el, index) => {
+                return (
+                  <View style={styles.subPoints} key={index}>
+                    <View>
+                      <Text
+                        style={{
+                          textAlign: "left",
+                          marginHorizontal: SIZES.width / 15,
+                          fontSize: SIZES.body4,
+                          fontWeight: "700",
+                          color: COLORS.primaryDark,
+                        }}
+                      >
+                        {index + 1 + ". "}
+                        <Text
+                          style={{
+                            textAlign: "left",
+                            marginHorizontal: SIZES.width / 15,
+                            fontSize: SIZES.body4,
+                            color: COLORS.gray,
+                          }}
+                        >
+                          {el.step}
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                )
+              })
+            }
+          </View>
+        </View>
+
         <View style={styles.parentContainer}>
           <View style={styles.rulesContainer}>
             <Text
@@ -500,3 +507,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
 });
+
+const mapStateToProps = ({ user }) => ({
+  userProfileData: user.profile,
+});
+
+export default connect(mapStateToProps)(Offerdetails);
