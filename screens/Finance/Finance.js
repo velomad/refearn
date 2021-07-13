@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,34 +10,34 @@ import {
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
 import { FocusAwareStatusBar } from "../../components";
 import { MainLayout } from "../../Layout";
+import Tooltip from 'react-native-walkthrough-tooltip';
+import axios from 'axios';
+import { Ionicons } from "@expo/vector-icons";
+import { connect } from "react-redux";
 
-const Finance = ({ navigation }) => {
-  const [offerDetails, setOfferDetails] = useState([
-    {
-      name: "Equitas Small Finance Bank",
-      subname: "Refer and Earn",
-      amount: "100",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-    {
-      name: "ICICI Finance Bank",
-      subname: "Refer and Earn",
-      amount: "4000",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-    {
-      name: "SBI Finance Bank",
-      subname: "Refer and Earn",
-      amount: "80000",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-  ]);
+const Finance = (props) => {
+
+  const [offerID, setOfferID] = useState('');
+  const [offersDataFiltered, setOffersData] = useState([]);
+
+  useEffect(() => {
+    alert(props.offersData);
+    let filteredData = props.offersData.filter((el, index) => {
+      return el.offerType.type.toLocaleLowerCase() == 'finance'
+    });
+    setOffersData(filteredData);
+  }, []);
 
   const handleOfferDetail = () => {
-    navigation.navigate("offerdetails");
+    props.navigation.navigate("offerdetails");
+  };
+
+  const handleToolTip = (offerid) => {
+    setOfferID(offerid);
+  };
+
+  const handleToolTipClose = () => {
+    setOfferID('');
   };
 
   return (
@@ -52,15 +52,35 @@ const Finance = ({ navigation }) => {
         />
         <View style={styles.cardcontainer}>
           <View>
-            {offerDetails &&
-              offerDetails.map((el, index) => {
+            {offersDataFiltered &&
+              offersDataFiltered.map((el, index) => {
                 return (
                   <View style={styles.maincard} key={index}>
                     <Image
                       style={styles.image}
-                      source={require("../../assets/banners/icici.jpg")}
+                      source={{ uri: el.offerImageUrl }}
                       resizeMode="contain"
                     />
+                    <View style={styles.infoIcon}>
+                      <Tooltip
+                        isVisible={offerID == el.id}
+                        content={<Text> You will receive the payment in {el.reportingDays} working days</Text>}
+                        placement="bottom"
+                        onClose={() => handleToolTipClose()}
+                      >
+                        <View>
+                          <Ionicons name="information-circle" size={22} color={COLORS.primary} />
+                        </View>
+                      </Tooltip>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => handleToolTip(el.id)}
+                      style={styles.infoIcon}
+                    >
+                      <View>
+                        <Ionicons name="information-circle" size={22} color={COLORS.primary} />
+                      </View>
+                    </TouchableOpacity>
                     <Text
                       style={{
                         ...FONTS.body3,
@@ -81,16 +101,16 @@ const Finance = ({ navigation }) => {
                         paddingHorizontal: SIZES.width / 12,
                       }}
                     >
-                      {el.subname}{" "}
+                      {el.payoutOnText}{" "}
                       <Text
                         style={{
                           ...FONTS.body4,
                           color: COLORS.success,
                         }}
                       >
-                        &#8377;{el.amount}{" "}
+                        &#8377;{el.userPayout}{" "}
                       </Text>{" "}
-                      / {el.label}
+                      {/* / {el.label} */}
                     </Text>
                     <Text
                       style={{
@@ -102,7 +122,7 @@ const Finance = ({ navigation }) => {
                         paddingHorizontal: SIZES.width / 12,
                       }}
                     >
-                      {el.sublabel}
+                      {el.taskTest}
                     </Text>
                     <TouchableOpacity
                       style={styles.button}
@@ -114,7 +134,7 @@ const Finance = ({ navigation }) => {
                           fontWeight: "700",
                         }}
                       >
-                        Earn &#8377;{el.amount}
+                        Earn &#8377;{el.userPayout}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -160,6 +180,16 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
     borderRadius: 4,
   },
+  infoIcon: {
+    color: '#000',
+    position: "absolute",
+    right: SIZES.width / 40,
+    top: SIZES.height / 110,
+  }
 });
 
-export default Finance;
+const mapStateToProps = ({ offers }) => ({
+  offersData: offers.offersData,
+});
+
+export default connect(mapStateToProps)(Finance);

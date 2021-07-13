@@ -13,7 +13,7 @@ import { FocusAwareStatusBar } from "../../components";
 const Offers = ({ navigation }) => {
   const [offerDetails, setOfferDetails] = useState([
     {
-      name: "Equitas Small Finance Bank",
+      name: "Equis Small Finance Bank",
       subname: "Refer and Earn",
       amount: "100",
       label: "Successful Selfe Savings Account Opened",

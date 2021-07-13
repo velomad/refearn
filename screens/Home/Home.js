@@ -32,11 +32,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { MainLayout } from "../../Layout";
-import { getUserProfile } from "../../store/action";
+import { getUserProfile, getOffersData } from "../../store/action";
 
-const Home = ({ navigation, getUserProfile }) => {
+const Home = ({ navigation, getUserProfile, getOffersData }) => {
   useEffect(() => {
     getUserProfile();
+    getOffersData();
   }, []);
 
   return (
@@ -273,7 +274,7 @@ const Home = ({ navigation, getUserProfile }) => {
   );
 };
 
-export default connect(null, { getUserProfile })(Home);
+export default connect(null, { getUserProfile, getOffersData })(Home);
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.white },

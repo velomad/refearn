@@ -1,6 +1,6 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Finance, Others } from "../screens";
+import { Finance, Others, Educational } from "../screens";
 import { COLORS } from "../constants";
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,6 +22,7 @@ const TopOffersTabs = () => {
       }}
     >
       <Tab.Screen name="finance" component={Finance} />
+      <Tab.Screen name="education" component={Educational} />
       <Tab.Screen name="others" component={Others} />
     </Tab.Navigator>
   );
