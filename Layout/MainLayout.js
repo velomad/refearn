@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Animated,
@@ -15,10 +15,18 @@ import * as Icon from "@expo/vector-icons";
 import { icici } from "../constants/images";
 import { LinearGradient } from "expo-linear-gradient";
 
-const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
+const MainLayout = ({ children, isTopOffers, setTopOffers, offersData, navigation }) => {
   const modelAnimatedValue = React.useRef(new Animated.Value(0)).current;
+  const [offersDataFiltered, setOffersData] = useState([]);
 
   React.useEffect(() => {
+
+    let filteredData = offersData.filter((el, index) => {
+      return el.isTop == '1'
+    });
+
+    setOffersData(filteredData);
+
     if (isTopOffers) {
       Animated.timing(modelAnimatedValue, {
         toValue: 1,
@@ -34,34 +42,14 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
     }
   }, [isTopOffers]);
 
+  const handleOfferDetail = (data) => {
+    navigation.navigate("offerdetails", { offerDetails: data });
+  };
+
   const modalY = modelAnimatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: ["100%", "30%"],
   });
-
-  const offers = [
-    {
-      name: "Equitas Small Finance Bank",
-      subname: "Refer and Earn",
-      amount: "100",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-    {
-      name: "ICICI Finance Bank",
-      subname: "Refer and Earn",
-      amount: "4000",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-    {
-      name: "SBI Finance Bank",
-      subname: "Refer and Earn",
-      amount: "800",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-  ];
 
   return (
     <View style={{ flex: 1 }}>
@@ -107,114 +95,112 @@ const MainLayout = ({ children, isTopOffers, setTopOffers }) => {
         }}
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={offers}
+        data={offersDataFiltered}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => {
           return (
-            <View
-              style={{
-                marginLeft: index == 0 ? SIZES.width / 20 : SIZES.width / 20,
-                marginRight: index == offers.length - 1 ? SIZES.width / 20 : 0,
-              }}
+            <TouchableOpacity
+              onPress={() => handleOfferDetail(item)}
             >
               <View
                 style={{
-                  alignItems: "center",
-                  justifyContent: "center",
+                  marginLeft: index == 0 ? SIZES.width / 20 : SIZES.width / 20,
+                  marginRight: index == offersDataFiltered.length - 1 ? SIZES.width / 20 : 0,
                 }}
               >
-                <Image
-                  source={icici}
-                  style={styles.offerImageStyle}
-                  resizeMode="contain"
-                />
-              </View>
-              <View style={styles.offerImageContainer}>
-                <Text
+                <View
                   style={{
-                    ...FONTS.body6,
-                    fontWeight: "bold",
-                    color: COLORS.primaryDark,
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  {item.name}
-                </Text>
-              </View>
-              <Card
-                contentContainerStyle={{
-                  width: SIZES.width / 1.3,
-                }}
-                key={index}
-              >
-                <LinearGradient
-                  colors={[COLORS.primaryLight, COLORS.white]}
-                  style={{ borderRadius: 10 }}
+                  <Image
+                    source={{ uri: item.offerImageUrl }}
+                    style={styles.offerImageStyle}
+                    resizeMode="contain"
+                  />
+                </View>
+                <View style={styles.offerImageContainer}>
+                  <Text
+                    style={{
+                      ...FONTS.body5,
+                      fontWeight: "bold",
+                      color: COLORS.primaryDark,
+                    }}
+                  >
+                    {item.name}
+                  </Text>
+                </View>
+                <Card
+                  contentContainerStyle={{
+                    width: SIZES.width / 1.3,
+                  }}
+                  key={index}
                 >
-                  <View style={styles.offerContainer}>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginTop: 10,
-                      }}
-                    >
+                  <LinearGradient
+                    colors={[COLORS.primaryLight, COLORS.white]}
+                    style={{ borderRadius: 10 }}
+                  >
+                    <View style={styles.offerContainer}>
                       <View
                         style={{
+                          flexDirection: "row",
                           justifyContent: "center",
                           alignItems: "center",
-                          backgroundColor: COLORS.primary,
-                          height: SIZES.width / 6,
-                          width: SIZES.width / 6,
-                          borderRadius: 60,
+                          marginTop: 5,
                         }}
                       >
-                        <Text
+                        <View
                           style={{
-                            ...FONTS.body2,
-                            color: COLORS.white,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: COLORS.primary,
+                            height: SIZES.width / 6,
+                            width: SIZES.width / 6,
+                            borderRadius: 10,
                           }}
                         >
-                          {item.amount}
-                        </Text>
+                          <Text
+                            style={{
+                              ...FONTS.body3,
+                              color: COLORS.white,
+                            }}
+                          >
+                            &#x20b9; {item.userPayout}
+                          </Text>
+                        </View>
                       </View>
                       <Text
                         style={{
                           ...FONTS.body6,
-                          maxWidth: SIZES.width / 2,
-                          textAlign: "center",
                           color: COLORS.primaryDark,
+                          textAlign: "center",
+                          marginTop: 15,
                         }}
                       >
-                        {item.label}
+                        {item.payoutOnText}
+                      </Text>
+                      <Text
+                        style={{
+                          ...FONTS.body4,
+                          color: COLORS.primaryDark,
+                          textAlign: "center",
+                          marginTop: 3,
+                        }}
+                      >
+                        {item.taskTest}
                       </Text>
                     </View>
-                    <Text
-                      style={{
-                        ...FONTS.body3,
-                        color: COLORS.primaryDark,
-                        textAlign: "center",
-                        marginTop: 20,
-                      }}
-                    >
-                      {item.sublabel}
-                    </Text>
-                  </View>
-                </LinearGradient>
-              </Card>
-            </View>
+                  </LinearGradient>
+                </Card>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
     </View>
   );
 };
-
-const mapStateToProps = ({ ui }) => ({
-  isTopOffers: ui.isTopOffers,
-});
-
-export default connect(mapStateToProps, { setTopOffers })(MainLayout);
 
 const styles = StyleSheet.create({
   offerImageContainer: {
@@ -233,3 +219,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+const mapStateToProps = ({ ui, offers }) => ({
+  isTopOffers: ui.isTopOffers,
+  offersData: offers.offersData,
+});
+
+export default connect(mapStateToProps, { setTopOffers })(MainLayout);
+
