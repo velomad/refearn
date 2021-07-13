@@ -29,8 +29,8 @@ const Education = (props) => {
         setOffersData(filteredData);
     }, []);
 
-    const handleOfferDetail = () => {
-        props.navigation.navigate("offerdetails");
+    const handleOfferDetail = (data) => {
+        props.navigation.navigate("offerdetails", { offerDetails: data });
     };
 
     const handleToolTip = (offerid) => {
@@ -128,7 +128,7 @@ const Education = (props) => {
                                         </Text>
                                         <TouchableOpacity
                                             style={styles.button}
-                                            onPress={() => handleOfferDetail()}
+                                            onPress={() => handleOfferDetail(el)}
                                         >
                                             <Text
                                                 style={{

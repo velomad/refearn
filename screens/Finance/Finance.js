@@ -21,15 +21,14 @@ const Finance = (props) => {
   const [offersDataFiltered, setOffersData] = useState([]);
 
   useEffect(() => {
-    alert(props.offersData);
     let filteredData = props.offersData.filter((el, index) => {
       return el.offerType.type.toLocaleLowerCase() == 'finance'
     });
     setOffersData(filteredData);
   }, []);
 
-  const handleOfferDetail = () => {
-    props.navigation.navigate("offerdetails");
+  const handleOfferDetail = (data) => {
+    props.navigation.navigate("offerdetails", { offerDetails: data });
   };
 
   const handleToolTip = (offerid) => {
@@ -126,7 +125,7 @@ const Finance = (props) => {
                     </Text>
                     <TouchableOpacity
                       style={styles.button}
-                      onPress={() => handleOfferDetail()}
+                      onPress={() => handleOfferDetail(el)}
                     >
                       <Text
                         style={{
