@@ -1,1 +1,2 @@
 export const TOP_OFFERS_VISIBLE = "TOP_OFFERS_VISIBLE";
+export const IS_FETCHING = "IS_FETCHING";

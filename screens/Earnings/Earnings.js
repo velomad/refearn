@@ -1,23 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  RefreshControl,
+  ActivityIndicator,
+} from "react-native";
 import { FocusAwareStatusBar } from "../../components";
 import { COLORS, FONTS, SIZES } from "../../constants";
 import { icici } from "../../constants/images";
 import { AntDesign } from "@expo/vector-icons";
 import { connect } from "react-redux";
-import { getUserEarnings } from "../../store/action";
+import { getUserEarnings, resetEarnings } from "../../store/action";
 
 const Earnings = (props) => {
-  const [isFetching, setIsFetching] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    props.getUserEarnings();
-  }, []);
+    if (page === 1) {
+      props.resetEarnings();
+    }
+    props.getUserEarnings(null, page);
+  }, [page]);
 
-  const data =
-    props.earnings && props.earnings.result.data.length > 0
-      ? props.earnings.result.data
-      : [];
+  const onRefresh = () => {
+    props.resetEarnings();
+    setPage(1);
+    props.getUserEarnings(true, page);
+  };
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
+  const renderLoader = () => {
+    return (
+      <View style={{ paddingVertical: "5%" }}>
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -28,14 +52,19 @@ const Earnings = (props) => {
 
       <FlatList
         horizontal={false}
+        keyExtractor={(item) => JSON.stringify(item.createdAt)}
         showsVerticalScrollIndicator={false}
-        data={data}
-        keyExtractor={(item) => JSON.stringify(item.id)}
-        onRefresh={() => onRefresh()}
-        refreshing={isFetching}
+        data={props.earnings}
+        refreshControl={
+          <RefreshControl refreshing={props.isFetching} onRefresh={onRefresh} />
+        }
+        onEndReachedThreshold={0.2}
+        onEndReached={handleLoadMore}
+        ListFooterComponent={renderLoader}
         renderItem={({ item, index }) => {
           return (
             <View
+              key={index}
               style={[
                 styles.cardContainer,
                 item.status === "pending"
@@ -109,11 +138,16 @@ const Earnings = (props) => {
   );
 };
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, ui }) => ({
   earnings: user.userEarnings,
+  userEarningsIsLoading: user.userEarningsIsLoading,
+  userEarningsTotalPages: user.userEarningsTotalPages,
+  isFetching: ui.isFetching,
 });
 
-export default connect(mapStateToProps, { getUserEarnings })(Earnings);
+export default connect(mapStateToProps, { getUserEarnings, resetEarnings })(
+  Earnings
+);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,8 @@
-import { TOP_OFFERS_VISIBLE } from "../types";
+import { TOP_OFFERS_VISIBLE, IS_FETCHING } from "../types";
 
 const initialState = {
   isTopOffers: false,
-  test: "this is test data",
+  isFetching: false,
 };
 
 const ui = (state = initialState, action) => {
@@ -12,6 +12,11 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         isTopOffers: payload,
+      };
+    case IS_FETCHING:
+      return {
+        ...state,
+        isFetching: payload,
       };
     default:
       return state;

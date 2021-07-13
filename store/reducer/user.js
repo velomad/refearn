@@ -1,3 +1,4 @@
+import Earnings from "../../screens/Earnings/Earnings";
 import {
   USER_PROFILE_LOAD,
   USER_PROFILE_FETCH,
@@ -5,6 +6,7 @@ import {
   USER_EARNINGS_LOAD,
   USER_EARNINGS_FETCH,
   USER_EARNINGS_ERROR,
+  RESET_EARNINGS,
 } from "../types";
 
 const initialState = {
@@ -12,7 +14,9 @@ const initialState = {
   profile: null,
   userProfileError: null,
   userEarningsIsLoading: false,
-  userEarnings: {},
+  userEarnings: [],
+  totalUserEarnings: null,
+  userEarningsTotalPages: null,
   userEarningsError: null,
 };
 
@@ -45,7 +49,14 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         userEarningsIsLoading: false,
-        userEarnings: payload,
+        userEarnings: [...state.userEarnings, ...payload.result.data],
+        userEarningsTotalPages: payload.result.totalPages,
+        totalUserEarnings: payload.result.total,
+      };
+    case RESET_EARNINGS:
+      return {
+        ...state,
+        userEarnings: [],
       };
     case USER_EARNINGS_ERROR:
       return {
