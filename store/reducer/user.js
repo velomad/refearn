@@ -7,6 +7,9 @@ import {
   USER_EARNINGS_FETCH,
   USER_EARNINGS_ERROR,
   RESET_EARNINGS,
+  ADD_PAYMENT_DETAILS_LOAD,
+  ADD_PAYMENT_DETAILS_FETCH,
+  ADD_PAYMENT_DETAILS_ERROR,
 } from "../types";
 
 const initialState = {
@@ -18,6 +21,9 @@ const initialState = {
   totalUserEarnings: null,
   userEarningsTotalPages: null,
   userEarningsError: null,
+  addPaymentDetailsIsLoading: false,
+  addPaymentDetails: "",
+  addPaymentDetailsError: null,
 };
 
 const user = (state = initialState, action) => {
@@ -63,6 +69,23 @@ const user = (state = initialState, action) => {
         ...state,
         userEarningsIsLoading: false,
         userEarningsError: "error occured",
+      };
+    case ADD_PAYMENT_DETAILS_LOAD:
+      return {
+        ...state,
+        addPaymentDetailsIsLoading: true,
+      };
+    case ADD_PAYMENT_DETAILS_FETCH:
+      return {
+        ...state,
+        addPaymentDetailsIsLoading: false,
+        addPaymentDetails: payload,
+      };
+    case ADD_PAYMENT_DETAILS_ERROR:
+      return {
+        ...state,
+        addPaymentDetailsIsLoading: false,
+        addPaymentDetailsError: "error occured",
       };
     default:
       return state;

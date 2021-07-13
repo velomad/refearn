@@ -1,30 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Animated, FlatList, Text } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../../../constants";
+import customAxios from "../../../../utils/interceptor";
 
 const Anouncements = () => {
-  const dummyDaya = [
-    {
-      id: 1,
-      announcement:
-        "this is sample announcement text lets see how this looks on Card. whether the text goes out or not",
-    },
-    {
-      id: 2,
-      announcement:
-        "this is sample announcement text lets see how this looks on Card. whether the text goes out or not",
-    },
-    {
-      id: 3,
-      announcement:
-        "this is sample announcement text lets see how this looks on Card. whether the text goes out or not",
-    },
-    {
-      id: 4,
-      announcement:
-        "this is sample announcement text lets see how this looks on Card. whether the text goes out or not",
-    },
-  ];
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    getAnnouncements();
+  }, []);
+
+  const getAnnouncements = async () => {
+    const result = await customAxios.get("/announcement/allannouncements");
+    setAnnouncements(result.data);
+  };
+
+  console.log(announcements);
 
   const newSeasonScrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -39,7 +30,7 @@ const Anouncements = () => {
         scrollEventThrottle={15}
         snapToInterval={SIZES.width}
         showsHorizontalScrollIndicator={false}
-        data={dummyDaya}
+        data={announcements}
         keyExtractor={(item) => JSON.stringify(item.id)}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: newSeasonScrollX } } }],
@@ -63,7 +54,7 @@ const Anouncements = () => {
                 }}
               >
                 <Text style={{ ...FONTS.body4, color: "#FA8A05" }}>
-                  {item.announcement}
+                  {item.announcementText}
                 </Text>
               </View>
 
@@ -81,7 +72,7 @@ const Anouncements = () => {
           justifyContent: "center",
         }}
       >
-        {dummyDaya.map((item, index) => {
+        {announcements.map((item, index) => {
           const opacity = dotPosition.interpolate({
             inputRange: [index - 1, index, index + 1],
             outputRange: [0.3, 1, 0.3],

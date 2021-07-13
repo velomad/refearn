@@ -6,6 +6,10 @@ import { background } from "../../../../constants/images";
 import { connect } from "react-redux";
 
 const EarningsStats = (props) => {
+  const unlocked = false;
+  const referralUnlock =
+    props.userProfileData && props.userProfileData.result.isRefered;
+
   return (
     <View style={styles.container}>
       <View style={styles.dataContainer}>
@@ -39,24 +43,40 @@ const EarningsStats = (props) => {
         </View>
 
         <View style={styles.outerCircle}>
-          <View style={styles.lockedStatOuter}>
-            <Ionicons
-              style={{
-                position: "absolute",
-                zIndex: 100,
-                top: "40%",
-                right: "50%",
-                transform: [{ translateX: SIZES.width / 30 }],
-              }}
-              name="md-lock-closed"
-              size={SIZES.width / 15}
-              color="white"
-            />
+          <View
+            style={
+              !unlocked ? styles.lockedStatOuter : styles.innerCircleContainer
+            }
+          >
+            {!unlocked && (
+              <Ionicons
+                style={{
+                  position: "absolute",
+                  zIndex: 100,
+                  top: "40%",
+                  right: "50%",
+                  transform: [{ translateX: SIZES.width / 30 }],
+                }}
+                name="md-lock-closed"
+                size={SIZES.width / 15}
+                color="white"
+              />
+            )}
             <View style={styles.innerCircleContainer}>
-              <View style={styles.lockedInnerCircle}>
+              <View
+                style={
+                  !unlocked ? styles.lockedInnerCircle : styles.innerCircle
+                }
+              >
                 <View style={styles.lockedStat}>
                   <View>
-                    <Text style={styles.lockedvalueText}>&#8377;50</Text>
+                    <Text
+                      style={
+                        !unlocked ? styles.lockedvalueText : styles.valueText
+                      }
+                    >
+                      &#8377;50
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -65,24 +85,46 @@ const EarningsStats = (props) => {
           </View>
         </View>
         <View style={styles.outerCircle}>
-          <View style={styles.lockedStatOuter}>
-            <Ionicons
-              style={{
-                position: "absolute",
-                zIndex: 100,
-                top: "40%",
-                right: "50%",
-                transform: [{ translateX: SIZES.width / 30 }],
-              }}
-              name="md-lock-closed"
-              size={SIZES.width / 15}
-              color="white"
-            />
+          <View
+            style={
+              !referralUnlock
+                ? styles.lockedStatOuter
+                : styles.innerCircleContainer
+            }
+          >
+            {!referralUnlock && (
+              <Ionicons
+                style={{
+                  position: "absolute",
+                  zIndex: 100,
+                  top: "40%",
+                  right: "50%",
+                  transform: [{ translateX: SIZES.width / 30 }],
+                }}
+                name="md-lock-closed"
+                size={SIZES.width / 15}
+                color="white"
+              />
+            )}
             <View style={styles.innerCircleContainer}>
-              <View style={styles.lockedInnerCircle}>
+              <View
+                style={
+                  !referralUnlock
+                    ? styles.lockedInnerCircle
+                    : styles.innerCircle
+                }
+              >
                 <View style={styles.lockedStat}>
                   <View>
-                    <Text style={styles.lockedvalueText}>&#8377;25</Text>
+                    <Text
+                      style={
+                        !referralUnlock
+                          ? styles.lockedvalueText
+                          : styles.valueText
+                      }
+                    >
+                      &#8377;25
+                    </Text>
                   </View>
                 </View>
               </View>

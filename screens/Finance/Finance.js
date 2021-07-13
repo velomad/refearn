@@ -21,7 +21,6 @@ const Finance = (props) => {
   const [offersDataFiltered, setOffersData] = useState([]);
 
   useEffect(() => {
-    alert(props.offersData);
     let filteredData = props.offersData.filter((el, index) => {
       return el.offerType.type.toLocaleLowerCase() == 'finance'
     });

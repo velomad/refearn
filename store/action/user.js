@@ -11,6 +11,9 @@ import {
   USER_WITHDRAWAL_ERROR,
   IS_FETCHING,
   RESET_EARNINGS,
+  ADD_PAYMENT_DETAILS_LOAD,
+  ADD_PAYMENT_DETAILS_FETCH,
+  ADD_PAYMENT_DETAILS_ERROR,
 } from "../types";
 import { setIsFetching } from "./ui";
 
@@ -48,25 +51,19 @@ export const getUserEarnings = (isRefetch, page) => async (dispatch) => {
   }
 };
 
-export const getUserWithdrawals = (isRefetch, page) => async (dispatch) => {
+export const addUserPaymentDetails = (details) => async (dispatch) => {
   try {
-    if (isRefetch) {
-      setIsFetching(true);
-      dispatch({ type: IS_FETCHING, payload: true });
-    }
-    dispatch({ type: USER_EARNINGS_LOAD });
-    console.log("page===========>", page);
-    const result = await customAxios.get(
-      `/earning/user/earnings?page=${page}&limit=7`
-    );
-    dispatch({ type: USER_EARNINGS_FETCH, payload: result.data, isRefetch });
-    if (isRefetch) setIsFetching(false);
-    dispatch({ type: IS_FETCHING, payload: false });
+    dispatch({ type: ADD_PAYMENT_DETAILS_LOAD });
+    console.log(details)
+    const result = await customAxios.post(`/payment/addBankAccount`, details);
+    console.log(result)
+    dispatch({
+      type: ADD_PAYMENT_DETAILS_FETCH,
+      payload: result.data.message,
+    });
   } catch (error) {
     console.log(error);
-    if (isRefetch) setIsFetching(false);
-    dispatch({ type: IS_FETCHING, payload: false });
-    dispatch({ type: USER_EARNINGS_ERROR });
+    dispatch({ type: ADD_PAYMENT_DETAILS_ERROR });
   }
 };
 

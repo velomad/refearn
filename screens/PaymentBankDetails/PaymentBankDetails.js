@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   Text,
@@ -16,8 +16,25 @@ import {
   FocusAwareStatusBar,
   KeyboardAvoidingWrapper,
 } from "../../components";
+import { addUserPaymentDetails } from "../../store/action";
+import { connect } from "react-redux";
 
-const PaymentBankDetails = ({ navigation }) => {
+const PaymentBankDetails = (props) => {
+  const [inputValue, setInputValue] = useState({});
+
+  const handleChange = (e) => {
+    const { name, type, text } = e;
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: text,
+    }));
+  };
+
+  const handleAddDetailsPress = async () => {
+    await props.addUserPaymentDetails(inputValue);
+    props.navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar
@@ -28,16 +45,25 @@ const PaymentBankDetails = ({ navigation }) => {
         <View>
           <InputField
             placeholder="Account Number"
-            name="accountnumber"
+            name="accountNumber"
             type="phone-pad"
+            value={inputValue.accountNumber}
+            onChange={handleChange}
           />
           <InputField
             placeholder="Re-Enter Account Number"
             name="reenteracctnum"
             type="phone-pad"
             secure={true}
+            onChange={handleChange}
           />
-          <InputField placeholder="IFSC" name="ifsc" type="default" />
+          <InputField
+            placeholder="IFSC"
+            name="ifscCode"
+            type="default"
+            value={inputValue.ifscCode}
+            onChange={handleChange}
+          />
         </View>
         <View>
           <View style={styles.secondaryText}>
@@ -63,6 +89,7 @@ const PaymentBankDetails = ({ navigation }) => {
               background={COLORS.primary}
               color={COLORS.white}
               rounded={5}
+              onPress={handleAddDetailsPress}
             />
           </View>
         </View>
@@ -71,7 +98,7 @@ const PaymentBankDetails = ({ navigation }) => {
   );
 };
 
-export default PaymentBankDetails;
+export default connect(null, { addUserPaymentDetails })(PaymentBankDetails);
 
 const styles = StyleSheet.create({
   container: {
