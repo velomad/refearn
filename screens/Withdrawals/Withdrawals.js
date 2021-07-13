@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { FocusAwareStatusBar } from "../../components";
 import { COLORS, FONTS, SIZES } from "../../constants";
@@ -6,7 +6,11 @@ import { icici } from "../../constants/images";
 import { AntDesign } from "@expo/vector-icons";
 
 const Withdrawals = () => {
-  const [isFetching, setIsFetching] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    
+  }, [])
 
   const data = [
     {
