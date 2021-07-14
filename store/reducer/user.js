@@ -10,6 +10,9 @@ import {
   ADD_PAYMENT_DETAILS_LOAD,
   ADD_PAYMENT_DETAILS_FETCH,
   ADD_PAYMENT_DETAILS_ERROR,
+  USER_WITHDRAWAL_LOAD,
+  USER_WITHDRAWAL_FETCH,
+  USER_WITHDRAWAL_ERROR,
 } from "../types";
 
 const initialState = {
@@ -24,6 +27,9 @@ const initialState = {
   addPaymentDetailsIsLoading: false,
   addPaymentDetails: "",
   addPaymentDetailsError: null,
+  userWithdrawalIsLoading: false,
+  userWithdrawals: [],
+  userWithdrawalError: null,
 };
 
 const user = (state = initialState, action) => {
@@ -86,6 +92,24 @@ const user = (state = initialState, action) => {
         ...state,
         addPaymentDetailsIsLoading: false,
         addPaymentDetailsError: "error occured",
+      };
+    case USER_WITHDRAWAL_LOAD:
+      return {
+        ...state,
+        userWithdrawalIsLoading: true,
+      };
+    case USER_WITHDRAWAL_FETCH:
+      console.log(payload);
+      return {
+        ...state,
+        userWithdrawalIsLoading: false,
+        userWithdrawals: payload,
+      };
+    case USER_WITHDRAWAL_ERROR:
+      return {
+        ...state,
+        userWithdrawalIsLoading: false,
+        userWithdrawalError: "error occured",
       };
     default:
       return state;

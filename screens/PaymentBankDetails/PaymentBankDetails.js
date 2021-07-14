@@ -16,23 +16,26 @@ import {
   FocusAwareStatusBar,
   KeyboardAvoidingWrapper,
 } from "../../components";
-import { addUserPaymentDetails } from "../../store/action";
+import { addUserPaymentDetails, getUserProfile } from "../../store/action";
 import { connect } from "react-redux";
 
 const PaymentBankDetails = (props) => {
   const [inputValue, setInputValue] = useState({});
 
   const handleChange = (e) => {
-    const { name, type, text } = e;
+    const { name, text } = e;
     setInputValue((prev) => ({
       ...prev,
       [name]: text,
     }));
   };
 
+  const operation = props.route.params.operation;
+
   const handleAddDetailsPress = async () => {
-    await props.addUserPaymentDetails(inputValue);
+    await props.addUserPaymentDetails(inputValue, operation);
     props.navigation.goBack();
+    props.getUserProfile();
   };
 
   return (
@@ -85,7 +88,7 @@ const PaymentBankDetails = (props) => {
           <View style={{ paddingTop: "5%", alignItems: "center" }}>
             <CustomButton
               height={11}
-              title="Save"
+              title={operation === "patch" ? "update" : "save"}
               background={COLORS.primary}
               color={COLORS.white}
               rounded={5}
@@ -98,7 +101,9 @@ const PaymentBankDetails = (props) => {
   );
 };
 
-export default connect(null, { addUserPaymentDetails })(PaymentBankDetails);
+export default connect(null, { addUserPaymentDetails, getUserProfile })(
+  PaymentBankDetails
+);
 
 const styles = StyleSheet.create({
   container: {

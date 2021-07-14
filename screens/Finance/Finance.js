@@ -10,19 +10,18 @@ import {
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
 import { FocusAwareStatusBar } from "../../components";
 import { MainLayout } from "../../Layout";
-import Tooltip from 'react-native-walkthrough-tooltip';
-import axios from 'axios';
+import Tooltip from "react-native-walkthrough-tooltip";
+import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 
 const Finance = (props) => {
-
-  const [offerID, setOfferID] = useState('');
+  const [offerID, setOfferID] = useState("");
   const [offersDataFiltered, setOffersData] = useState([]);
 
   useEffect(() => {
     let filteredData = props.offersData.filter((el, index) => {
-      return el.offerType.type.toLocaleLowerCase() == 'finance'
+      return el.offerType.type.toLocaleLowerCase() == "finance";
     });
     setOffersData(filteredData);
   }, []);
@@ -36,11 +35,11 @@ const Finance = (props) => {
   };
 
   const handleToolTipClose = () => {
-    setOfferID('');
+    setOfferID("");
   };
 
   return (
-    <MainLayout screen="finance">
+    <MainLayout screen="finance" navigation={props.navigation}>
       <ScrollView
         contentContainerStyle={styles.container}
         showsHorizontalScrollIndicator={false}
@@ -63,12 +62,24 @@ const Finance = (props) => {
                     <View style={styles.infoIcon}>
                       <Tooltip
                         isVisible={offerID == el.id}
-                        content={<Text> You will receive the payment in {el.reportingDays} working days</Text>}
+                        content={
+                          <Text>
+                            {" "}
+                            You will receive the payment in {
+                              el.reportingDays
+                            }{" "}
+                            working days
+                          </Text>
+                        }
                         placement="bottom"
                         onClose={() => handleToolTipClose()}
                       >
                         <View>
-                          <Ionicons name="information-circle" size={22} color={COLORS.primary} />
+                          <Ionicons
+                            name="information-circle"
+                            size={22}
+                            color={COLORS.primary}
+                          />
                         </View>
                       </Tooltip>
                     </View>
@@ -77,7 +88,11 @@ const Finance = (props) => {
                       style={styles.infoIcon}
                     >
                       <View>
-                        <Ionicons name="information-circle" size={22} color={COLORS.primary} />
+                        <Ionicons
+                          name="information-circle"
+                          size={22}
+                          color={COLORS.primary}
+                        />
                       </View>
                     </TouchableOpacity>
                     <Text
@@ -180,11 +195,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   infoIcon: {
-    color: '#000',
+    color: "#000",
     position: "absolute",
     right: SIZES.width / 40,
     top: SIZES.height / 110,
-  }
+  },
 });
 
 const mapStateToProps = ({ offers }) => ({

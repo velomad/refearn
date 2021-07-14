@@ -1,14 +1,15 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   ImageBackground,
   View,
   Text,
   Image,
+  Permission,
   StyleSheet,
   TextInput,
   ScrollView,
 } from "react-native";
-import { FocusAwareStatusBar, Card } from "../../components";
+import { FocusAwareStatusBar, Card, CustomButton } from "../../components";
 import { COLORS, FONTS, images, SIZES } from "../../constants";
 import {
   c1,
@@ -29,19 +30,83 @@ import {
   Announcements,
 } from "./components";
 import { LinearGradient } from "expo-linear-gradient";
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { MainLayout } from "../../Layout";
 import { getUserProfile, getOffersData } from "../../store/action";
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+    };
+  },
+});
+
 const Home = ({ navigation, getUserProfile, getOffersData }) => {
+  const [token, setToken] = useState("");
+
   useEffect(() => {
     getUserProfile();
     getOffersData();
   }, []);
 
+  useEffect(() => {
+    getPushNotificationPermissions();
+  });
+
+  const TriggerNotification = () => {
+    // Notifications.scheduleNotificationAsync({
+    // 	content: {
+    // 		title: "Test local notification",
+    // 		body: "This the body of local notification",
+    // 	},
+    // 	trigger: {
+    // 		seconds: 5,
+    // 	},
+    // });
+
+    fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Accept-Encoding": "gzip, deflate",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to: token,
+        data: { extraData: "Some Data" },
+        title: "Send via the token",
+        body: "Send via token",
+      }),
+    });
+  };
+
+  getPushNotificationPermissions = async () => {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+
+    if (finalStatus !== "granted") {
+      return;
+    }
+
+    setToken((await Notifications.getExpoPushTokenAsync()).data);
+    console.log(
+      "Notification Token: ",
+      (await Notifications.getExpoPushTokenAsync()).data
+    );
+  };
+
   return (
-    <MainLayout>
+    <MainLayout navigation={navigation}>
       <View style={styles.container} showsVerticalScrollIndicator={false}>
         <FocusAwareStatusBar
           barStyle="light-content"
@@ -72,6 +137,8 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
             fadingEdgeLength={20}
             showsVerticalScrollIndicator={false}
           >
+            <CustomButton title="trigger" onPress={TriggerNotification} />
+
             <View style={{}}>
               <Text
                 style={{

@@ -15,14 +15,19 @@ import * as Icon from "@expo/vector-icons";
 import { icici } from "../constants/images";
 import { LinearGradient } from "expo-linear-gradient";
 
-const MainLayout = ({ children, isTopOffers, setTopOffers, offersData, navigation }) => {
+const MainLayout = ({
+  children,
+  isTopOffers,
+  setTopOffers,
+  offersData,
+  navigation,
+}) => {
   const modelAnimatedValue = React.useRef(new Animated.Value(0)).current;
   const [offersDataFiltered, setOffersData] = useState([]);
 
   React.useEffect(() => {
-
     let filteredData = offersData.filter((el, index) => {
-      return el.isTop == '1'
+      return el.isTop == "1";
     });
 
     setOffersData(filteredData);
@@ -99,13 +104,14 @@ const MainLayout = ({ children, isTopOffers, setTopOffers, offersData, navigatio
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity
-              onPress={() => handleOfferDetail(item)}
-            >
+            <TouchableOpacity onPress={() => handleOfferDetail(item)}>
               <View
                 style={{
                   marginLeft: index == 0 ? SIZES.width / 20 : SIZES.width / 20,
-                  marginRight: index == offersDataFiltered.length - 1 ? SIZES.width / 20 : 0,
+                  marginRight:
+                    index == offersDataFiltered.length - 1
+                      ? SIZES.width / 20
+                      : 0,
                 }}
               >
                 <View
@@ -226,4 +232,3 @@ const mapStateToProps = ({ ui, offers }) => ({
 });
 
 export default connect(mapStateToProps, { setTopOffers })(MainLayout);
-
