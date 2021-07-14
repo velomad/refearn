@@ -13,6 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Clipboard from "expo-clipboard";
 import { MaterialIcons } from "@expo/vector-icons";
 import useAuth from "../../auth/useAuth";
+import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
 
 const Account = (props) => {
@@ -32,6 +33,8 @@ const Account = (props) => {
   const handleLogout = () => {
     auth.logOut();
   };
+
+  console.log(props.userProfileData);
 
   return (
     <ScrollView
@@ -103,25 +106,104 @@ const Account = (props) => {
         </Text>
       </View>
 
-      <View style={styles.paymentDetailContainer}>
-        <Text style={{ ...FONTS.body2, textAlign: "center" }}>
-          Add Payment Details
-        </Text>
-        <Text style={{ ...FONTS.body4, textAlign: "center", marginTop: "2%" }}>
-          Please Complete Your Payment Information
-        </Text>
+      {props.userProfileData &&
+      props.userProfileData.result.bankAccountDetails !== null ? (
+        <View
+          style={{
+            padding: "5%",
+            marginTop: "10%",
+            borderRadius: 10,
+            backgroundColor: COLORS.primaryLight,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate("bankpaymentdetails", {
+                operation: "patch",
+              })
+            }
+            style={{
+              position: "absolute",
+              paddingHorizontal: "2%",
+              paddingVertical: "5%",
+              right: 0,
+            }}
+          >
+            <Feather
+              name="edit"
+              size={SIZES.width / 15}
+              color={COLORS.primaryDark}
+            />
+          </TouchableOpacity>
 
-        <View style={{ alignItems: "center", paddingTop: "5%" }}>
-          <CustomButton
-            title="Add Now"
-            background={COLORS.primary}
-            color={COLORS.primaryLight}
-            rounded={10}
-            onPress={() => props.navigation.navigate("bankpaymentdetails")}
-          />
+          <View>
+            <Text
+              style={{
+                ...FONTS.body3,
+                color: COLORS.primaryDark,
+                fontWeight: "700",
+              }}
+            >
+              Account Number
+            </Text>
+            <Text
+              style={{
+                ...FONTS.body3,
+                color: COLORS.primary,
+                fontWeight: "700",
+              }}
+            >
+              {props.userProfileData &&
+                props.userProfileData.result.bankAccountDetails.accountNumber}
+            </Text>
+          </View>
+          <View style={{ paddingTop: "10%" }}>
+            <Text
+              style={{
+                ...FONTS.body3,
+                color: COLORS.primaryDark,
+                fontWeight: "700",
+              }}
+            >
+              IFSC Code
+            </Text>
+            <Text
+              style={{
+                ...FONTS.body3,
+                color: COLORS.primary,
+                fontWeight: "700",
+              }}
+            >
+              {props.userProfileData.result.bankAccountDetails.ifscCode}
+            </Text>
+          </View>
         </View>
-      </View>
+      ) : (
+        <View style={styles.paymentDetailContainer}>
+          <Text style={{ ...FONTS.body2, textAlign: "center" }}>
+            Add Payment Details
+          </Text>
+          <Text
+            style={{ ...FONTS.body4, textAlign: "center", marginTop: "2%" }}
+          >
+            Please Complete Your Payment Information
+          </Text>
 
+          <View style={{ alignItems: "center", paddingTop: "5%" }}>
+            <CustomButton
+              title="Add Now"
+              background={COLORS.primary}
+              color={COLORS.primaryLight}
+              rounded={10}
+              onPress={() =>
+                props.navigation.navigate("bankpaymentdetails", {
+                  oprtation: "post",
+                })
+              }
+            />
+          </View>
+        </View>
+      )}
       <View style={styles.optionsContainer}>
         <TouchableOpacity
           style={styles.option}

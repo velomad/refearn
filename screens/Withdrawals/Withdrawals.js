@@ -4,44 +4,13 @@ import { FocusAwareStatusBar } from "../../components";
 import { COLORS, FONTS, SIZES } from "../../constants";
 import { icici } from "../../constants/images";
 import { AntDesign } from "@expo/vector-icons";
+import { getUserWithdrawals } from "../../store/action";
+import { connect } from "react-redux";
 
-const Withdrawals = () => {
-  const [page, setPage] = useState(1);
-
+const Withdrawals = (props) => {
   useEffect(() => {
-    
-  }, [])
-
-  const data = [
-    {
-      id: 10,
-      userId: 30,
-      amount: 250,
-
-      createdAt: "2021-07-06T09:36:56.000Z",
-      updatedAt: "2021-07-07T08:03:04.000Z",
-    },
-    {
-      id: 3,
-      userId: 30,
-      amount: 250,
-
-      createdAt: "2021-07-06T08:54:04.000Z",
-      updatedAt: "2021-07-07T07:54:42.000Z",
-    },
-    {
-      id: 5,
-      userId: 30,
-      amount: 250,
-
-      createdAt: "2021-07-06T09:34:45.000Z",
-      updatedAt: "2021-07-07T07:57:42.000Z",
-    },
-  ];
-
-  const onRefresh = () => {
-    setIsFetching(true);
-  };
+    props.getUserWithdrawals();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -53,10 +22,8 @@ const Withdrawals = () => {
       <FlatList
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={data}
-        keyExtractor={(item) => item.id}
-        onRefresh={() => onRefresh()}
-        refreshing={isFetching}
+        data={props.withdrawals}
+        keyExtractor={(item) => JSON.stringify(item.id)}
         renderItem={({ item, index }) => {
           return (
             <View style={styles.cardContainer}>
@@ -87,7 +54,11 @@ const Withdrawals = () => {
   );
 };
 
-export default Withdrawals;
+const mapStateToProps = ({ user }) => ({
+  withdrawals: user.userWithdrawals,
+});
+
+export default connect(mapStateToProps, { getUserWithdrawals })(Withdrawals);
 
 const styles = StyleSheet.create({
   container: {

@@ -51,21 +51,39 @@ export const getUserEarnings = (isRefetch, page) => async (dispatch) => {
   }
 };
 
-export const addUserPaymentDetails = (details) => async (dispatch) => {
+export const getUserWithdrawals = () => async (dispatch) => {
   try {
-    dispatch({ type: ADD_PAYMENT_DETAILS_LOAD });
-    console.log(details)
-    const result = await customAxios.post(`/payment/addBankAccount`, details);
-    console.log(result)
-    dispatch({
-      type: ADD_PAYMENT_DETAILS_FETCH,
-      payload: result.data.message,
-    });
+    dispatch({ type: USER_WITHDRAWAL_LOAD });
+    const result = await customAxios.get(`payment/allwithdrawals`);
+    dispatch({ type: USER_WITHDRAWAL_FETCH, payload: result.data.withdrawals });
   } catch (error) {
     console.log(error);
-    dispatch({ type: ADD_PAYMENT_DETAILS_ERROR });
+    dispatch({ type: USER_WITHDRAWAL_ERROR });
   }
 };
+
+export const addUserPaymentDetails =
+  (details, operation) => async (dispatch) => {
+    console.log("----------------------------", operation);
+    try {
+      dispatch({ type: ADD_PAYMENT_DETAILS_LOAD });
+      console.log(details);
+      const result = await customAxios[operation](
+        operation === "patch"
+          ? `/payment/updateBankAccount`
+          : `/payment/addBankAccount`,
+        details
+      );
+      console.log(result.data);
+      dispatch({
+        type: ADD_PAYMENT_DETAILS_FETCH,
+        payload: result.data.message,
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: ADD_PAYMENT_DETAILS_ERROR });
+    }
+  };
 
 export const resetEarnings = () => (dispatch) => {
   try {
