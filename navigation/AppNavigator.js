@@ -1,8 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import {
-  getFocusedRouteNameFromRoute,
-} from "@react-navigation/native";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SIZES } from "../constants";
 import AuthNavigator from "./AuthNavigator";
@@ -13,6 +11,7 @@ import {
   PaymentBankDetails,
   Earnings,
   Withdrawals,
+  Withdraw,
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -82,6 +81,13 @@ const AppNavigator = ({ borderColor }) => {
         component={Withdrawals}
         options={{
           title: "Withdrawals",
+        }}
+      />
+      <Stack.Screen
+        name="withdraw"
+        component={Withdraw}
+        options={{
+          title: "INR withdrawal",
         }}
       />
     </Stack.Navigator>

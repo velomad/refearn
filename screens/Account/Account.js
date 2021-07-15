@@ -104,6 +104,25 @@ const Account = (props) => {
           Wallet Balance : &#8377;{" "}
           {props.userProfileData && props.userProfileData.result.wallet.balance}
         </Text>
+
+        {props.userProfileData &&
+        props.userProfileData.result.wallet.balance > 0 ? (
+          <View style={{ paddingTop: "10%", alignItems: "center" }}>
+            <CustomButton
+              onPress={() =>
+                props.navigation.navigate("withdraw", {
+                  data: props.userProfileData,
+                })
+              }
+              size="half"
+              title="Withdraw"
+              color={COLORS.primaryDark}
+              bold={true}
+              background={COLORS.white}
+              rounded={10}
+            />
+          </View>
+        ) : null}
       </View>
 
       {props.userProfileData &&

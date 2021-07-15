@@ -37,13 +37,15 @@ import { connect } from "react-redux";
 import { MainLayout } from "../../Layout";
 import { getUserProfile, getOffersData } from "../../store/action";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => {
-    return {
-      shouldShowAlert: true,
-    };
-  },
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => {
+//     return {
+//       shouldShowAlert: true,
+//       shouldPlaySound: true,
+//       shouldSetBadge: false,
+//     };
+//   },
+// });
 
 const Home = ({ navigation, getUserProfile, getOffersData }) => {
   const [token, setToken] = useState("");
@@ -64,40 +66,26 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
     // 		body: "This the body of local notification",
     // 	},
     // 	trigger: {
-    // 		seconds: 5,
+    // 		seconds: 2,
     // 	},
     // });
-
-    fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Accept-Encoding": "gzip, deflate",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        to: token,
-        data: { extraData: "Some Data" },
-        title: "Send via the token",
-        body: "Send via token",
-      }),
-    });
+    // fetch("https://exp.host/--/api/v2/push/send", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Accept-Encoding": "gzip, deflate",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     to: token,
+    //     data: { extraData: "Some Data" },
+    //     title: "Send via the token",
+    //     body: "Send via token",
+    //   }),
+    // });
   };
 
   getPushNotificationPermissions = async () => {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-
-    if (finalStatus !== "granted") {
-      return;
-    }
-
     setToken((await Notifications.getExpoPushTokenAsync()).data);
     console.log(
       "Notification Token: ",
@@ -137,8 +125,6 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
             fadingEdgeLength={20}
             showsVerticalScrollIndicator={false}
           >
-            <CustomButton title="trigger" onPress={TriggerNotification} />
-
             <View style={{}}>
               <Text
                 style={{
