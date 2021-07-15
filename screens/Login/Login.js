@@ -20,20 +20,16 @@ import useAuth from "../../auth/useAuth";
 import toastMessage from "../../utils/toastMessage";
 import Axios from "axios";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-// import * as firebase from "firebase";
 import firebase from '../../firebase';
 
 const Login = ({ navigation }) => {
   const auth = useAuth();
-  const [phoneNumber, setInputValue] = useState({});
-
   const recaptchaVerifier = React.useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState({});
+
   const [verificationId, setVerificationId] = React.useState();
   const [verificationCode, setVerificationCode] = React.useState();
   const firebaseConfig = firebase.apps.length ? firebase.app().options : undefined;
-  const [message, showMessage] = React.useState((!firebaseConfig || Platform.OS === 'web')
-    ? { text: "To get started, provide a valid firebase config in App.js and open this snack on an iOS or Android device." }
-    : undefined);
 
   const handleChange = (e) => {
     const { name, type, text } = e;
@@ -48,7 +44,7 @@ const Login = ({ navigation }) => {
     try {
       const result = await Axios.post(
         "https://www.questkart.com/25offers/api/v1/auth/login",
-        phoneNumber
+        phoneNumber.phoneNumber
       );
       auth.logIn(result.data.token);
     } catch (error) {
@@ -57,22 +53,12 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const getOtp = () => {
-    async () => {
-      try {
-        const phoneProvider = new firebase.auth.PhoneAuthProvider();
-        const verificationId = await phoneProvider.verifyPhoneNumber(
-          phoneNumber,
-          recaptchaVerifier.current
-        );
-        setVerificationId(verificationId);
-        showMessage({
-          text: "Verification code has been sent to your phone.",
-        });
-      } catch (err) {
-        showMessage({ text: `Error: ${err.message}`, color: "red" });
-      }
-    }
+  const getOtp = async () => {
+    let phNumber = '+91' + phoneNumber.phoneNumber;
+    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    phoneProvider
+      .verifyPhoneNumber(phNumber, recaptchaVerifier.current)
+      .then(setVerificationId);
   }
 
   return (
