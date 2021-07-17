@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -13,7 +13,11 @@ import customAxios from "../../utils/interceptor";
 const Withdraw = (props) => {
   const [inputValue, setInputValue] = useState({});
 
-  const data = props.route.params.data.result;
+  useEffect(() => {
+    props.getUserProfile();
+  }, []);
+
+  const data = props.data.result;
 
   const handleWithdrawAmount = async () => {
     const result = await customAxios.post("/payment/withdraw", inputValue);
@@ -80,7 +84,7 @@ const Withdraw = (props) => {
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            paddingVertical: "2%",
+            paddingVertical: "5%",
           }}
         >
           <Text style={styles.withdrawPercent}>25%</Text>
@@ -122,7 +126,11 @@ const Withdraw = (props) => {
   );
 };
 
-export default connect(null, { getUserProfile })(Withdraw);
+const mapStateToProps = ({ user }) => ({
+  data: user.profile,
+});
+
+export default connect(mapStateToProps, { getUserProfile })(Withdraw);
 
 const styles = StyleSheet.create({
   container: {
