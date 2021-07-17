@@ -25,7 +25,7 @@ const InputField = ({
       backgroundColor: backgroundColor,
       borderColor: COLORS.lightGray,
       borderWidth: 1,
-      marginBottom: isMargin && 20,
+      marginBottom: isMargin && "5%",
       borderRadius: SIZES.width / 40,
     },
   });
@@ -33,7 +33,6 @@ const InputField = ({
   return (
     <TextInput
       keyboardType={type}
-      elevation={1}
       style={styles.inputStyle}
       placeholderTextColor="#666"
       autoFocus={fieldFocus}

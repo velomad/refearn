@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -42,6 +42,21 @@ const Account = (props) => {
     setIsFetching(true);
     props.getUserProfile();
     setIsFetching(false);
+  };
+
+  const handleWithdrawScreen = () => {
+    if (
+      props.userProfileData &&
+      props.userProfileData.result.bankAccountDetails
+    ) {
+      props.navigation.navigate("withdraw", {
+        data: props.userProfileData,
+      });
+    } else {
+      props.navigation.navigate("bankpaymentdetails", {
+        operation: "post",
+      });
+    }
   };
 
   return (
@@ -120,11 +135,7 @@ const Account = (props) => {
         props.userProfileData.result.wallet.balance > 0 ? (
           <View style={{ paddingTop: "10%", alignItems: "center" }}>
             <CustomButton
-              onPress={() =>
-                props.navigation.navigate("withdraw", {
-                  data: props.userProfileData,
-                })
-              }
+              onPress={handleWithdrawScreen}
               size="half"
               title="Withdraw"
               color={COLORS.primaryDark}
@@ -227,7 +238,7 @@ const Account = (props) => {
               rounded={10}
               onPress={() =>
                 props.navigation.navigate("bankpaymentdetails", {
-                  oprtation: "post",
+                  operation: "post",
                 })
               }
             />

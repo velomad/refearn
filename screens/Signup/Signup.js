@@ -75,6 +75,7 @@ const Signup = ({ navigation }) => {
             type="default"
             value={inputValue.name}
             onChange={handleChange}
+            isMargin={true}
           />
           <InputField
             placeholder="Mobile Number"
@@ -82,6 +83,7 @@ const Signup = ({ navigation }) => {
             type="phone-pad"
             value={inputValue.phoneNumber}
             onChange={handleChange}
+            isMargin={true}
           />
           <InputField
             placeholder="Email"
@@ -89,11 +91,13 @@ const Signup = ({ navigation }) => {
             type="email-address"
             value={inputValue.email}
             onChange={handleChange}
+            isMargin={true}
           />
           <InputField
             placeholder="Refer Code"
             name="referCode"
             type="default"
+            isMargin={true}
             value={inputValue.referCode}
             onChange={handleChange}
           />

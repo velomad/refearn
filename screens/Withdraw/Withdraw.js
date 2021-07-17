@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image, Keyboard } from "react-native";
 import { connect } from "react-redux";
 import {
   FocusAwareStatusBar,
@@ -8,10 +8,13 @@ import {
 } from "../../components";
 import { COLORS, FONTS } from "../../constants";
 import { getUserProfile } from "../../store/action";
+import Modal from "react-native-modal";
 import customAxios from "../../utils/interceptor";
+import { party } from "../../constants/images";
 
 const Withdraw = (props) => {
   const [inputValue, setInputValue] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     props.getUserProfile();
@@ -20,9 +23,10 @@ const Withdraw = (props) => {
   const data = props.data.result;
 
   const handleWithdrawAmount = async () => {
+    Keyboard.dismiss();
     const result = await customAxios.post("/payment/withdraw", inputValue);
     props.getUserProfile();
-    console.log(result);
+    setModalVisible(true);
   };
 
   return (
@@ -31,6 +35,40 @@ const Withdraw = (props) => {
         barStyle="dark-content"
         backgroundColor={COLORS.white}
       />
+
+      <Modal
+        useNativeDriverForBackdrop={true}
+        useNativeDriver={true}
+        onBackdropPress={() => setModalVisible(false)}
+        onBackButtonPress={() => setModalVisible(false)}
+        hardwareAccelerated={true}
+        isVisible={modalVisible}
+      >
+        <View
+          style={{
+            borderRadius: 20,
+            backgroundColor: COLORS.white,
+            height: "20%",
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Image source={party} />
+            <Text style={{ ...FONTS.body5, color: COLORS.primaryDark }}>
+              Amount of &#8377; {inputValue.amount} transfered to the bank
+              account.
+            </Text>
+          </View>
+        </View>
+      </Modal>
+
+      <CustomButton title="open modal" onPress={() => setModalVisible(true)} />
 
       <Text style={styles.baseFont}>Withdraw INR to your bank account</Text>
 
@@ -75,12 +113,13 @@ const Withdraw = (props) => {
             ...FONTS.body6,
             textTransform: "uppercase",
             color: COLORS.gray,
+            paddingBottom: "5%",
           }}
         >
           Enter the amount you wish to withdraw
         </Text>
 
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
@@ -91,7 +130,7 @@ const Withdraw = (props) => {
           <Text style={styles.withdrawPercent}>50%</Text>
           <Text style={styles.withdrawPercent}>75%</Text>
           <Text style={styles.withdrawPercent}>100%</Text>
-        </View>
+        </View> */}
 
         <View
           style={{

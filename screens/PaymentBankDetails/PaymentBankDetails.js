@@ -32,6 +32,8 @@ const PaymentBankDetails = (props) => {
 
   const operation = props.route.params.operation;
 
+  console.log(props.route.params)
+
   const handleAddDetailsPress = async () => {
     await props.addUserPaymentDetails(inputValue, operation);
     props.navigation.goBack();
@@ -52,19 +54,25 @@ const PaymentBankDetails = (props) => {
             type="phone-pad"
             value={inputValue.accountNumber}
             onChange={handleChange}
+            isMargin={true}
+            backgroundColor={COLORS.lightGray}
           />
           <InputField
             placeholder="Re-Enter Account Number"
             name="reenteracctnum"
             type="phone-pad"
             secure={true}
+            isMargin={true}
             onChange={handleChange}
+            backgroundColor={COLORS.lightGray}
           />
           <InputField
             placeholder="IFSC"
             name="ifscCode"
             type="default"
+            backgroundColor={COLORS.lightGray}
             value={inputValue.ifscCode}
+            isMargin={true}
             onChange={handleChange}
           />
         </View>

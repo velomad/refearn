@@ -74,12 +74,12 @@ const MainLayout = ({
         />
       )}
 
-      {isTopOffers && (
+      {/* {isTopOffers && (
         <TouchableOpacity
           onPress={() => setTopOffers(false)}
           style={{
             position: "absolute",
-            top: "5%",
+            top: "20%",
             right: "5%",
           }}
         >
@@ -89,7 +89,7 @@ const MainLayout = ({
             color="white"
           />
         </TouchableOpacity>
-      )}
+      )} */}
 
       <Animated.FlatList
         horizontal
