@@ -170,15 +170,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   maincard: {
-    marginTop: "10%",
+    marginTop: SIZES.width / 7,
     alignItems: "center",
     backgroundColor: COLORS.primaryLight,
     marginHorizontal: SIZES.width / 15,
     borderRadius: 7,
   },
   image: {
-    width: SIZES.width / 4,
-    height: SIZES.width / 4,
+    width: SIZES.width / 5,
+    height: SIZES.width / 5,
     borderRadius: 60,
     position: "absolute",
     top: -SIZES.height / 20,

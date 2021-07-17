@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     maincard: {
-        marginTop: "10%",
+        marginTop: SIZES.width / 7,
         alignItems: "center",
         backgroundColor: COLORS.primaryLight,
         marginHorizontal: SIZES.width / 15,

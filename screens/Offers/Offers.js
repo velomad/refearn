@@ -11,30 +11,6 @@ import { COLORS, FONTS, SIZES } from "../../constants/theme";
 import { FocusAwareStatusBar } from "../../components";
 
 const Offers = ({ navigation }) => {
-  const [offerDetails, setOfferDetails] = useState([
-    {
-      name: "Equis Small Finance Bank",
-      subname: "Refer and Earn",
-      amount: "100",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-    {
-      name: "ICICI Finance Bank",
-      subname: "Refer and Earn",
-      amount: "4000",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-    {
-      name: "SBI Finance Bank",
-      subname: "Refer and Earn",
-      amount: "80000",
-      label: "Successful Selfe Savings Account Opened",
-      sublabel: "Open Zero Balance Savings Account",
-    },
-  ]);
-
   const handleOfferDetail = () => {
     navigation.navigate("offerdetails");
   };
