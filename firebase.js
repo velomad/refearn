@@ -2,13 +2,13 @@ import * as firebase from 'firebase';
 import '@firebase/auth';
 
 firebase.initializeApp({
-    apiKey: "AIzaSyB-zEd60K_eZ7-P7L7zulNOw5WVascT_GI",
-    authDomain: "nativecomponents-38b32.firebaseapp.com",
-    projectId: "nativecomponents-38b32",
-    storageBucket: "nativecomponents-38b32.appspot.com",
-    messagingSenderId: "1016113250265",
-    appId: "1:1016113250265:web:34acd9fd50db8fa1a523c8",
-    measurementId: "G-XHELRJ28QT"
+    apiKey: "AIzaSyAInBNUVvmYfSzYPhBot3f42o62emP4pnU",
+    authDomain: "offers-5d0d4.firebaseapp.com",
+    projectId: "offers-5d0d4",
+    storageBucket: "offers-5d0d4.appspot.com",
+    messagingSenderId: "331081074489",
+    appId: "1:331081074489:web:7034b53c630c47ab450ae8",
+    measurementId: "G-FEMSD2HKV9"
 });
 
 export default firebase;

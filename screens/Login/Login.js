@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   Text,
   View,
@@ -23,13 +22,12 @@ import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import firebase from '../../firebase';
 
 const Login = ({ navigation }) => {
-  const auth = useAuth();
   const recaptchaVerifier = React.useRef(null);
   const [phoneNumber, setPhoneNumber] = useState({});
-
   const [verificationId, setVerificationId] = React.useState();
-  const [verificationCode, setVerificationCode] = React.useState();
   const firebaseConfig = firebase.apps.length ? firebase.app().options : undefined;
+  const [isValidNumber, setIsValidNumber] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, type, text } = e;
@@ -37,28 +35,46 @@ const Login = ({ navigation }) => {
       ...prev,
       [name]: text,
     }));
+    if (text.length == 10) {
+      validateUser(text);
+    } else {
+      setIsValidNumber(false);
+    }
   };
 
-  const handleLogin = async () => {
-    Keyboard.dismiss();
+  const validateUser = async (text) => {
     try {
+      setIsLoading(true);
       const result = await Axios.post(
-        "https://www.questkart.com/25offers/api/v1/auth/login",
-        phoneNumber.phoneNumber
+        "https://www.questkart.com/25offers/api/v1/auth/validateuser",
+        {
+          'phoneNumber': text
+        }
       );
-      auth.logIn(result.data.token);
+      if (result.data.status == 'success') {
+        setIsValidNumber(true);
+        setIsLoading(false);
+      }
     } catch (error) {
       console.log(error);
       toastMessage(error.response.data.error.message);
+      setIsValidNumber(false);
+      setIsLoading(false);
     }
-  };
+  }
 
   const getOtp = async () => {
     let phNumber = '+91' + phoneNumber.phoneNumber;
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    phoneProvider
-      .verifyPhoneNumber(phNumber, recaptchaVerifier.current)
-      .then(setVerificationId);
+    const verificationId = await phoneProvider.verifyPhoneNumber(
+      phNumber,
+      recaptchaVerifier.current
+    );
+    setVerificationId(verificationId);
+    navigation.navigate('OTP', {
+      'verificationId': verificationId,
+      'phoneNumber': phoneNumber.phoneNumber
+    })
   }
 
   return (
@@ -66,6 +82,8 @@ const Login = ({ navigation }) => {
       <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={firebaseConfig}
+        attemptInvisibleVerification={true}
+        androidHardwareAccelerationDisabled
       />
       <TouchableOpacity
         style={styles.backButton}
@@ -108,11 +126,38 @@ const Login = ({ navigation }) => {
           value={phoneNumber.phoneNumber}
           onChange={handleChange}
         />
+        {
+          isLoading ?
+            <View style={styles.validuser}>
+              <Text
+                style={{
+                  color: COLORS.gray,
+                  fontSize: SIZES.body5,
+                }}
+              >
+                Checking...
+              </Text>
+            </View>
+            :
+            (phoneNumber.hasOwnProperty('phoneNumber') ? phoneNumber.phoneNumber.length > 9 : false) && !isValidNumber ?
+              <View style={styles.validuser}>
+                <Text
+                  style={{
+                    color: COLORS.danger,
+                    fontSize: SIZES.body5,
+                  }}
+                >
+                  Invalid Phone Number
+                </Text>
+              </View>
+              : null
+        }
+
         <View style={{ paddingTop: "5%" }}>
           <CustomButton
-            title="Login
-            "
-            background={COLORS.primary}
+            title="Get OTP"
+            disab
+            background={!!isValidNumber ? COLORS.primary : COLORS.gray}
             color={COLORS.white}
             rounded={5}
             onPress={getOtp}
@@ -174,4 +219,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 5,
   },
+  validuser: {
+    alignSelf: 'flex-start',
+    marginTop: -SIZES.height / 60,
+    marginHorizontal: SIZES.width / 18,
+  }
 });

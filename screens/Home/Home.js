@@ -7,6 +7,7 @@ import {
   Permission,
   StyleSheet,
   TextInput,
+  RefreshControl,
   ScrollView,
 } from "react-native";
 import { FocusAwareStatusBar, Card, CustomButton } from "../../components";
@@ -46,6 +47,8 @@ Notifications.setNotificationHandler({
 });
 
 const Home = ({ navigation, getUserProfile, getOffersData }) => {
+
+  const [isFetching, setIsFetching] = useState(false);
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -105,6 +108,12 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
     );
   };
 
+  const onRefresh = () => {
+    setIsFetching(true);
+    getUserProfile();
+    setIsFetching(false);
+  };
+
   return (
     <MainLayout navigation={navigation}>
       <View style={styles.container} showsVerticalScrollIndicator={false}>
@@ -136,6 +145,9 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
           <ScrollView
             fadingEdgeLength={20}
             showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+            }
           >
             <CustomButton title="trigger" onPress={TriggerNotification} />
 
