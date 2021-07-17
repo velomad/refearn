@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { FocusAwareStatusBar, CustomButton } from "../../components";
 import { COLORS, FONTS, SIZES } from "../../constants";
@@ -15,8 +16,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useAuth from "../../auth/useAuth";
 import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
+import { getUserProfile } from "../../store/action";
 
 const Account = (props) => {
+  const [isFetching, setIsFetching] = useState(false);
+
   const auth = useAuth();
 
   const onCopy = () => {
@@ -34,12 +38,19 @@ const Account = (props) => {
     auth.logOut();
   };
 
-  console.log(props.userProfileData);
+  const onRefresh = () => {
+    setIsFetching(true);
+    props.getUserProfile();
+    setIsFetching(false);
+  };
 
   return (
     <ScrollView
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+      }
     >
       <FocusAwareStatusBar
         barStyle="dark-content"
@@ -104,6 +115,25 @@ const Account = (props) => {
           Wallet Balance : &#8377;{" "}
           {props.userProfileData && props.userProfileData.result.wallet.balance}
         </Text>
+
+        {props.userProfileData &&
+        props.userProfileData.result.wallet.balance > 0 ? (
+          <View style={{ paddingTop: "10%", alignItems: "center" }}>
+            <CustomButton
+              onPress={() =>
+                props.navigation.navigate("withdraw", {
+                  data: props.userProfileData,
+                })
+              }
+              size="half"
+              title="Withdraw"
+              color={COLORS.primaryDark}
+              bold={true}
+              background={COLORS.white}
+              rounded={10}
+            />
+          </View>
+        ) : null}
       </View>
 
       {props.userProfileData &&
@@ -246,7 +276,7 @@ const mapStateToProps = ({ user }) => ({
   userProfileData: user.profile,
 });
 
-export default connect(mapStateToProps)(Account);
+export default connect(mapStateToProps, { getUserProfile })(Account);
 
 const styles = StyleSheet.create({
   container: {

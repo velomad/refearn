@@ -9,12 +9,31 @@ const InputField = ({
   name,
   placeholder,
   type,
+  backgroundColor,
   onChange,
+  height,
+  width,
+  isMargin,
 }) => {
+  const styles = StyleSheet.create({
+    inputStyle: {
+      width: !width ? SIZES.width / 1.1 : width,
+      height: !height ? SIZES.height / 15 : SIZES.height / height,
+      paddingHorizontal: 10,
+      fontSize: SIZES.h4,
+      color: COLORS.gray,
+      backgroundColor: backgroundColor,
+      borderColor: COLORS.lightGray,
+      borderWidth: 1,
+      marginBottom: isMargin && 20,
+      borderRadius: SIZES.width / 40,
+    },
+  });
+
   return (
     <TextInput
       keyboardType={type}
-      elevation={2}
+      elevation={1}
       style={styles.inputStyle}
       placeholderTextColor="#666"
       autoFocus={fieldFocus}
@@ -27,16 +46,3 @@ const InputField = ({
 };
 
 export default InputField;
-
-const styles = StyleSheet.create({
-  inputStyle: {
-    width: SIZES.width / 1.1,
-    height: SIZES.height / 15,
-    paddingHorizontal: 10,
-    marginBottom: 20,
-    fontSize: SIZES.h4,
-    color: COLORS.gray,
-    backgroundColor: "#fff",
-    borderRadius: SIZES.width / 40,
-  },
-});

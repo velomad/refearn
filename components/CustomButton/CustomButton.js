@@ -23,7 +23,7 @@ const CustomButton = ({
         style={{
           width: SIZES.width / calculatedSize,
           backgroundColor: background,
-          paddingVertical: SIZES.height / 60,
+          paddingVertical: SIZES.height / 90,
           borderRadius: rounded,
           elevation,
         }}
