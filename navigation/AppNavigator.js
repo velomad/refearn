@@ -12,6 +12,7 @@ import {
   Earnings,
   Withdrawals,
   Withdraw,
+  OfferForm
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -88,6 +89,13 @@ const AppNavigator = ({ borderColor }) => {
         component={Withdraw}
         options={{
           title: "INR withdrawal",
+        }}
+      />
+      <Stack.Screen
+        name="offerform"
+        component={OfferForm}
+        options={{
+          title: "Offer Form",
         }}
       />
     </Stack.Navigator>

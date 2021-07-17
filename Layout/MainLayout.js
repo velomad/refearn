@@ -104,9 +104,11 @@ const MainLayout = ({
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity onPress={() => handleOfferDetail(item)}>
+            <TouchableOpacity activeOpacity={1} onPress={() => handleOfferDetail(item)}>
               <View
                 style={{
+                  borderRadius: 10,
+                  backgroundColor: '#fff',
                   marginLeft: index == 0 ? SIZES.width / 20 : SIZES.width / 20,
                   marginRight:
                     index == offersDataFiltered.length - 1
@@ -127,15 +129,35 @@ const MainLayout = ({
                   />
                 </View>
                 <View style={styles.offerImageContainer}>
-                  <Text
+                  <View
                     style={{
-                      ...FONTS.body5,
-                      fontWeight: "bold",
-                      color: COLORS.primaryDark,
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: 5,
                     }}
                   >
-                    {item.name}
-                  </Text>
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: COLORS.lightGray,
+                        height: SIZES.width / 5,
+                        width: SIZES.width / 5,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...FONTS.body3,
+                          color: COLORS.gray,
+                          fontWeight: '700'
+                        }}
+                      >
+                        &#x20b9; {item.userPayout}
+                      </Text>
+                    </View>
+                  </View>
                 </View>
                 <Card
                   contentContainerStyle={{
@@ -143,45 +165,27 @@ const MainLayout = ({
                   }}
                   key={index}
                 >
-                  <LinearGradient
+                  <View
                     colors={[COLORS.primaryLight, COLORS.white]}
                     style={{ borderRadius: 10 }}
                   >
                     <View style={styles.offerContainer}>
-                      <View
+                      <Text
                         style={{
-                          flexDirection: "row",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          marginTop: 5,
+                          ...FONTS.body5,
+                          fontWeight: "bold",
+                          textAlign: 'center',
+                          color: COLORS.primaryDark,
                         }}
                       >
-                        <View
-                          style={{
-                            justifyContent: "center",
-                            alignItems: "center",
-                            backgroundColor: COLORS.primary,
-                            height: SIZES.width / 6,
-                            width: SIZES.width / 6,
-                            borderRadius: 10,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              ...FONTS.body3,
-                              color: COLORS.white,
-                            }}
-                          >
-                            &#x20b9; {item.userPayout}
-                          </Text>
-                        </View>
-                      </View>
+                        {item.name}
+                      </Text>
                       <Text
                         style={{
                           ...FONTS.body6,
                           color: COLORS.primaryDark,
                           textAlign: "center",
-                          marginTop: 15,
+                          marginTop: '3%',
                         }}
                       >
                         {item.payoutOnText}
@@ -197,7 +201,7 @@ const MainLayout = ({
                         {item.taskTest}
                       </Text>
                     </View>
-                  </LinearGradient>
+                  </View>
                 </Card>
               </View>
             </TouchableOpacity>
@@ -210,13 +214,12 @@ const MainLayout = ({
 
 const styles = StyleSheet.create({
   offerImageContainer: {
-    top: "10%",
     justifyContent: "center",
     alignItems: "center",
     zIndex: 100,
   },
   offerContainer: {
-    marginTop: "15%",
+    marginTop: "6%",
     margin: "8%",
   },
   offerImageStyle: {

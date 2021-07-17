@@ -27,7 +27,7 @@ const Finance = (props) => {
   }, []);
 
   const handleOfferDetail = (data) => {
-    props.navigation.navigate("offerdetails", { offerDetails: data });
+    props.navigation.navigate("offerdetails", { offerDetails: data, shareOffer: false });
   };
 
   const handleToolTip = (offerid) => {

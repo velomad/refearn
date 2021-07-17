@@ -51,6 +51,8 @@ const Anouncements = () => {
                   padding: "5%",
                   backgroundColor: "#FFF9F1",
                   borderRadius: 20,
+                  borderWidth: 1,
+                  borderColor: "#DCDCDC",
                 }}
               >
                 <Text style={{ ...FONTS.body4, color: "#FA8A05" }}>

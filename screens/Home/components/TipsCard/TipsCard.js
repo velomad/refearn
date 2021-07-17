@@ -52,6 +52,8 @@ const TipsCard = () => {
                   width: SIZES.width / 1.3,
                   backgroundColor: item.backgroundColor,
                   borderRadius: 20,
+                  borderWidth: 1,
+                  borderColor: "#DCDCDC",
                 }}
               >
                 <View

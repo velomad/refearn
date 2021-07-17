@@ -21,26 +21,35 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
   const [singleOfferSteps, setSingleOfferSteps] = useState([]);
 
   useEffect(() => {
-    const { offerDetails } = route.params;
+    const { offerDetails, shareOffer } = route.params;
     setSingleOfferDetails(offerDetails);
     setSingleOfferBenefits(offerDetails.benefits);
     setSingleOfferInfos(offerDetails.infos);
     setSingleOfferSteps(offerDetails.steps);
-  }, []);
+    if (shareOffer) {
+      setTimeout(() => {
+        onShare(2);
+      }, 500);
+    }
+  }, [route.params]);
 
-  const onShare = async () => {
+  const onShare = async (formEnabled) => {
     try {
-      const result = await Share.share({
-        message: singleOfferData.offerUrl + '?code=' + userProfileData.result.uniqueCode,
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
+      if (formEnabled == 1) {
+        navigation.navigate('offerform');
+      } else {
+        const result = await Share.share({
+          message: singleOfferData.offerUrl + '?code=' + userProfileData.result.uniqueCode,
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
         }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
       }
     } catch (error) {
       alert(error.message);
@@ -98,7 +107,7 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
             >
               {singleOfferData.taskTest}
             </Text>
-            <TouchableOpacity style={styles.button} onPress={onShare}>
+            <TouchableOpacity style={styles.button} onPress={() => onShare(singleOfferData.isFormEnabled)}>
               <Text
                 style={{
                   color: COLORS.primaryDark,
