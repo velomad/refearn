@@ -46,7 +46,7 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
         options={{
           // tabBarBadge: "1",
           tabBarIcon: ({ color }) => (
-            <Icon.AntDesign name="home" size={SIZES.width / 15} color={color} />
+            <Icon.AntDesign name="home" size={SIZES.width / 18} color={color} />
           ),
         }}
       />
@@ -57,7 +57,7 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
           tabBarIcon: ({ color }) => (
             <Icon.MaterialIcons
               name="local-offer"
-              size={SIZES.width / 15}
+              size={SIZES.width / 18}
               color={color}
             />
           ),
@@ -83,7 +83,7 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
           tabBarIcon: ({ color }) => (
             <Icon.MaterialCommunityIcons
               name="transit-connection-variant"
-              size={SIZES.width / 15}
+              size={SIZES.width / 18}
               color={color}
             />
           ),
@@ -96,7 +96,7 @@ const TabNavigator = ({ setTopOffers, isTopOffers }) => {
           tabBarIcon: ({ color }) => (
             <Icon.MaterialIcons
               name="account-circle"
-              size={SIZES.width / 15}
+              size={SIZES.width / 18}
               color={color}
             />
           ),

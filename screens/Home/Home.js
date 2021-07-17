@@ -38,18 +38,17 @@ import { connect } from "react-redux";
 import { MainLayout } from "../../Layout";
 import { getUserProfile, getOffersData } from "../../store/action";
 
-// Notifications.setNotificationHandler({
-//   handleNotification: async () => {
-//     return {
-//       shouldShowAlert: true,
-//       shouldPlaySound: true,
-//       shouldSetBadge: false,
-//     };
-//   },
-// });
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    };
+  },
+});
 
 const Home = ({ navigation, getUserProfile, getOffersData }) => {
-
   const [isFetching, setIsFetching] = useState(false);
   const [token, setToken] = useState("");
 
@@ -123,15 +122,14 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
         <View
           style={{
             flex: 1,
-            backgroundColor: "#fff",
-            bottom: "5%",
-            paddingTop: "10%",
+            backgroundColor: "#f1f1f1",
+            // bottom: "5%",
+            paddingTop: "3%",
             borderTopStartRadius: 30,
             borderTopEndRadius: 30,
           }}
         >
           <ScrollView
-            fadingEdgeLength={20}
             showsVerticalScrollIndicator={false}
             refreshControl={
               <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
@@ -342,14 +340,14 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
 export default connect(null, { getUserProfile, getOffersData })(Home);
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.white },
+  container: { flex: 1 },
   secondaryContainer: {
     marginVertical: "5%",
     marginHorizontal: "5%",
   },
   homeHeaderImage: {
     width: "100%",
-    paddingBottom: "15%",
+    paddingBottom: "5%",
   },
   guideContainer: {
     borderRadius: 10,

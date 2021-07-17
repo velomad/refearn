@@ -6,9 +6,15 @@ import { background } from "../../../../constants/images";
 import { connect } from "react-redux";
 
 const EarningsStats = (props) => {
-  const unlocked = false;
+  const unlocked =
+    props.userProfileData &&
+    props.userProfileData.result.level.name === "level 0"
+      ? false
+      : true;
   const referralUnlock =
-    props.userProfileData && props.userProfileData.result.isRefered;
+    props.userProfileData && JSON.parse(props.userProfileData.result.isRefered);
+
+  console.log(props.userProfileData);
 
   return (
     <View style={styles.container}>

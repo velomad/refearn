@@ -1,7 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Finance, Others, Educational } from "../screens";
-import { COLORS } from "../constants";
+import { COLORS, FONTS } from "../constants";
+import { Text } from "react-native";
 const Tab = createMaterialTopTabNavigator();
 
 const TopOffersTabs = () => {
@@ -21,9 +22,35 @@ const TopOffersTabs = () => {
         },
       }}
     >
-      <Tab.Screen name="finance" component={Finance} />
-      <Tab.Screen name="education" component={Educational} />
-      <Tab.Screen name="others" component={Others} />
+      <Tab.Screen
+        name="Finance"
+        options={{
+          title: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.white }}>Finance</Text>
+          ),
+        }}
+        component={Finance}
+      />
+      <Tab.Screen
+        name="Education"
+        options={{
+          title: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.white }}>
+              Education
+            </Text>
+          ),
+        }}
+        component={Educational}
+      />
+      <Tab.Screen
+        name="others"
+        options={{
+          title: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.white }}>Others</Text>
+          ),
+        }}
+        component={Others}
+      />
     </Tab.Navigator>
   );
 };
