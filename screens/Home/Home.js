@@ -140,7 +140,7 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
                 style={{
                   paddingHorizontal: "5%",
                   paddingBottom: "5%",
-                  ...FONTS.body3,
+                  ...FONTS.body4,
                   color: COLORS.gray,
                 }}
               >
@@ -151,7 +151,7 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
 
             <View>
               <Text
-                style={{ padding: "5%", ...FONTS.body3, color: COLORS.gray }}
+                style={{ padding: "5%", ...FONTS.body4, color: COLORS.gray }}
               >
                 Announcements
               </Text>

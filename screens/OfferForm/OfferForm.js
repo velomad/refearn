@@ -1,116 +1,108 @@
 import React, { useState } from "react";
 import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  ScrollView,
+    Text,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "../../utils/interceptor";
 import toastMessage from "../../utils/toastMessage";
 import { COLORS, FONTS, SIZES } from "../../constants";
 import {
-  CustomButton,
-  InputField,
-  FocusAwareStatusBar,
-  KeyboardAvoidingWrapper,
+    CustomButton,
+    InputField,
+    FocusAwareStatusBar,
+    KeyboardAvoidingWrapper,
 } from "../../components";
 
-const Signup = ({ navigation }) => {
-  const [inputValue, setInputValue] = useState({});
+const OfferForm = ({ navigation }) => {
+    const [inputValue, setInputValue] = useState({});
 
-  const handleChange = (e) => {
-    const { name, type, text } = e;
-    setInputValue((prev) => ({
-      ...prev,
-      [name]: text,
-    }));
-  };
+    const handleChange = (e) => {
+        const { name, type, text } = e;
+        setInputValue((prev) => ({
+            ...prev,
+            [name]: text,
+        }));
+    };
 
-  const handleSignup = async () => {
-    try {
-      const result = await axios.post(`/auth/register`, inputValue);
-      if (result) navigation.navigate("login");
-    } catch (error) {
-      console.log(error);
-      toastMessage(error.response.data.error.message);
-    }
-  };
+    const handleFormSubmit = async () => {
+        try {
+            // const result = await axios.post(`/lead/create`, inputValue);
+            // if (result)
+                navigation.navigate('offerdetails', {
+                    shareOffer: true
+                });
+        } catch (error) {
+            console.log(error);
+            toastMessage(error.response.data.error.message);
+        }
+    };
 
-  return (
-    <KeyboardAvoidingWrapper>
-      <View style={styles.container}>
-        <FocusAwareStatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.lightGray}
-        />
-        <View style={styles.formContainer}>
-          <InputField
-            placeholder="name"
-            name="name"
-            type="default"
-            value={inputValue.name}
-            onChange={handleChange}
-          />
-          <InputField
-            placeholder="Email"
-            name="email"
-            type="email-address"
-            value={inputValue.email}
-            onChange={handleChange}
-          />
-          <InputField
-            placeholder="Mobile Number"
-            name="phoneNumber"
-            type="phone-pad"
-            value={inputValue.phoneNumber}
-            onChange={handleChange}
-          />
-          <View style={{ paddingTop: "5%" }}>
-            <CustomButton
-              title="Submit"
-              background={COLORS.primary}
-              color={COLORS.white}
-              rounded={5}
-              onPress={handleSignup}
+    return (
+        <View style={styles.container}>
+            <FocusAwareStatusBar
+                barStyle="dark-content"
+                backgroundColor={COLORS.lightGray}
             />
-          </View>
+            <View style={styles.formContainer}>
+                <View style={styles.formInput}>
+                    <InputField
+                        placeholder="Name"
+                        name="name"
+                        type="default"
+                        value={inputValue.name}
+                        onChange={handleChange}
+                    />
+                </View>
+                <View style={styles.formInput}>
+                    <InputField
+                        placeholder="Email"
+                        name="email"
+                        type="email-address"
+                        value={inputValue.email}
+                        onChange={handleChange}
+                    />
+                </View>
+                <View style={styles.formInput}>
+                    <InputField
+                        placeholder="Mobile Number"
+                        name="phoneNumber"
+                        type="phone-pad"
+                        value={inputValue.phoneNumber}
+                        onChange={handleChange}
+                    />
+                </View>
+            </View>
+            <View style={{ paddingTop: "5%" }}>
+                <CustomButton
+                    title="Submit"
+                    background={COLORS.primary}
+                    color={COLORS.white}
+                    rounded={5}
+                    onPress={handleFormSubmit}
+                />
+            </View>
         </View>
-      </View>
-    </KeyboardAvoidingWrapper>
-  );
+    );
 };
 
-export default Signup;
+export default OfferForm;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: "15%",
-  },
-  backButton: {
-    backgroundColor: COLORS.primaryLight,
-    height: SIZES.width / 8,
-    width: SIZES.width / 4.5,
-    alignItems: "center",
-    justifyContent: "center",
-    borderTopEndRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  introText: {
-    marginVertical: SIZES.height / 40,
-    marginHorizontal: SIZES.width / 40,
-  },
-  formContainer: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    marginVertical: SIZES.height / 20,
-  },
-  secondaryText: {
-    flexDirection: "row",
-    paddingVertical: 5,
-  },
+    container: {
+        flex: 1,
+        justifyContent: "space-between",
+        marginVertical: SIZES.height / 15,
+        alignItems: "center",
+    },
+    formContainer: {
+        alignItems: "center",
+    },
+    formInput: {
+        paddingVertical: SIZES.height / 130
+    }
 });
