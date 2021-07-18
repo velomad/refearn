@@ -20,6 +20,7 @@
     "expo-app-loading": "^1.1.2",
     "expo-blur": "~9.0.3",
     "expo-clipboard": "^1.0.2",
+    "expo-constants": "^11.0.1",
     "expo-firebase-recaptcha": "^1.4.2",
     "expo-font": "^9.1.0",
     "expo-haptics": "^10.0.0",

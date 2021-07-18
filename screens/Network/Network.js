@@ -1,18 +1,124 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
+  RefreshControl,
+  FlatList
 } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
 import { FocusAwareStatusBar } from "../../components";
-import { color } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Clipboard from "expo-clipboard";
+import { connect } from "react-redux";
+import toastMessage from "../../utils/toastMessage";
+import Axios from "axios";
+import customAxios from "../../utils/interceptor";
 
-const Network = () => {
+const Item = ({ itemdata }) => (
+  <View
+    style={{
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingVertical: SIZES.width / 30,
+      marginHorizontal: SIZES.width / 25,
+    }}
+  >
+    <View
+      style={{
+        flexDirection: "column",
+        minWidth: SIZES.width / 5
+      }}
+    >
+      <Text
+        style={{
+          color: COLORS.gray,
+          fontSize: SIZES.body5,
+          fontWeight: "700",
+        }}
+      >
+        {itemdata.user.name}
+      </Text>
+
+      <Text
+        style={{
+          color: COLORS.gray,
+          fontSize: SIZES.body5,
+          fontWeight: "600",
+        }}
+      >
+        Level {itemdata.user.levelId}
+      </Text>
+    </View>
+    <View style={{ minWidth: SIZES.width / 20 }}>
+      <Text
+        style={{
+          color: COLORS.gray,
+          fontSize: SIZES.body5,
+          fontWeight: "700",
+          textAlign: 'right'
+        }}
+      >
+        &#8377;{itemdata.user.stats.totalEarnings}
+      </Text>
+    </View>
+    <View style={{ minWidth: SIZES.width / 20 }}>
+      <Text
+        style={{
+          color: COLORS.success,
+          fontSize: SIZES.body5,
+          fontWeight: "700",
+        }}
+      >
+        &#8377;{itemdata.user.stats.totalEarnings / 100 * 10}
+      </Text>
+    </View>
+  </View>
+);
+
+const Network = (props) => {
+  const [networkDetails, setNetWorkDetails] = useState([]);
+  const [networkLength, setNetWorkNetworkLength] = useState([]);
+  const [friendEarningTotal, setFriendEarningTotal] = useState([]);
+  const [yourEarningTotal, setYourEarningTotal] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    fetchUserNetWork();
+  }, [props.userProfileData.result.uniqueCode]);
+
+  const onRefresh = () => {
+    setIsFetching(true);
+    fetchUserNetWork();
+    setIsFetching(false);
+  };
+
+  const fetchUserNetWork = async () => {
+    try {
+      const result = await customAxios.get(`/user/network/${props.userProfileData.result.uniqueCode}`);
+      setNetWorkDetails(result.data.result);
+      setNetWorkNetworkLength(result.data.result.length);
+      let friendEarningtotal = 0;
+      let yourEarningtotal = 0;
+      result.data.result.map((el, index) => {
+        friendEarningtotal += Number(el.user.stats.totalEarnings);
+        yourEarningtotal += Number(el.user.stats.totalEarnings / 100 * 10);
+      });
+      setFriendEarningTotal(friendEarningtotal);
+      setYourEarningTotal(yourEarningtotal);
+    } catch (error) {
+      console.log(error);
+      toastMessage(error.response.data.error.message);
+    }
+  };
+
+  const renderItem = (itemdata) => (
+    <Item itemdata={itemdata.item} />
+  );
+
   const onCopy = () => {
     Clipboard.setString("code");
     ToastAndroid.showWithGravityAndOffset(
@@ -23,10 +129,10 @@ const Network = () => {
       SIZES.height / 4
     );
   };
+
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      showsHorizontalScrollIndicator={false}
+    <View
+      style={styles.container}
     >
       <FocusAwareStatusBar
         barStyle="dark-content"
@@ -34,15 +140,30 @@ const Network = () => {
       />
       <View>
         <View style={styles.cardContainer}>
-          <View>
-            <Text
-              style={{
-                color: COLORS.white,
-                fontWeight: "700",
-              }}
-            >
-              Referral Code
-            </Text>
+          <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+            <View>
+              <Text
+                style={{
+                  color: COLORS.white,
+                  fontWeight: "700",
+                }}
+              >
+                Referral Code
+              </Text>
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontSize: SIZES.body5,
+                  color: COLORS.white,
+                  fontWeight: "600",
+                  width: SIZES.width / 3,
+                  marginVertical: SIZES.width / 140,
+                }}
+              >
+                Share this refer code with your friends
+              </Text>
+            </View>
           </View>
           <View>
             <TouchableOpacity
@@ -54,7 +175,7 @@ const Network = () => {
                 size={SIZES.width / 25}
                 color={COLORS.white}
               />
-              <Text style={styles.uniqueCode}>562874</Text>
+              <Text style={styles.uniqueCode}>{props.userProfileData.result.uniqueCode}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -138,138 +259,47 @@ const Network = () => {
                 fontWeight: "700",
               }}
             >
-              1 in your network
+              {networkLength} in your network
             </Text>
             <Text
               style={{
                 color: COLORS.greenLight,
                 fontSize: SIZES.body5,
                 fontWeight: "700",
+                minWidth: SIZES.width / 6.5
               }}
             >
-              &#8377;100
+              &#8377;{friendEarningTotal}
             </Text>
             <Text
               style={{
-                color: COLORS.gray,
+                color: COLORS.black,
                 fontSize: SIZES.body5,
                 fontWeight: "700",
+                minWidth: SIZES.width / 20
               }}
             >
-              &#8377;5900
+              &#8377;{yourEarningTotal}
             </Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingVertical: SIZES.width / 30,
-              marginHorizontal: SIZES.width / 25,
-            }}
-          >
-            <View
+          <SafeAreaView>
+            <FlatList
               style={{
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
+                height: SIZES.width / 1.4
               }}
-            >
-              <Text
-                style={{
-                  color: COLORS.gray,
-                  fontSize: SIZES.body5,
-                  fontWeight: "700",
-                }}
-              >
-                Armaan
-              </Text>
-
-              <Text
-                style={{
-                  color: COLORS.gray,
-                  fontSize: SIZES.body5,
-                  fontWeight: "600",
-                }}
-              >
-                0 Users in network
-              </Text>
-            </View>
-            <Text
-              style={{
-                color: COLORS.greenLight,
-                fontSize: SIZES.body5,
-                fontWeight: "700",
-              }}
-            >
-              &#8377;100
-            </Text>
-            <Text
-              style={{
-                color: COLORS.gray,
-                fontSize: SIZES.body5,
-                fontWeight: "700",
-              }}
-            >
-              &#8377;5900
-            </Text>
-          </View>
-
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingVertical: SIZES.width / 30,
-              marginHorizontal: SIZES.width / 25,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "column",
-              }}
-            >
-              <Text
-                style={{
-                  color: COLORS.gray,
-                  fontSize: SIZES.body5,
-                  fontWeight: "700",
-                }}
-              >
-                Armaan
-              </Text>
-
-              <Text
-                style={{
-                  color: COLORS.gray,
-                  fontSize: SIZES.body5,
-                  fontWeight: "600",
-                }}
-              >
-                0 Users in network
-              </Text>
-            </View>
-            <Text
-              style={{
-                color: COLORS.greenLight,
-                fontSize: SIZES.body5,
-                fontWeight: "700",
-              }}
-            >
-              &#8377;100
-            </Text>
-            <Text
-              style={{
-                color: COLORS.gray,
-                fontSize: SIZES.body5,
-                fontWeight: "700",
-              }}
-            >
-              &#8377;5900
-            </Text>
-          </View>
-          <View>
-            <Text></Text>
-          </View>
+              data={networkDetails}
+              renderItem={item => renderItem(item)}
+              keyExtractor={item => item.id.toString()}
+              refreshControl={
+                <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+              }
+            />
+          </SafeAreaView>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -285,10 +315,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: SIZES.width / 40,
     marginVertical: SIZES.width / 20,
-    paddingVertical: SIZES.width / 40,
+    paddingVertical: SIZES.width / 20,
+    paddingHorizontal: SIZES.width / 30,
     borderRadius: 7,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#cccccc",
   },
   button: {
     width: "80%",
@@ -311,7 +342,7 @@ const styles = StyleSheet.create({
   },
   uniqueCode: {
     textAlign: "center",
-    ...FONTS.body5,
+    ...FONTS.body4,
     color: COLORS.white,
   },
   uniqueCodeContainer: {
@@ -326,4 +357,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
-export default Network;
+
+const mapStateToProps = ({ user }) => ({
+  userProfileData: user.profile,
+});
+
+export default connect(mapStateToProps)(Network);

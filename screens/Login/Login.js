@@ -19,15 +19,13 @@ import useAuth from "../../auth/useAuth";
 import toastMessage from "../../utils/toastMessage";
 import Axios from "axios";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import Constants from 'expo-constants';
 import firebase from "../../firebase";
 
 const Login = ({ navigation }) => {
   const recaptchaVerifier = React.useRef(null);
   const [phoneNumber, setPhoneNumber] = useState({});
   const [verificationId, setVerificationId] = React.useState();
-  const firebaseConfig = firebase.apps.length
-    ? firebase.app().options
-    : undefined;
   const [isValidNumber, setIsValidNumber] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -83,7 +81,7 @@ const Login = ({ navigation }) => {
     <View style={styles.container}>
       <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
-        firebaseConfig={firebaseConfig}
+        firebaseConfig={Constants.manifest.extra.firebase}
         attemptInvisibleVerification={true}
         androidHardwareAccelerationDisabled
       />

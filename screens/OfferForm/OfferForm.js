@@ -31,8 +31,8 @@ const OfferForm = ({ navigation }) => {
 
     const handleFormSubmit = async () => {
         try {
-            // const result = await axios.post(`/lead/create`, inputValue);
-            // if (result)
+            const result = await axios.post(`/user/addlead`, inputValue);
+            if (result)
                 navigation.navigate('offerdetails', {
                     shareOffer: true
                 });
