@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FONTS, COLORS, SIZES } from "../../../../constants";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -27,9 +27,12 @@ const Header = (props) => {
           {props.userProfileData && props.userProfileData.result.level.name}
         </Text>
       </View>
-      <View>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => props.navigation.navigate("notification")}
+      >
         <FontAwesome5 name="bell" size={SIZES.width / 20} color="white" />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

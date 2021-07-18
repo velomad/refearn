@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { SIZES } from "../constants";
+import { COLORS, FONTS, SIZES } from "../constants";
 import AuthNavigator from "./AuthNavigator";
 import TabNavigator from "./TabNavigator";
 import { Header } from "./components";
@@ -12,7 +12,8 @@ import {
   Earnings,
   Withdrawals,
   Withdraw,
-  OfferForm
+  OfferForm,
+  Notification,
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -60,42 +61,75 @@ const AppNavigator = ({ borderColor }) => {
         name="offerdetails"
         component={OfferDetails}
         options={{
-          title: "Offer Details",
+          headerTitle: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.gray }}>
+              Offer Details
+            </Text>
+          ),
         }}
       />
       <Stack.Screen
         name="bankpaymentdetails"
         component={PaymentBankDetails}
         options={{
-          title: "Enter Bank Details",
+          headerTitle: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.gray }}>
+              Enter Bank Details
+            </Text>
+          ),
         }}
       />
       <Stack.Screen
         name="earnings"
         component={Earnings}
         options={{
-          title: "Earnings",
+          headerTitle: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.gray }}>Earnings</Text>
+          ),
         }}
       />
       <Stack.Screen
         name="withdrawals"
         component={Withdrawals}
         options={{
-          title: "Withdrawals",
+          headerTitle: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.gray }}>
+              Withdrawals
+            </Text>
+          ),
         }}
       />
       <Stack.Screen
         name="withdraw"
         component={Withdraw}
         options={{
-          title: "INR withdrawal",
+          headerTitle: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.gray }}>
+              INR withdrawal
+            </Text>
+          ),
         }}
       />
       <Stack.Screen
         name="offerform"
         component={OfferForm}
         options={{
-          title: "Offer Form",
+          headerTitle: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.gray }}>
+              Offer Form
+            </Text>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="notification"
+        component={Notification}
+        options={{
+          headerTitle: () => (
+            <Text style={{ ...FONTS.body3, color: COLORS.gray }}>
+              Notifications
+            </Text>
+          ),
         }}
       />
     </Stack.Navigator>

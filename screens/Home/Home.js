@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ImageBackground,
   View,
@@ -43,7 +43,7 @@ Notifications.setNotificationHandler({
     return {
       shouldShowAlert: true,
       shouldPlaySound: true,
-      shouldSetBadge: false,
+      shouldSetBadge: true,
     };
   },
 });
@@ -51,6 +51,10 @@ Notifications.setNotificationHandler({
 const Home = ({ navigation, getUserProfile, getOffersData }) => {
   const [isFetching, setIsFetching] = useState(false);
   const [token, setToken] = useState("");
+  const [notification, setNotification] = useState("");
+  const [badge, setBadge] = useState();
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   useEffect(() => {
     getUserProfile();
@@ -59,7 +63,25 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
 
   useEffect(() => {
     getPushNotificationPermissions();
+
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener(async (notification) => {
+        setNotification(notification);
+        console.log("===================================", notification);
+        await Notifications.setBadgeCountAsync(0);
+      });
+
+    getBadgeCount();
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+    };
   });
+
+  // const badgeSetter = async () => {
+  // };
 
   const TriggerNotification = () => {
     // Notifications.scheduleNotificationAsync({
@@ -85,6 +107,11 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
     //     body: "Send via token",
     //   }),
     // });
+  };
+
+  const getBadgeCount = async () => {
+    const val = await Notifications.getBadgeCountAsync();
+    console.log("=-=-=-==-=-=-=", val);
   };
 
   getPushNotificationPermissions = async () => {
@@ -114,7 +141,7 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
           resizeMode="cover"
         >
           <View style={styles.statsContainer}>
-            <Header />
+            <Header navigation={navigation} />
             <EarningsStats />
           </View>
         </ImageBackground>

@@ -15,3 +15,4 @@ export { default as Educational } from "./Educational";
 export { default as OTP } from "./OTP";
 export { default as Withdraw } from "./Withdraw";
 export { default as OfferForm } from "./OfferForm";
+export { default as Notification } from "./Notification";

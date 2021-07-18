@@ -26,7 +26,7 @@ const TopOffersTabs = () => {
         name="Finance"
         options={{
           title: () => (
-            <Text style={{ ...FONTS.body3, color: COLORS.white }}>Finance</Text>
+            <Text style={{ ...FONTS.body5, color: COLORS.white }}>Finance</Text>
           ),
         }}
         component={Finance}
@@ -35,7 +35,7 @@ const TopOffersTabs = () => {
         name="Education"
         options={{
           title: () => (
-            <Text style={{ ...FONTS.body3, color: COLORS.white }}>
+            <Text style={{ ...FONTS.body5, color: COLORS.white }}>
               Education
             </Text>
           ),
@@ -46,7 +46,7 @@ const TopOffersTabs = () => {
         name="others"
         options={{
           title: () => (
-            <Text style={{ ...FONTS.body3, color: COLORS.white }}>Others</Text>
+            <Text style={{ ...FONTS.body5, color: COLORS.white }}>Others</Text>
           ),
         }}
         component={Others}
