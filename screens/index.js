@@ -12,8 +12,6 @@ export { default as Others } from "./Others";
 export { default as Earnings } from "./Earnings";
 export { default as Withdrawals } from "./Withdrawals";
 export { default as Educational } from "./Educational";
-export { default as  OTP } from "./OTP";
+export { default as OTP } from "./OTP";
 export { default as Withdraw } from "./Withdraw";
 export { default as OfferForm } from "./OfferForm";
-
-

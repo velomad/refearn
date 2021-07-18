@@ -68,8 +68,6 @@ const Withdraw = (props) => {
         </View>
       </Modal>
 
-      <CustomButton title="open modal" onPress={() => setModalVisible(true)} />
-
       <Text style={styles.baseFont}>Withdraw INR to your bank account</Text>
 
       <View style={{ paddingVertical: "5%" }}>
