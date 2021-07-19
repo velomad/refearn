@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
   ImageBackground,
   View,
@@ -9,9 +9,11 @@ import {
   TextInput,
   RefreshControl,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
 import { FocusAwareStatusBar, Card, CustomButton } from "../../components";
 import { COLORS, FONTS, images, SIZES } from "../../constants";
+import YoutubePlayer from "react-native-youtube-iframe";
 import {
   c1,
   c2,
@@ -122,11 +124,27 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
     );
   };
 
+  const handleYoutbe = () => {
+    navigation.navigate('youtubeplayer');
+  }
+
   const onRefresh = () => {
     setIsFetching(true);
     getUserProfile();
     setIsFetching(false);
   };
+
+  const [playing, setPlaying] = useState(false);
+
+    const onStateChange = useCallback((state) => {
+        if (state === "ended") {
+            setPlaying(false);
+        }
+    }, []);
+
+    const togglePlaying = useCallback(() => {
+        setPlaying((prev) => !prev);
+    }, []);
 
   return (
     <MainLayout navigation={navigation}>
@@ -313,46 +331,52 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
                   </View>
                 </LinearGradient>
               </View>
+              <TouchableOpacity>
+                <View>
+                  <View style={styles.guideContainer}>
+                    <Text style={styles.guideText}>
+                      Watch : Beginners Guide to Go
+                    </Text>
+                    <Text style={styles.guideContent}>
+                      Learn about the EarnRef features and how to start earning
+                      online.
+                    </Text>
+                  </View>
 
-              <View>
-                <View style={styles.guideContainer}>
-                  <Text style={styles.guideText}>
-                    Watch : Beginners Guide to Go
-                  </Text>
-                  <Text style={styles.guideContent}>
-                    Learn about the EarnRef features and how to start earning
-                    online.
-                  </Text>
-                </View>
-
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    top: -SIZES.height / 15,
-                  }}
-                >
-                  <View style={styles.videoContainer}>
-                    <ImageBackground
-                      style={styles.videoThumbnail}
-                      source={videoThumbnail}
-                      imageStyle={{ borderRadius: 20 }}
-                      resizeMode="cover"
-                    >
-                      <View style={styles.darkenVideobg}>
-                        <View style={styles.playIcon}>
-                          <Ionicons
-                            name="play-circle-outline"
-                            size={SIZES.width / 10}
-                            color={COLORS.white}
-                          />
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      top: -SIZES.height / 15,
+                    }}
+                  >
+                    <View style={styles.videoContainer}>
+                      {/* <ImageBackground
+                        style={styles.videoThumbnail}
+                        source={videoThumbnail}
+                        imageStyle={{ borderRadius: 20 }}
+                        resizeMode="cover"
+                      >
+                        <View style={styles.darkenVideobg}>
+                          <View style={styles.playIcon}>
+                            <Ionicons
+                              name="play-circle-outline"
+                              size={SIZES.width / 10}
+                              color={COLORS.white}
+                            />
+                          </View>
                         </View>
-                      </View>
-                    </ImageBackground>
+                      </ImageBackground> */}
+                      <YoutubePlayer
+                        height={165}
+                        play={playing}
+                        videoId={"uJxvvtrrxEs"}
+                        onChangeState={onStateChange}
+                      />
+                    </View>
                   </View>
                 </View>
-              </View>
-
+              </TouchableOpacity>
               <View>
                 <Testimonials />
               </View>
@@ -394,9 +418,8 @@ const styles = StyleSheet.create({
     color: COLORS.primaryDark,
   },
   videoContainer: {
-    width: "80%",
+    width: "90%",
     backgroundColor: "rgba(0,0,0,0.5)",
-    borderRadius: 20,
   },
   videoThumbnail: {
     height: SIZES.height / 6,

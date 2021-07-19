@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   RefreshControl,
+  ToastAndroid,
   FlatList
 } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
@@ -120,9 +121,10 @@ const Network = (props) => {
   );
 
   const onCopy = () => {
-    Clipboard.setString("code");
+    let str = props.userProfileData.result.uniqueCode.toString();
+    Clipboard.setString(str);
     ToastAndroid.showWithGravityAndOffset(
-      "text copied",
+      "Text Copied",
       ToastAndroid.SHORT,
       ToastAndroid.BOTTOM,
       0,

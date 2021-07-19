@@ -14,6 +14,7 @@ import {
   Withdraw,
   OfferForm,
   Notification,
+  YoutubePlayer
 } from "../screens";
 
 const Stack = createStackNavigator();
