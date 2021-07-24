@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   maincard: {
     marginTop: SIZES.width / 7,
     alignItems: "center",
-    backgroundColor: COLORS.primaryLight,
+    backgroundColor: COLORS.lightGray,
     marginHorizontal: SIZES.width / 15,
     borderRadius: 7,
   },
