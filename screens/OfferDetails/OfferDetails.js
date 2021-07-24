@@ -14,7 +14,6 @@ import * as Sharing from "expo-sharing";
 import { connect } from "react-redux";
 
 const Offerdetails = ({ route, navigation, userProfileData }) => {
-
   const [singleOfferData, setSingleOfferDetails] = useState([]);
   const [singleOfferBenefits, setSingleOfferBenefits] = useState([]);
   const [singleOfferInfos, setSingleOfferInfos] = useState([]);
@@ -36,10 +35,13 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
   const onShare = async (formEnabled) => {
     try {
       if (formEnabled == 1) {
-        navigation.navigate('offerform');
+        navigation.navigate("offerform");
       } else {
         const result = await Share.share({
-          message: singleOfferData.offerUrl + '?code=' + userProfileData.result.uniqueCode,
+          message:
+            singleOfferData.offerUrl +
+            "?code=" +
+            userProfileData.result.uniqueCode,
         });
         if (result.action === Share.sharedAction) {
           if (result.activityType) {
@@ -107,7 +109,10 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
             >
               {singleOfferData.taskTest}
             </Text>
-            <TouchableOpacity style={styles.button} onPress={() => onShare(singleOfferData.isFormEnabled)}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => onShare(singleOfferData.isFormEnabled)}
+            >
               <Text
                 style={{
                   color: COLORS.primaryDark,
@@ -132,37 +137,35 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
             >
               Offer Benefits
             </Text>
-            {
-              singleOfferBenefits.map((el, index) => {
-                return (
-                  <View style={styles.subPoints} key={index}>
-                    <View>
+            {singleOfferBenefits.map((el, index) => {
+              return (
+                <View style={styles.subPoints} key={index}>
+                  <View>
+                    <Text
+                      style={{
+                        textAlign: "left",
+                        marginHorizontal: SIZES.width / 15,
+                        fontSize: SIZES.body4,
+                        fontWeight: "700",
+                        color: COLORS.primaryDark,
+                      }}
+                    >
+                      {index + 1 + ". "}
                       <Text
                         style={{
                           textAlign: "left",
                           marginHorizontal: SIZES.width / 15,
                           fontSize: SIZES.body4,
-                          fontWeight: "700",
-                          color: COLORS.primaryDark,
+                          color: COLORS.gray,
                         }}
                       >
-                        {index + 1 + ". "}
-                        <Text
-                          style={{
-                            textAlign: "left",
-                            marginHorizontal: SIZES.width / 15,
-                            fontSize: SIZES.body4,
-                            color: COLORS.gray,
-                          }}
-                        >
-                          {el.benefit}
-                        </Text>
+                        {el.benefit}
                       </Text>
-                    </View>
+                    </Text>
                   </View>
-                )
-              })
-            }
+                </View>
+              );
+            })}
           </View>
         </View>
 
@@ -179,37 +182,35 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
             >
               Offer Information
             </Text>
-            {
-              singleOfferInfos.map((el, index) => {
-                return (
-                  <View style={styles.subPoints} key={index}>
-                    <View>
+            {singleOfferInfos.map((el, index) => {
+              return (
+                <View style={styles.subPoints} key={index}>
+                  <View>
+                    <Text
+                      style={{
+                        textAlign: "left",
+                        marginHorizontal: SIZES.width / 15,
+                        fontSize: SIZES.body4,
+                        fontWeight: "700",
+                        color: COLORS.primaryDark,
+                      }}
+                    >
+                      {index + 1 + ". "}
                       <Text
                         style={{
                           textAlign: "left",
                           marginHorizontal: SIZES.width / 15,
                           fontSize: SIZES.body4,
-                          fontWeight: "700",
-                          color: COLORS.primaryDark,
+                          color: COLORS.gray,
                         }}
                       >
-                        {index + 1 + ". "}
-                        <Text
-                          style={{
-                            textAlign: "left",
-                            marginHorizontal: SIZES.width / 15,
-                            fontSize: SIZES.body4,
-                            color: COLORS.gray,
-                          }}
-                        >
-                          {el.info}
-                        </Text>
+                        {el.info}
                       </Text>
-                    </View>
+                    </Text>
                   </View>
-                )
-              })
-            }
+                </View>
+              );
+            })}
           </View>
         </View>
 
@@ -226,37 +227,35 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
             >
               Offer Steps
             </Text>
-            {
-              singleOfferSteps.map((el, index) => {
-                return (
-                  <View style={styles.subPoints} key={index}>
-                    <View>
+            {singleOfferSteps.map((el, index) => {
+              return (
+                <View style={styles.subPoints} key={index}>
+                  <View>
+                    <Text
+                      style={{
+                        textAlign: "left",
+                        marginHorizontal: SIZES.width / 15,
+                        fontSize: SIZES.body4,
+                        fontWeight: "700",
+                        color: COLORS.primaryDark,
+                      }}
+                    >
+                      {index + 1 + ". "}
                       <Text
                         style={{
                           textAlign: "left",
                           marginHorizontal: SIZES.width / 15,
                           fontSize: SIZES.body4,
-                          fontWeight: "700",
-                          color: COLORS.primaryDark,
+                          color: COLORS.gray,
                         }}
                       >
-                        {index + 1 + ". "}
-                        <Text
-                          style={{
-                            textAlign: "left",
-                            marginHorizontal: SIZES.width / 15,
-                            fontSize: SIZES.body4,
-                            color: COLORS.gray,
-                          }}
-                        >
-                          {el.step}
-                        </Text>
+                        {el.step}
                       </Text>
-                    </View>
+                    </Text>
                   </View>
-                )
-              })
-            }
+                </View>
+              );
+            })}
           </View>
         </View>
 
@@ -441,7 +440,7 @@ const Offerdetails = ({ route, navigation, userProfileData }) => {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

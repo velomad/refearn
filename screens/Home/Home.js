@@ -67,43 +67,10 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
     getPushNotificationPermissions();
   });
 
-  const TriggerNotification = () => {
-    // Notifications.scheduleNotificationAsync({
-    // 	content: {
-    // 		title: "Test local notification",
-    // 		body: "This the body of local notification",
-    // 	},
-    // 	trigger: {
-    // 		seconds: 2,
-    // 	},
-    // });
-    // fetch("https://exp.host/--/api/v2/push/send", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Accept-Encoding": "gzip, deflate",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     to: token,
-    //     data: { extraData: "Some Data" },
-    //     title: "Send via the token",
-    //     body: "Send via token",
-    //   }),
-    // });
-  };
-
   getPushNotificationPermissions = async () => {
     setToken((await Notifications.getExpoPushTokenAsync()).data);
-    console.log(
-      "Notification Token: ",
-      (await Notifications.getExpoPushTokenAsync()).data
-    );
+    //  send the token to the DB here
   };
-
-  // const handleYoutbe = () => {
-  //   navigation.navigate("youtubeplayer");
-  // };
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -118,10 +85,6 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
       setPlaying(false);
     }
   }, []);
-
-  // const togglePlaying = useCallback(() => {
-  //   setPlaying((prev) => !prev);
-  // }, []);
 
   return (
     <MainLayout navigation={navigation}>
@@ -337,7 +300,7 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
                 </View>
               </View>
             </View>
-            <View style={{marginTop:"-15%", paddingBottom:"10%"}}>
+            <View style={{ marginTop: "-15%", paddingBottom: "10%" }}>
               <Testimonials />
             </View>
           </ScrollView>
