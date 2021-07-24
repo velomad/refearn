@@ -20,8 +20,6 @@ const Notification = () => {
     }
   };
 
-  console.log(notifications);
-
   return (
     <View>
       <FocusAwareStatusBar

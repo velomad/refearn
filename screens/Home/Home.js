@@ -9,7 +9,7 @@ import {
   TextInput,
   RefreshControl,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { FocusAwareStatusBar, Card, CustomButton } from "../../components";
 import { COLORS, FONTS, images, SIZES } from "../../constants";
@@ -65,25 +65,7 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
 
   useEffect(() => {
     getPushNotificationPermissions();
-
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener(async (notification) => {
-        setNotification(notification);
-        console.log("===================================", notification);
-        await Notifications.setBadgeCountAsync(0);
-      });
-
-    getBadgeCount();
-
-    return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
-    };
   });
-
-  // const badgeSetter = async () => {
-  // };
 
   const TriggerNotification = () => {
     // Notifications.scheduleNotificationAsync({
@@ -111,11 +93,6 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
     // });
   };
 
-  const getBadgeCount = async () => {
-    const val = await Notifications.getBadgeCountAsync();
-    console.log("=-=-=-==-=-=-=", val);
-  };
-
   getPushNotificationPermissions = async () => {
     setToken((await Notifications.getExpoPushTokenAsync()).data);
     console.log(
@@ -124,9 +101,9 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
     );
   };
 
-  const handleYoutbe = () => {
-    navigation.navigate('youtubeplayer');
-  }
+  // const handleYoutbe = () => {
+  //   navigation.navigate("youtubeplayer");
+  // };
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -136,15 +113,15 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
 
   const [playing, setPlaying] = useState(false);
 
-    const onStateChange = useCallback((state) => {
-        if (state === "ended") {
-            setPlaying(false);
-        }
-    }, []);
+  const onStateChange = useCallback((state) => {
+    if (state === "ended") {
+      setPlaying(false);
+    }
+  }, []);
 
-    const togglePlaying = useCallback(() => {
-        setPlaying((prev) => !prev);
-    }, []);
+  // const togglePlaying = useCallback(() => {
+  //   setPlaying((prev) => !prev);
+  // }, []);
 
   return (
     <MainLayout navigation={navigation}>
@@ -331,55 +308,37 @@ const Home = ({ navigation, getUserProfile, getOffersData }) => {
                   </View>
                 </LinearGradient>
               </View>
-              <TouchableOpacity>
-                <View>
-                  <View style={styles.guideContainer}>
-                    <Text style={styles.guideText}>
-                      Watch : Beginners Guide to Go
-                    </Text>
-                    <Text style={styles.guideContent}>
-                      Learn about the EarnRef features and how to start earning
-                      online.
-                    </Text>
-                  </View>
+              <View>
+                <View style={styles.guideContainer}>
+                  <Text style={styles.guideText}>
+                    Watch : Beginners Guide to Go
+                  </Text>
+                  <Text style={styles.guideContent}>
+                    Learn about the EarnRef features and how to start earning
+                    online.
+                  </Text>
+                </View>
 
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      top: -SIZES.height / 15,
-                    }}
-                  >
-                    <View style={styles.videoContainer}>
-                      {/* <ImageBackground
-                        style={styles.videoThumbnail}
-                        source={videoThumbnail}
-                        imageStyle={{ borderRadius: 20 }}
-                        resizeMode="cover"
-                      >
-                        <View style={styles.darkenVideobg}>
-                          <View style={styles.playIcon}>
-                            <Ionicons
-                              name="play-circle-outline"
-                              size={SIZES.width / 10}
-                              color={COLORS.white}
-                            />
-                          </View>
-                        </View>
-                      </ImageBackground> */}
-                      <YoutubePlayer
-                        height={165}
-                        play={playing}
-                        videoId={"uJxvvtrrxEs"}
-                        onChangeState={onStateChange}
-                      />
-                    </View>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    top: -SIZES.height / 15,
+                  }}
+                >
+                  <View style={styles.videoContainer}>
+                    <YoutubePlayer
+                      height={200}
+                      play={playing}
+                      videoId={"MK2jHiM2LF4"}
+                      onChangeState={onStateChange}
+                    />
                   </View>
                 </View>
-              </TouchableOpacity>
-              <View>
-                <Testimonials />
               </View>
+            </View>
+            <View style={{marginTop:"-15%", paddingBottom:"10%"}}>
+              <Testimonials />
             </View>
           </ScrollView>
         </View>
@@ -418,8 +377,7 @@ const styles = StyleSheet.create({
     color: COLORS.primaryDark,
   },
   videoContainer: {
-    width: "90%",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    width: "85%",
   },
   videoThumbnail: {
     height: SIZES.height / 6,

@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { View, Animated, FlatList, Text } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../../../constants";
+import { pi } from "../../../../constants/images";
 import customAxios from "../../../../utils/interceptor";
 
 const Anouncements = () => {
-  const [announcements, setAnnouncements] = useState([]);
 
-  useEffect(() => {
-    getAnnouncements();
-  }, []);
-
-  const getAnnouncements = async () => {
-    const result = await customAxios.get("/announcement/allannouncements");
-    setAnnouncements(result.data);
-  };
-
-  console.log(announcements);
+  const announcements = [
+    {
+      id: 1,
+      text: "Synth chartreuse iPhone lomo cray raw denim brunch everyday carry neutra before they sold out fixie 90's microdosing. Tacos pinterest fanny pack venmo, post-ironic heirloom try-hard pabst authentic iceland.",
+      image: pi,
+      name: "kalesh",
+    },
+    {
+      id: 2,
+      text: "Synth chartreuse iPhone lomo cray raw denim brunch everyday carry neutra before they sold out fixie 90's microdosing. Tacos pinterest fanny pack venmo, post-ironic heirloom try-hard pabst authentic iceland.",
+      image: pi,
+      name: "balesh",
+    },
+  ];
 
   const newSeasonScrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -56,7 +60,7 @@ const Anouncements = () => {
                 }}
               >
                 <Text style={{ ...FONTS.body4, color: "#FA8A05" }}>
-                  {item.announcementText}
+                  {item.text}
                 </Text>
               </View>
 
